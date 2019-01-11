@@ -117,6 +117,7 @@ namespace canvas_test
 
             this.control = this.labelX.BackColor;
             this.transparent = false;
+
         }
 
         public void DrawCross()
