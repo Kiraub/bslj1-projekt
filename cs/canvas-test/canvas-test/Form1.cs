@@ -40,6 +40,13 @@ namespace canvas_test
 
             g = new Graph(pcb1, bmp1);
             g.DrawCross();
+            Point[] ps = new Point[5];
+            ps[0] = new Point(10, 50);
+            ps[1] = new Point(80, 70);
+            ps[2] = new Point(25, 80);
+            ps[3] = new Point(50, 35);
+            ps[4] = new Point(65, 95);
+            g.DrawLines( ps, true);
 
             Button btnTr = new Button
             {
@@ -120,11 +127,24 @@ namespace canvas_test
 
         }
 
+        public int GetWidth()
+        {
+            return this.image.Width;
+        }
+
+        public int GetHeight()
+        {
+            return this.image.Height;
+        }
+
         public void DrawCross()
         {
             Bitmap bmp = this.image;
             int xm = bmp.Width;
             int ym = bmp.Height;
+            this.DrawLine(new Point(0, ym), new Point(xm, 0));
+            this.DrawLine(new Point(0, 0), new Point(xm, ym));
+            /*
             for (int x = 0; x < xm; x += 1)
             {
                 for (int y = 0; y < ym; y += 1)
@@ -134,7 +154,63 @@ namespace canvas_test
                         bmp.SetPixel(x, y, Color.Black);
                     }
                 }
+            }/* */
+        }
+
+        public void DrawLine(Point start, Point end)
+        {
+            // left and right points rather than start and end
+            Point Left = start.X < end.X ? start : end;
+            Point Right = start.X > end.X ? start : end;
+            // xdiff is always positive or zero
+            double xdiff = Right.X - Left.X;
+            // ydiff is positive if up-slope; negative if down-slope; zero if even line
+            double ydiff = Right.Y - Left.Y;
+            // steepness of the slope
+            double m = ydiff / xdiff;
+            m = Math.Truncate(m * 10000) / 10000;
+            double buffer = 0;
+            // remember y to count it up/down through x loops
+            int y = Left.Y;
+            for(int x=Left.X; x < Right.X; x+=1)
+            {
+                buffer += m;
+                if(Math.Abs(buffer) > 1)
+                {
+                    for(int yc=1; yc<Math.Abs(buffer); yc+=1)
+                    {
+                        this.SetPixel(x, y+(yc*Math.Sign(m)), Color.Black);
+                    }
+                    y += (int)Math.Truncate(buffer);
+                    buffer = Math.Truncate((buffer % 1.0) * 10000) / 10000;
+                } else
+                {
+                    this.SetPixel(x, y, Color.Black);
+                }
             }
+        }
+
+        public void DrawLines(Point[] points, bool connect_ends=false)
+        {
+            if(points.Length >= 2)
+            {
+                Point current = points.First();
+                for(int pc=1; pc < points.Length; pc+=1)
+                {
+                    Point next = points.ElementAt(pc);
+                    this.DrawLine(current, next);
+                    current = next;
+                }
+                if(connect_ends)
+                {
+                    this.DrawLine(points.Last(), points.First());
+                }
+            }
+        }
+
+        public void SetPixel(int x, int y, Color fill)
+        {
+            this.image.SetPixel(x, y, fill);
         }
 
         public void SetLabelTransparency(bool transparent)
