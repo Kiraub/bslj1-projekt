@@ -14,32 +14,36 @@ namespace canvas_test
     public partial class Form1 : Form
     {
 
-        SplitContainer spc1;
-        PictureBox pcb1;
-        Bitmap bmp1;
+        SplitContainer mainCon;
+        PictureBox surface;
+        Bitmap canvas;
 
         Graph g;
         
         public Form1()
         {
             InitializeComponent();
-            spc1 = new SplitContainer
+            mainCon = new SplitContainer
             {
                 Parent = this,
-                Dock = DockStyle.Fill
-            };
-
-            pcb1 = new PictureBox
-            {
-                Parent = spc1.Panel1,
                 Dock = DockStyle.Fill,
-                BorderStyle = BorderStyle.FixedSingle
+
+                //Feste Max/Min Werte, um Anzeige des Inhalts auf der rechten Seite zu gewährleisten
+                Panel1MinSize = Convert.ToInt32(Math.Round(this.Size.Width * 0.3, 0)),
+                Panel2MinSize = Convert.ToInt32(Math.Round(this.Size.Width * 0.3, 0))
             };
 
-            bmp1 = new Bitmap(spc1.Panel1.Width, spc1.Panel1.Height);
+            surface = new PictureBox
+            {
+                Parent = mainCon.Panel1,
+                Dock = DockStyle.Fill,
+                BorderStyle = BorderStyle.FixedSingle,
+            };
 
-            g = new Graph(pcb1, bmp1);
-            g.DrawCross();
+            canvas = new Bitmap(mainCon.Panel1.Width, mainCon.Panel1.Height);
+
+            g = new Graph(surface, canvas);
+            //g.DrawCross();
             Point[] ps = new Point[5];
             ps[0] = new Point(10, 50);
             ps[1] = new Point(80, 70);
@@ -51,7 +55,7 @@ namespace canvas_test
             Button btnTr = new Button
             {
                 Text = "Toggle transparent Labels",
-                Parent = spc1.Panel2,
+                Parent = mainCon.Panel2,
                 Top = 10,
                 Left = 10,
             };
@@ -65,7 +69,8 @@ namespace canvas_test
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            //Bei Start Splitter in die Mitte setzen
+            mainCon.SplitterDistance = Convert.ToInt32(Math.Round(this.Width * 0.5, 0));
         }
 
         public Graph GetGraph()
