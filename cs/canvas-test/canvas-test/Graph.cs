@@ -31,7 +31,6 @@ namespace canvas_test
 
         public Bitmap DrawArea { get; set; }
         public PictureBox DrawAreaContainer { get; set; }
-        private GraphProperties Geometry { get; set; }
 
         public Color[] VisualColors { get; set; }
         public Color ForegroundColor { get; set; }
@@ -43,6 +42,7 @@ namespace canvas_test
 
         private int ImageWidth => DrawArea.Width;
         private int ImageHeight => DrawArea.Height;
+        private GraphProperties Geometry { get; set; }
 
         #endregion
 
@@ -52,7 +52,7 @@ namespace canvas_test
         {
             DrawAreaContainer = new PictureBox();
             DrawArea = new Bitmap(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-            DrawAreaContainer.Image = this.DrawArea;
+            DrawAreaContainer.Image = DrawArea;
 
             LblX = new Label
             {
@@ -78,11 +78,22 @@ namespace canvas_test
             TransparentLabels = false;
 
             Geometry = new GraphProperties();
+            Geometry.SetLimitsX(0, DEFAULT_WIDTH);
+            Geometry.SetLimitsY(0, DEFAULT_HEIGHT);
         }
 
         #endregion
 
         #region public instance methods
+
+        public void SetParent(Control newParent)
+        {
+            DrawAreaContainer.Parent = newParent;
+            DrawAreaContainer.Dock = DockStyle.Fill;
+            DrawAreaContainer.BorderStyle = BorderStyle.FixedSingle;
+            DrawArea = new Bitmap( DrawAreaContainer.Width, DrawAreaContainer.Height);
+            DrawAreaContainer.Image = DrawArea;
+        }
 
         /// <summary>
         /// Beschriftungshintergründe durchsichtig/undurchsichtig umschalten
@@ -98,11 +109,13 @@ namespace canvas_test
         /// </summary>
         /// <param name="start">Start-Koordinate der Linie</param>
         /// <param name="end">End-Koordinate der Linie</param>
-        public void DrawLine(Point start, Point end)
+        public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd)
         {
+            ImageCoord start = Graph2Image(graphStart);
+            ImageCoord end = Graph2Image(graphEnd);
             // left and right points rather than start and end
-            Point Left = start.X < end.X ? start : end;
-            Point Right = start.X > end.X ? start : end;
+            ImageCoord Left = start.X < end.X ? start : end;
+            ImageCoord Right = start.X > end.X ? start : end;
             // xdiff is always positive or zero
             float xdiff = Right.X - Left.X;
             // ydiff is positive if up-slope; negative if down-slope; zero if even line
@@ -120,16 +133,14 @@ namespace canvas_test
                 {
                     for (int yc = 1; yc < Math.Abs(buffer); yc += 1)
                     {
-                        //TODO
-                        //this.SetPixel(x, y + (yc * Math.Sign(m)), Color.Black);
+                        this.SetPixel(new ImageCoord(x, y + (yc * Math.Sign(m))), Color.Black);
                     }
                     y += (int)Math.Truncate(buffer);
                     buffer = (float)Math.Truncate((buffer % 1.0) * 10000) / 10000;
                 }
                 else
                 {
-                    //TODO
-                    //this.SetPixel(x, y, Color.Black);
+                    this.SetPixel(new ImageCoord(x, y), Color.Black);
                 }
             }
         }
@@ -139,14 +150,14 @@ namespace canvas_test
         /// </summary>
         /// <param name="points">Liste der zu verbindenden Koordinaten</param>
         /// <param name="connect_ends">Verbinde erste und letzte Koordinate</param>
-        public void DrawLines(Point[] points, bool connect_ends = false)
+        public void DrawLines(GraphCoord[] points, bool connect_ends = false)
         {
             if (points.Length >= 2)
             {
-                Point current = points.First();
+                GraphCoord current = points.First();
                 for (int pc = 1; pc < points.Length; pc += 1)
                 {
-                    Point next = points.ElementAt(pc);
+                    GraphCoord next = points.ElementAt(pc);
                     DrawLine(current, next);
                     current = next;
                 }
@@ -191,7 +202,10 @@ namespace canvas_test
         /// <param name="fill">Füllfarbe</param>
         private void SetPixel(ImageCoord imageCoord, Color fill)
         {
-            DrawArea.SetPixel(imageCoord.X, imageCoord.Y, fill);
+            if (imageCoord.X >= 0 && imageCoord.X < ImageWidth && imageCoord.Y >= 0 && imageCoord.Y < ImageHeight)
+            {
+                DrawArea.SetPixel(imageCoord.X, imageCoord.Y, fill);
+            }
         }
 
         private void SetPoint(GraphCoord gc, Color c) => SetPixel(Graph2Image(gc), c);

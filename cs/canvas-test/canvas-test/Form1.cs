@@ -43,13 +43,14 @@ namespace canvas_test
             canvas = new Bitmap(mainCon.Panel1.Width, mainCon.Panel1.Height);
 
             g = new Graph();
+            g.SetParent(mainCon.Panel1);
             //g.DrawCross();
-            Point[] ps = new Point[5];
-            ps[0] = new Point(10, 50);
-            ps[1] = new Point(80, 70);
-            ps[2] = new Point(25, 80);
-            ps[3] = new Point(50, 35);
-            ps[4] = new Point(65, 95);
+            PointF[] ps = new PointF[5];
+            ps[0] = new PointF(10f, 50f);
+            ps[1] = new PointF(80f, 70f);
+            ps[2] = new PointF(25f, 80f);
+            ps[3] = new PointF(50f, 35f);
+            ps[4] = new PointF(65f, 95f);
             g.DrawLines( ps, true);
 
             Button btnTr = new Button
