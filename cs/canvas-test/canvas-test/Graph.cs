@@ -26,7 +26,7 @@ namespace canvas_test
 
         public Label LblY { get; set; }
         public Label LblX { get; set; }
-        public Label[] LblLegende { get; set; }
+        public List<Label> LblLegende { get; set; }
         public bool TransparentLabels { get; set; }
 
         public Bitmap DrawArea { get; set; }
@@ -73,6 +73,8 @@ namespace canvas_test
             LblX.Left = 10;
             LblY.Top = DrawAreaContainer.Height - LblY.Height - 20;
             LblY.Left = DrawAreaContainer.Width - LblY.Width - 20;
+
+            LblLegende = new List<Label>();
 
             BackgroundColor = LblX.BackColor;
             TransparentLabels = false;
@@ -180,12 +182,15 @@ namespace canvas_test
         private ImageCoord Graph2Image(GraphCoord gc)
         {
             GraphCoord relative = Geometry.GetRelative(gc);
+            System.Diagnostics.Debug.Print(relative.ToString());
             // Die Asurichtung der X-Achse der Bitmap stimmt mit der X-Achse des Graphen überein
             float relX = relative.X;
             // Die Ausrichtung der Y-Achse der Bitmap entgegen der Y-Achse des Graphen
             float relY = 1f - relative.Y;
             int imgX = (int)Math.Floor((double)ImageWidth * relX);
             int imgY = (int)Math.Floor((double)ImageHeight * relY);
+            System.Diagnostics.Debug.Print(imgX.ToString());
+            System.Diagnostics.Debug.Print(imgY.ToString());
             return new ImageCoord(imgX, imgY);
         }
 

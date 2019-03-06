@@ -19,7 +19,7 @@ namespace canvas_test
         Bitmap canvas;
 
         public Graph g;
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -32,15 +32,6 @@ namespace canvas_test
                 Panel1MinSize = Convert.ToInt32(Math.Round(this.Size.Width * 0.3, 0)),
                 Panel2MinSize = Convert.ToInt32(Math.Round(this.Size.Width * 0.3, 0))
             };
-
-            surface = new PictureBox
-            {
-                Parent = mainCon.Panel1,
-                Dock = DockStyle.Fill,
-                BorderStyle = BorderStyle.FixedSingle,
-            };
-
-            canvas = new Bitmap(mainCon.Panel1.Width, mainCon.Panel1.Height);
 
             g = new Graph();
             g.SetParent(mainCon.Panel1);
