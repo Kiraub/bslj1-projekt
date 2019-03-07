@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ImageCoord = System.Drawing.Point;
 using GraphCoord = System.Drawing.PointF;
 using SimpleLine = System.Tuple<System.Drawing.PointF, System.Drawing.PointF, System.Drawing.Color>;
+using Boundary = System.Tuple<float, float>;
 
 
 namespace canvas_test
@@ -38,9 +39,19 @@ namespace canvas_test
         public Bitmap DrawArea { get; set; }
         public PictureBox DrawAreaContainer { get; set; }
 
-        public Color[] VisualColors { get; set; }
         public Color ForegroundColor { get; set; }
         public Color BackgroundColor { get; set; }
+
+        public Boundary HorizontalAxis
+        {
+            get { return new Boundary(Geometry.LowX, Geometry.HighX); }
+            set { Geometry.LowX = value.Item1; Geometry.HighX = value.Item2; FitToParent(); }
+        }
+        public Boundary VerticalAxis
+        {
+            get { return new Boundary(Geometry.LowY, Geometry.HighY); }
+            set { Geometry.LowY = value.Item1; Geometry.HighY = value.Item2; FitToParent(); }
+        }
 
         #endregion
 
@@ -57,36 +68,39 @@ namespace canvas_test
 
         public Graph()
         {
+            ForegroundColor = Color.Black;
+            BackgroundColor = Color.Beige;
+
             DrawAreaContainer = new PictureBox();
             DrawArea = new Bitmap(DEFAULT_WIDTH, DEFAULT_HEIGHT);
             DrawAreaContainer.Image = DrawArea;
             DrawAreaContainer.BorderStyle = BorderStyle.FixedSingle;
-            //DrawAreaContainer.BackColor = Color.AliceBlue;
+            DrawAreaContainer.BackColor = BackgroundColor;
 
             LblX = new Label
             {
                 BorderStyle = BorderStyle.FixedSingle,
                 Text = "X Achse",
-                Parent = DrawAreaContainer
+                Parent = DrawAreaContainer,
+                BackColor = BackgroundColor
             };
 
             LblY = new Label
             {
                 BorderStyle = BorderStyle.FixedSingle,
                 Text = "Y Achse",
-                Parent = DrawAreaContainer
+                Parent = DrawAreaContainer,
+                BackColor = BackgroundColor
             };
 
             LblLegende = new List<Label>();
             LineMemory = new List<SimpleLine>();
 
-            ForegroundColor = Color.Black;
-            BackgroundColor = LblX.BackColor;
             TransparentLabels = false;
 
             Geometry = new GraphProperties();
-            Geometry.SetLimitsX(-10f, 100f);
-            Geometry.SetLimitsY(-10f, 100f);
+            HorizontalAxis = new Boundary(-10f, 100f);
+            VerticalAxis = new Boundary(-10f, 100f);
         }
 
         #endregion
@@ -132,25 +146,28 @@ namespace canvas_test
             float xdiff = Right.X - Left.X;
             if (xdiff == 0f)
             {
-                DrawVerticalLine(Left.X);
+                DrawVerticalLine(Left.X, Left.Y, Right.Y);
             }
             // ydiff is positive if up-slope; negative if down-slope; zero if even line
             float ydiff = Right.Y - Left.Y;
             if (ydiff == 0f)
             {
-                DrawHorizontalLine(Left.Y);
+                DrawHorizontalLine(Left.Y, Left.X, Right.X);
             }
             // steepness of the slope
             float m = ydiff / xdiff;
             m = (float)Math.Truncate(m * 10000) / 10000;
+            // buffer to even out difference of pixel coord and graph coord
             float buffer = 0;
             // remember y to count it up/down through x loops
             int y = Left.Y;
             for (int x = Left.X; x < Right.X; x += 1)
             {
+                // remember vertical distance
                 buffer += m;
                 if (Math.Abs(buffer) > 1)
                 {
+                    // draw vertical pixels
                     for (int yc = 1; yc < Math.Abs(buffer); yc += 1)
                     {
                         this.SetPixel(new ImageCoord(x, y + (yc * Math.Sign(m))), fillColor);
@@ -160,6 +177,7 @@ namespace canvas_test
                 }
                 else
                 {
+                    // draw horizontal pixel
                     this.SetPixel(new ImageCoord(x, y), fillColor);
                 }
             }
@@ -188,14 +206,14 @@ namespace canvas_test
             }
         }
 
-        public void DrawMark(GraphCoord coord, float scale = 1.0f)
+        public void DrawMark(GraphCoord coord, float scale = 0.75f)
         {
             float up = coord.Y + scale;
             float down = coord.Y - scale;
             float left = coord.X - scale;
             float right = coord.X + scale;
-            DrawLine(new GraphCoord(left, up), new GraphCoord(right, down), ForegroundColor, true);
-            DrawLine(new GraphCoord(left, down), new GraphCoord(right, up), ForegroundColor, true);
+            DrawLine(new GraphCoord(left, coord.Y), new GraphCoord(right, coord.Y), ForegroundColor, true);
+            DrawLine(new GraphCoord(coord.X, down), new GraphCoord(coord.X, up), ForegroundColor, true);
         }
 
         public void DrawAxes()
@@ -203,19 +221,19 @@ namespace canvas_test
             //System.Diagnostics.Debug.Print("Drawing Axes:");
             DrawLine(new GraphCoord(Geometry.LowX, 0f), new GraphCoord(Geometry.HighX, 0f), ForegroundColor, true);
             DrawLine(new GraphCoord(0f, Geometry.LowY), new GraphCoord(0f, Geometry.HighY), ForegroundColor, true);
-            for (float xPositive = Geometry.ScalingX; xPositive < Geometry.HighX; xPositive += Geometry.ScalingX)
+            for (float xPositive = Geometry.ScalingX; xPositive < Geometry.HighX + Geometry.ScalingX; xPositive += Geometry.ScalingX)
             {
                 DrawMark(new GraphCoord(xPositive, 0f));
             }
-            for (float xNegative = -Geometry.ScalingX; xNegative > Geometry.LowX; xNegative -= Geometry.ScalingX)
+            for (float xNegative = -Geometry.ScalingX; xNegative > Geometry.LowX - Geometry.ScalingX; xNegative -= Geometry.ScalingX)
             {
                 DrawMark(new GraphCoord(xNegative, 0f));
             }
-            for (float yPositive = Geometry.ScalingY; yPositive < Geometry.HighY; yPositive += Geometry.ScalingY)
+            for (float yPositive = Geometry.ScalingY; yPositive < Geometry.HighY + Geometry.ScalingY; yPositive += Geometry.ScalingY)
             {
                 DrawMark(new GraphCoord(0f, yPositive));
             }
-            for (float yNegative = -Geometry.ScalingY; yNegative > Geometry.LowY; yNegative -= Geometry.ScalingY)
+            for (float yNegative = -Geometry.ScalingY; yNegative > Geometry.LowY - Geometry.ScalingY; yNegative -= Geometry.ScalingY)
             {
                 DrawMark(new GraphCoord(0f, yNegative));
             }
@@ -228,8 +246,8 @@ namespace canvas_test
         private void ParentResize(object sender, EventArgs e)
         {
             Control parent = (Control)sender;
-            System.Diagnostics.Debug.Print("Dimensions of sender: " + parent.Size.ToString());
-            System.Diagnostics.Debug.Print("Dimensions of cont:   " + DrawAreaContainer.Parent.Size.ToString());
+            //System.Diagnostics.Debug.Print("Dimensions of sender: " + parent.Size.ToString());
+            //System.Diagnostics.Debug.Print("Dimensions of cont:   " + DrawAreaContainer.Parent.Size.ToString());
             FitToParent();
         }
 
@@ -316,17 +334,17 @@ namespace canvas_test
             }
         }
 
-        private void DrawHorizontalLine(int yVal)
+        private void DrawHorizontalLine(int yVal, int xLeft, int xRight)
         {
-            for (int xstep = 0; xstep < ImageWidth; xstep += 1)
+            for (int xstep = xLeft; xstep < xRight; xstep += 1)
             {
                 SetPixel(new ImageCoord(xstep, yVal), ForegroundColor);
             }
         }
 
-        private void DrawVerticalLine(int xVal)
+        private void DrawVerticalLine(int xVal, int yDown, int yUp)
         {
-            for (int ystep = 0; ystep < ImageHeight; ystep += 1)
+            for (int ystep = yDown; ystep < yUp; ystep += 1)
             {
                 SetPixel(new ImageCoord(xVal, ystep), ForegroundColor);
             }
@@ -392,17 +410,17 @@ namespace canvas_test
         /// </summary>
         /// <param name="lim1">Erster Grenzwert</param>
         /// <param name="lim2">Zweiter Grenzwert</param>
-        public void SetLimitsY(float lim1, float lim2)
+        public void SetLimitsY(Boundary limits)
         {
-            if (lim1 <= lim2)
+            if (limits.Item1 <= limits.Item2)
             {
-                LowY = lim1;
-                HighY = lim2;
+                LowY = limits.Item1;
+                HighY = limits.Item2;
             }
             else
             {
-                LowY = lim2;
-                HighY = lim1;
+                LowY = limits.Item2;
+                HighY = limits.Item1;
             }
         }
 
@@ -412,17 +430,17 @@ namespace canvas_test
         /// </summary>
         /// <param name="lim1">Erster Grenzwert</param>
         /// <param name="lim2">Zweiter Grenzwert</param>
-        public void SetLimitsX(float lim1, float lim2)
+        public void SetLimitsX(Boundary limits)
         {
-            if (lim1 <= lim2)
+            if (limits.Item1 <= limits.Item2)
             {
-                LowX = lim1;
-                HighX = lim2;
+                LowX = limits.Item1;
+                HighX = limits.Item2;
             }
             else
             {
-                LowX = lim2;
-                HighX = lim1;
+                LowX = limits.Item2;
+                HighX = limits.Item1;
             }
         }
 
@@ -434,7 +452,7 @@ namespace canvas_test
         public GraphCoord GetRelative(GraphCoord absoluteCoord)
         {
             // Division durch Null vermeiden
-            if (Width == 0.0)
+            if (Width == 0.0f)
             {
                 return new GraphCoord(-1.0f, -1.0f);
             }

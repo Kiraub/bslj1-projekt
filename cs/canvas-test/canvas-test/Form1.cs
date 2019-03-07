@@ -15,8 +15,8 @@ namespace canvas_test
     {
 
         SplitContainer mainCon;
-        PictureBox surface;
-        Bitmap canvas;
+
+        NumericUpDown xLow, xHigh, yLow, yHigh;
 
         public Graph g;
 
@@ -29,8 +29,8 @@ namespace canvas_test
                 Dock = DockStyle.Fill,
 
                 //Feste Max/Min Werte, um Anzeige des Inhalts auf der rechten Seite zu gewährleisten
-                Panel1MinSize = Convert.ToInt32(Math.Round(this.Size.Width * 0.3, 0)),
-                Panel2MinSize = Convert.ToInt32(Math.Round(this.Size.Width * 0.3, 0))
+                Panel1MinSize = Convert.ToInt32(Math.Round(Size.Width * 0.3, 0)),
+                Panel2MinSize = Convert.ToInt32(Math.Round(Size.Width * 0.3, 0))
             };
 
             g = new Graph();
@@ -38,12 +38,59 @@ namespace canvas_test
             Button btnTr = new Button
             {
                 Text = "Toggle transparent Labels",
-                Parent = mainCon.Panel2,
-                Top = 10,
-                Left = 10,
+                Width = 200
             };
             btnTr.Click += Click_btnTr;
             ResizeEnd += (object s, EventArgs e) => { GC.Collect(); GC.WaitForPendingFinalizers(); };
+
+            // experimental UI for testing purposes
+
+            Label xLabel = new Label
+            {
+                Text = "X-Axis Limits",
+                Width = 150,
+                BackColor = Color.Transparent
+            };
+            Label yLabel = new Label
+            {
+                Text = "Y-Axis Limits",
+                Width = 150,
+                BackColor = Color.Transparent
+            };
+            xLow = new NumericUpDown();
+            IncreaseRange(xLow);
+            xHigh = new NumericUpDown();
+            IncreaseRange(xHigh);
+            yLow = new NumericUpDown();
+            IncreaseRange(yLow);
+            yHigh = new NumericUpDown();
+            IncreaseRange(yHigh);
+
+            xLow.Value = (decimal)g.HorizontalAxis.Item1;
+            xHigh.Value = (decimal)g.HorizontalAxis.Item2;
+            yLow.Value = (decimal)g.VerticalAxis.Item1;
+            yHigh.Value = (decimal)g.VerticalAxis.Item2;
+
+            xLow.ValueChanged += NumUpDown_ValueChanged;
+            xHigh.ValueChanged += NumUpDown_ValueChanged;
+            yLow.ValueChanged += NumUpDown_ValueChanged;
+            yHigh.ValueChanged += NumUpDown_ValueChanged;
+
+            AddChild(mainCon.Panel2, btnTr, 10, 10);
+
+            AddChild(mainCon.Panel2, xLabel, 50, 10);
+            AddChild(mainCon.Panel2, xLow, 80, 10);
+            AddChild(mainCon.Panel2, xHigh, 80, 150);
+
+            AddChild(mainCon.Panel2, yLabel, 120, 10);
+            AddChild(mainCon.Panel2, yLow, 150, 10);
+            AddChild(mainCon.Panel2, yHigh, 150, 150);
+        }
+
+        private void NumUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            g.HorizontalAxis = new Tuple<float, float>((float)xLow.Value, (float)xHigh.Value);
+            g.VerticalAxis = new Tuple<float, float>((float)yLow.Value, (float)yHigh.Value);
         }
 
         private void Click_btnTr(object sender, EventArgs e)
@@ -64,6 +111,19 @@ namespace canvas_test
             ps[3] = new PointF(50f, 35f);
             ps[4] = new PointF(65f, 95f);
             g.DrawLines(ps, g.ForegroundColor, true);
+        }
+
+        private void AddChild( Control parent, Control child, int top=10, int left=10)
+        {
+            child.Parent = parent;
+            child.Top = top;
+            child.Left = left;
+        }
+
+        private void IncreaseRange( NumericUpDown numUpDown)
+        {
+            numUpDown.Maximum = 500.0m;
+            numUpDown.Minimum = -500.0m;
         }
 
         public Graph GetGraph()
