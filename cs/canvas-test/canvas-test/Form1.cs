@@ -42,7 +42,7 @@ namespace canvas_test
             ps[2] = new PointF(25f, 80f);
             ps[3] = new PointF(50f, 35f);
             ps[4] = new PointF(65f, 95f);
-            g.DrawLines( ps, true);
+            g.DrawLines( ps, g.ForegroundColor, true);
 
             Button btnTr = new Button
             {

@@ -53,6 +53,8 @@ namespace canvas_test
             DrawAreaContainer = new PictureBox();
             DrawArea = new Bitmap(DEFAULT_WIDTH, DEFAULT_HEIGHT);
             DrawAreaContainer.Image = DrawArea;
+            DrawAreaContainer.BorderStyle = BorderStyle.FixedSingle;
+            //DrawAreaContainer.BackColor = Color.AliceBlue;
 
             LblX = new Label
             {
@@ -68,20 +70,15 @@ namespace canvas_test
                 Parent = DrawAreaContainer
             };
 
-            //WIP labelpositioning
-            LblX.Top = 10;
-            LblX.Left = 10;
-            LblY.Top = DrawAreaContainer.Height - LblY.Height - 20;
-            LblY.Left = DrawAreaContainer.Width - LblY.Width - 20;
-
             LblLegende = new List<Label>();
 
+            ForegroundColor = Color.Black;
             BackgroundColor = LblX.BackColor;
             TransparentLabels = false;
 
             Geometry = new GraphProperties();
-            Geometry.SetLimitsX(0, DEFAULT_WIDTH);
-            Geometry.SetLimitsY(0, DEFAULT_HEIGHT);
+            Geometry.SetLimitsX(-10f, 100f);
+            Geometry.SetLimitsY(-10f, 100f);
         }
 
         #endregion
@@ -91,10 +88,8 @@ namespace canvas_test
         public void SetParent(Control newParent)
         {
             DrawAreaContainer.Parent = newParent;
-            DrawAreaContainer.Dock = DockStyle.Fill;
-            DrawAreaContainer.BorderStyle = BorderStyle.FixedSingle;
-            DrawArea = new Bitmap( DrawAreaContainer.Width, DrawAreaContainer.Height);
-            DrawAreaContainer.Image = DrawArea;
+            newParent.SizeChanged += ParentResize;
+            FitToParent();
         }
 
         /// <summary>
@@ -111,17 +106,27 @@ namespace canvas_test
         /// </summary>
         /// <param name="start">Start-Koordinate der Linie</param>
         /// <param name="end">End-Koordinate der Linie</param>
-        public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd)
+        public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor)
         {
             ImageCoord start = Graph2Image(graphStart);
             ImageCoord end = Graph2Image(graphEnd);
             // left and right points rather than start and end
             ImageCoord Left = start.X < end.X ? start : end;
-            ImageCoord Right = start.X > end.X ? start : end;
+            ImageCoord Right = start.X >= end.X ? start : end;
+            System.Diagnostics.Debug.Print("Drawing Graph-Coords\n\t" + graphStart.ToString() + "\n\t" + graphEnd.ToString());
+            System.Diagnostics.Debug.Print("Eq Pixel-Coords\n\t" + Left.ToString() + "\n\t" + Right.ToString());
             // xdiff is always positive or zero
             float xdiff = Right.X - Left.X;
+            if (xdiff == 0f)
+            {
+                DrawVerticalLine(Left.X);
+            }
             // ydiff is positive if up-slope; negative if down-slope; zero if even line
             float ydiff = Right.Y - Left.Y;
+            if (ydiff == 0f)
+            {
+                DrawHorizontalLine(Left.Y);
+            }
             // steepness of the slope
             float m = ydiff / xdiff;
             m = (float)Math.Truncate(m * 10000) / 10000;
@@ -135,14 +140,14 @@ namespace canvas_test
                 {
                     for (int yc = 1; yc < Math.Abs(buffer); yc += 1)
                     {
-                        this.SetPixel(new ImageCoord(x, y + (yc * Math.Sign(m))), Color.Black);
+                        this.SetPixel(new ImageCoord(x, y + (yc * Math.Sign(m))), fillColor);
                     }
                     y += (int)Math.Truncate(buffer);
                     buffer = (float)Math.Truncate((buffer % 1.0) * 10000) / 10000;
                 }
                 else
                 {
-                    this.SetPixel(new ImageCoord(x, y), Color.Black);
+                    this.SetPixel(new ImageCoord(x, y), fillColor);
                 }
             }
         }
@@ -152,7 +157,7 @@ namespace canvas_test
         /// </summary>
         /// <param name="points">Liste der zu verbindenden Koordinaten</param>
         /// <param name="connect_ends">Verbinde erste und letzte Koordinate</param>
-        public void DrawLines(GraphCoord[] points, bool connect_ends = false)
+        public void DrawLines(GraphCoord[] points, Color fillColor, bool connect_ends = false)
         {
             if (points.Length >= 2)
             {
@@ -160,37 +165,90 @@ namespace canvas_test
                 for (int pc = 1; pc < points.Length; pc += 1)
                 {
                     GraphCoord next = points.ElementAt(pc);
-                    DrawLine(current, next);
+                    DrawLine(current, next, fillColor);
                     current = next;
                 }
                 if (connect_ends)
                 {
-                    DrawLine(points.Last(), points.First());
+                    DrawLine(points.Last(), points.First(), fillColor);
                 }
             }
         }
 
-        public void DrawPoint(Point coord, int scale = 10)
+        public void DrawMark(GraphCoord coord, float scale = 1.0f)
         {
-            //TODO
+            float up = coord.Y + scale;
+            float down = coord.Y - scale;
+            float left = coord.X - scale;
+            float right = coord.X + scale;
+            DrawLine(new GraphCoord(left, up), new GraphCoord(right, down), ForegroundColor);
+            DrawLine(new GraphCoord(left, down), new GraphCoord(right, up), ForegroundColor);
+        }
+
+        public void DrawAxes()
+        {
+            System.Diagnostics.Debug.Print("Drawing Axes:");
+            DrawLine(new GraphCoord(Geometry.LowX, 0f), new GraphCoord(Geometry.HighX, 0f), ForegroundColor);
+            DrawLine(new GraphCoord(0f, Geometry.LowY), new GraphCoord(0f, Geometry.HighY), ForegroundColor);
+            for (float xPositive = Geometry.ScalingX; xPositive < Geometry.HighX; xPositive += Geometry.ScalingX)
+            {
+                DrawMark(new GraphCoord(xPositive, 0f));
+            }
+            for (float xNegative = -Geometry.ScalingX; xNegative > Geometry.LowX; xNegative -= Geometry.ScalingX)
+            {
+                DrawMark(new GraphCoord(xNegative, 0f));
+            }
+            for (float yPositive = Geometry.ScalingY; yPositive < Geometry.HighY; yPositive += Geometry.ScalingY)
+            {
+                DrawMark(new GraphCoord(0f, yPositive));
+            }
+            for (float yNegative = -Geometry.ScalingY; yNegative > Geometry.LowY; yNegative -= Geometry.ScalingY)
+            {
+                DrawMark(new GraphCoord(0f, yNegative));
+            }
         }
 
         #endregion
 
         #region private instance methods
 
+        private void ParentResize(object sender, EventArgs e)
+        {
+            Control parent = (Control)sender;
+            FitToParent();
+        }
+
+        private void FitToParent()
+        {
+            DrawAreaContainer.Dock = DockStyle.Fill;
+            int newWidth = DrawAreaContainer.Width;
+            int newHeight = DrawAreaContainer.Height;
+            DrawArea = new Bitmap(newWidth, newHeight);
+            DrawAreaContainer.Image = DrawArea;
+            //TODO dynamische labelpositioning nach graph-achsen
+            LblY.Parent = DrawAreaContainer;
+            LblY.Top = 10;
+            LblY.Left = 10;
+
+            LblX.Parent = DrawAreaContainer;
+            LblX.Top = newHeight - LblX.Height - 20;
+            LblX.Left = newWidth - LblX.Width - 20;
+
+            DrawAxes();
+        }
+
         private ImageCoord Graph2Image(GraphCoord gc)
         {
             GraphCoord relative = Geometry.GetRelative(gc);
-            System.Diagnostics.Debug.Print(relative.ToString());
+            //System.Diagnostics.Debug.Print(relative.ToString());
             // Die Asurichtung der X-Achse der Bitmap stimmt mit der X-Achse des Graphen überein
             float relX = relative.X;
             // Die Ausrichtung der Y-Achse der Bitmap entgegen der Y-Achse des Graphen
             float relY = 1f - relative.Y;
             int imgX = (int)Math.Floor((double)ImageWidth * relX);
             int imgY = (int)Math.Floor((double)ImageHeight * relY);
-            System.Diagnostics.Debug.Print(imgX.ToString());
-            System.Diagnostics.Debug.Print(imgY.ToString());
+            //System.Diagnostics.Debug.Print(imgX.ToString());
+            //System.Diagnostics.Debug.Print(imgY.ToString());
             return new ImageCoord(imgX, imgY);
         }
 
@@ -241,6 +299,22 @@ namespace canvas_test
             }
         }
 
+        private void DrawHorizontalLine(int yVal)
+        {
+            for (int xstep = 0; xstep < ImageWidth; xstep += 1)
+            {
+                SetPixel(new ImageCoord(xstep, yVal), ForegroundColor);
+            }
+        }
+
+        private void DrawVerticalLine(int xVal)
+        {
+            for (int ystep = 0; ystep < ImageHeight; ystep += 1)
+            {
+                SetPixel(new ImageCoord(xVal, ystep), ForegroundColor);
+            }
+        }
+
         #endregion
 
     }
@@ -279,6 +353,8 @@ namespace canvas_test
             LowY = 0.0f;
             HighX = 0.0f;
             HighY = 0.0f;
+            ScalingX = 5.0f;
+            ScalingY = 5.0f;
         }
 
         #endregion
