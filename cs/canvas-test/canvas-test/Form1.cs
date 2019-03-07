@@ -85,6 +85,8 @@ namespace canvas_test
             AddChild(mainCon.Panel2, yLabel, 120, 10);
             AddChild(mainCon.Panel2, yLow, 150, 10);
             AddChild(mainCon.Panel2, yHigh, 150, 150);
+
+            ValueTable ResultData = new ValueTable();
         }
 
         private void NumUpDown_ValueChanged(object sender, EventArgs e)
