@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using ImageCoord = System.Drawing.Point;
 using GraphCoord = System.Drawing.PointF;
+using SimpleLine = System.Tuple<System.Drawing.PointF, System.Drawing.PointF, System.Drawing.Color>;
 
 
 namespace canvas_test
@@ -23,11 +24,16 @@ namespace canvas_test
 
         public static int DEFAULT_WIDTH = 100;
         public static int DEFAULT_HEIGHT = 100;
-
+        
+        #region graph render options
+        //TODO separate render options into own options class
+        public bool TransparentLabels { get; set; } = false;
+        public bool AutoResize { get; set; } = true;
+        public bool RememberDrawing { get; set; } = false;
+        #endregion
         public Label LblY { get; set; }
         public Label LblX { get; set; }
         public List<Label> LblLegende { get; set; }
-        public bool TransparentLabels { get; set; }
 
         public Bitmap DrawArea { get; set; }
         public PictureBox DrawAreaContainer { get; set; }
@@ -43,6 +49,7 @@ namespace canvas_test
         private int ImageWidth => DrawArea.Width;
         private int ImageHeight => DrawArea.Height;
         private GraphProperties Geometry { get; set; }
+        private List<SimpleLine> LineMemory { get; set; }
 
         #endregion
 
@@ -71,6 +78,7 @@ namespace canvas_test
             };
 
             LblLegende = new List<Label>();
+            LineMemory = new List<SimpleLine>();
 
             ForegroundColor = Color.Black;
             BackgroundColor = LblX.BackColor;
@@ -89,6 +97,7 @@ namespace canvas_test
         {
             DrawAreaContainer.Parent = newParent;
             newParent.SizeChanged += ParentResize;
+            newParent.SizeChanged += (object s, EventArgs e) => { System.Diagnostics.Debug.Print(System.DateTime.Now.ToString() + " Size of container changed"); };
             FitToParent();
         }
 
@@ -106,15 +115,19 @@ namespace canvas_test
         /// </summary>
         /// <param name="start">Start-Koordinate der Linie</param>
         /// <param name="end">End-Koordinate der Linie</param>
-        public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor)
+        public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor, bool redraw=false)
         {
+            if ( !redraw && RememberDrawing)
+            {
+                LineMemory.Add(new SimpleLine(graphStart, graphEnd, fillColor));
+            }
             ImageCoord start = Graph2Image(graphStart);
             ImageCoord end = Graph2Image(graphEnd);
             // left and right points rather than start and end
             ImageCoord Left = start.X < end.X ? start : end;
             ImageCoord Right = start.X >= end.X ? start : end;
-            System.Diagnostics.Debug.Print("Drawing Graph-Coords\n\t" + graphStart.ToString() + "\n\t" + graphEnd.ToString());
-            System.Diagnostics.Debug.Print("Eq Pixel-Coords\n\t" + Left.ToString() + "\n\t" + Right.ToString());
+            //System.Diagnostics.Debug.Print("Drawing Graph-Coords\n\t" + graphStart.ToString() + "\n\t" + graphEnd.ToString());
+            //System.Diagnostics.Debug.Print("Eq Pixel-Coords\n\t" + Left.ToString() + "\n\t" + Right.ToString());
             // xdiff is always positive or zero
             float xdiff = Right.X - Left.X;
             if (xdiff == 0f)
@@ -181,15 +194,15 @@ namespace canvas_test
             float down = coord.Y - scale;
             float left = coord.X - scale;
             float right = coord.X + scale;
-            DrawLine(new GraphCoord(left, up), new GraphCoord(right, down), ForegroundColor);
-            DrawLine(new GraphCoord(left, down), new GraphCoord(right, up), ForegroundColor);
+            DrawLine(new GraphCoord(left, up), new GraphCoord(right, down), ForegroundColor, true);
+            DrawLine(new GraphCoord(left, down), new GraphCoord(right, up), ForegroundColor, true);
         }
 
         public void DrawAxes()
         {
-            System.Diagnostics.Debug.Print("Drawing Axes:");
-            DrawLine(new GraphCoord(Geometry.LowX, 0f), new GraphCoord(Geometry.HighX, 0f), ForegroundColor);
-            DrawLine(new GraphCoord(0f, Geometry.LowY), new GraphCoord(0f, Geometry.HighY), ForegroundColor);
+            //System.Diagnostics.Debug.Print("Drawing Axes:");
+            DrawLine(new GraphCoord(Geometry.LowX, 0f), new GraphCoord(Geometry.HighX, 0f), ForegroundColor, true);
+            DrawLine(new GraphCoord(0f, Geometry.LowY), new GraphCoord(0f, Geometry.HighY), ForegroundColor, true);
             for (float xPositive = Geometry.ScalingX; xPositive < Geometry.HighX; xPositive += Geometry.ScalingX)
             {
                 DrawMark(new GraphCoord(xPositive, 0f));
@@ -215,11 +228,14 @@ namespace canvas_test
         private void ParentResize(object sender, EventArgs e)
         {
             Control parent = (Control)sender;
+            System.Diagnostics.Debug.Print("Dimensions of sender: " + parent.Size.ToString());
+            System.Diagnostics.Debug.Print("Dimensions of cont:   " + DrawAreaContainer.Parent.Size.ToString());
             FitToParent();
         }
 
         private void FitToParent()
         {
+            if (!AutoResize) return;
             DrawAreaContainer.Dock = DockStyle.Fill;
             int newWidth = DrawAreaContainer.Width;
             int newHeight = DrawAreaContainer.Height;
@@ -235,6 +251,7 @@ namespace canvas_test
             LblX.Left = newWidth - LblX.Width - 20;
 
             DrawAxes();
+            RedrawGraph();
         }
 
         private ImageCoord Graph2Image(GraphCoord gc)
@@ -312,6 +329,14 @@ namespace canvas_test
             for (int ystep = 0; ystep < ImageHeight; ystep += 1)
             {
                 SetPixel(new ImageCoord(xVal, ystep), ForegroundColor);
+            }
+        }
+
+        private void RedrawGraph()
+        {
+            foreach(SimpleLine line in LineMemory)
+            {
+                DrawLine(line.Item1, line.Item2, line.Item3, true);
             }
         }
 

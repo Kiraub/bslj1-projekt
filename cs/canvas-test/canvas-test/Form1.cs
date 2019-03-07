@@ -34,15 +34,6 @@ namespace canvas_test
             };
 
             g = new Graph();
-            g.SetParent(mainCon.Panel1);
-            //g.DrawCross();
-            PointF[] ps = new PointF[5];
-            ps[0] = new PointF(10f, 50f);
-            ps[1] = new PointF(80f, 70f);
-            ps[2] = new PointF(25f, 80f);
-            ps[3] = new PointF(50f, 35f);
-            ps[4] = new PointF(65f, 95f);
-            g.DrawLines( ps, g.ForegroundColor, true);
 
             Button btnTr = new Button
             {
@@ -52,6 +43,7 @@ namespace canvas_test
                 Left = 10,
             };
             btnTr.Click += Click_btnTr;
+            ResizeEnd += (object s, EventArgs e) => { GC.Collect(); GC.WaitForPendingFinalizers(); };
         }
 
         private void Click_btnTr(object sender, EventArgs e)
@@ -63,11 +55,20 @@ namespace canvas_test
         {
             //Bei Start Splitter in die Mitte setzen
             mainCon.SplitterDistance = Convert.ToInt32(Math.Round(this.Width * 0.5, 0));
+            g.SetParent(mainCon.Panel1);
+            g.RememberDrawing = true;
+            PointF[] ps = new PointF[5];
+            ps[0] = new PointF(10f, 50f);
+            ps[1] = new PointF(80f, 70f);
+            ps[2] = new PointF(25f, 80f);
+            ps[3] = new PointF(50f, 35f);
+            ps[4] = new PointF(65f, 95f);
+            g.DrawLines(ps, g.ForegroundColor, true);
         }
 
         public Graph GetGraph()
         {
-            return this.g;
+            return g;
         }
         
     }
