@@ -111,7 +111,7 @@ namespace canvas_test
         {
             DrawAreaContainer.Parent = newParent;
             newParent.SizeChanged += ParentResize;
-            newParent.SizeChanged += (object s, EventArgs e) => { System.Diagnostics.Debug.Print(System.DateTime.Now.ToString() + " Size of container changed"); };
+            //newParent.SizeChanged += (object s, EventArgs e) => { System.Diagnostics.Debug.Print(System.DateTime.Now.ToString() + " Size of container changed"); };
             FitToParent();
         }
 
