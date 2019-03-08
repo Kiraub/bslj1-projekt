@@ -17,6 +17,9 @@ namespace canvas_test
     /// <summary>
     /// Repräsentiert die visuelle Schnittstelle um Graphen zu zeichnen
     /// <para>Beinhaltet sowohl Bild-/ als auch Geometrieobjekte</para>
+    /// <para>Das Bildobjekt arbeitet mit Integer-Pixel Koordinaten</para>
+    /// <para>Daher reicht für die Geometrie-Berechnung Float-Genauigkeit</para>
+    /// <para>Kantenglättung ist nicht implementiert</para>
     /// </summary>
     public class Graph
     {
@@ -25,7 +28,7 @@ namespace canvas_test
 
         public static int DEFAULT_WIDTH = 100;
         public static int DEFAULT_HEIGHT = 100;
-        
+
         #region graph render options
         //TODO separate render options into own options class
         public bool TransparentLabels { get; set; } = false;
@@ -129,9 +132,9 @@ namespace canvas_test
         /// </summary>
         /// <param name="start">Start-Koordinate der Linie</param>
         /// <param name="end">End-Koordinate der Linie</param>
-        public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor, bool redraw=false)
+        public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor, bool redraw = false)
         {
-            if ( !redraw && RememberDrawing)
+            if (!redraw && RememberDrawing)
             {
                 LineMemory.Add(new SimpleLine(graphStart, graphEnd, fillColor));
             }
@@ -236,6 +239,34 @@ namespace canvas_test
             for (float yNegative = -Geometry.ScalingY; yNegative > Geometry.LowY - Geometry.ScalingY; yNegative -= Geometry.ScalingY)
             {
                 DrawMark(new GraphCoord(0f, yNegative));
+            }
+        }
+
+        /// <summary>
+        /// Zeichne eine approximierte Kurve durch Nutzung einzelner Geraden
+        /// <para>Die Genauigkeit der Kurve hängt vom mindest-Abstand ab</para>
+        /// <para>Je kleiner dieser gewählt wird, desto mehr kleine Geraden werden gezeichnet</para>
+        /// </summary>
+        /// <param name="startPoint">Startpunkt der Kurve</param>
+        /// <param name="curvePoints">Punkte auf der Kurve</param>
+        /// <param name="fillColor">Füllfarbe der Kurve</param>
+        /// <param name="minDelta">Mindest-Abstand zweier Kurvenpunkte</param>
+        public void DrawCurve(GraphCoord startPoint, List<GraphCoord> curvePoints, Color fillColor, int approxCount = 10, float approxLevel = 0.5f)
+        {
+            int count = curvePoints.Count;
+            if (count == 0)
+            {
+                // cannot draw with zero curve points
+                return;
+            }
+            else if (count == 1)
+            {
+                ApproxCurve(startPoint, curvePoints.First(), fillColor, approxCount, approxLevel*Math.Sign(startPoint.Y-curvePoints.First().Y));
+            }
+            else
+            {
+                DrawCurve(curvePoints.First(), curvePoints.GetRange(1, count-1), fillColor, approxCount, -approxLevel); 
+                ApproxCurve(startPoint, curvePoints.First(), fillColor, approxCount, approxLevel);
             }
         }
 
@@ -344,7 +375,8 @@ namespace canvas_test
 
         private void DrawVerticalLine(int xVal, int yDown, int yUp)
         {
-            for (int ystep = yDown; ystep < yUp; ystep += 1)
+            int stepSize = Math.Sign(yUp-yDown);
+            for (int ystep = yDown; ystep != yUp; ystep += stepSize)
             {
                 SetPixel(new ImageCoord(xVal, ystep), ForegroundColor);
             }
@@ -352,9 +384,25 @@ namespace canvas_test
 
         private void RedrawGraph()
         {
-            foreach(SimpleLine line in LineMemory)
+            foreach (SimpleLine line in LineMemory)
             {
                 DrawLine(line.Item1, line.Item2, line.Item3, true);
+            }
+        }
+
+        private void ApproxCurve(GraphCoord startPoint, GraphCoord endPoint, Color fillColor, int approxCount, float level)
+        {
+            ImageCoord start = Graph2Image(startPoint);
+            ImageCoord end = Graph2Image(endPoint);
+            if (0 < approxCount)
+            {
+                GraphCoord intermediate = Geometry.GetIntermediate(startPoint, endPoint, level);
+                ApproxCurve(startPoint, intermediate, fillColor, approxCount-1, level/2);
+                ApproxCurve(intermediate, endPoint, fillColor, approxCount-1, level/2);
+            }
+            else
+            {
+                DrawLine(startPoint, endPoint, fillColor);
             }
         }
 
@@ -460,6 +508,18 @@ namespace canvas_test
                 (absoluteCoord.X - LowX) / Width,
                 (absoluteCoord.Y - LowY) / Height
             );
+        }
+
+        public GraphCoord GetIntermediate(GraphCoord start, GraphCoord end, float level)
+        {
+            float xdiff = end.X -  start.X;
+            float ydiff = end.Y - start.Y;
+            float xMed = start.X + xdiff/2 + xdiff*level*0.5f;
+            float yMed = start.Y + ydiff/2 + Math.Sign(ydiff)*ydiff*level*0.5f;
+            return new GraphCoord(xMed, yMed);
+            //int direction = Math.Sign(ydiff/xdiff);
+            //float distance = (float)Math.Sqrt(Math.Pow(ydiff, 2.0)/Math.Pow(xdiff, 2.0));
+
         }
 
         #endregion

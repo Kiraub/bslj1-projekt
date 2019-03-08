@@ -113,6 +113,12 @@ namespace canvas_test
             ps[3] = new PointF(50f, 35f);
             ps[4] = new PointF(65f, 95f);
             g.DrawLines(ps, g.ForegroundColor, true);
+
+            List<PointF> lps = new List<PointF>();
+            lps.Add(new PointF(10f, 50f));
+            lps.Add(new PointF(30f, 20f));
+            lps.Add(new PointF(50f, 10f));
+            g.DrawCurve(lps.First(), lps.GetRange(1, 2), Color.Black);
         }
 
         private void AddChild( Control parent, Control child, int top=10, int left=10)
