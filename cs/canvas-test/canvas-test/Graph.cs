@@ -261,11 +261,25 @@ namespace canvas_test
             }
             else if (count == 1)
             {
-                ApproxCurve(startPoint, curvePoints.First(), fillColor, approxCount, approxLevel*Math.Sign(startPoint.Y-curvePoints.First().Y));
+                ApproxCurve(startPoint, curvePoints.First(), fillColor, approxCount, approxLevel);
             }
             else
             {
-                DrawCurve(curvePoints.First(), curvePoints.GetRange(1, count-1), fillColor, approxCount, -approxLevel); 
+                float yNow = startPoint.Y;
+                float yN1 = curvePoints[0].Y;
+                float yN2 = curvePoints[1].Y;
+                float nextApproxLevel = -approxLevel;
+                if (yNow > yN1 && yN1 < yN2)
+                {
+                    approxLevel = -Math.Abs(approxLevel);
+                    nextApproxLevel = approxLevel;
+                }
+                else if (yNow < yN1 && yN1 > yN2)
+                {
+                    approxLevel = Math.Abs(approxLevel);
+                    nextApproxLevel = approxLevel;
+                }
+                DrawCurve(curvePoints.First(), curvePoints.GetRange(1, count - 1), fillColor, approxCount, nextApproxLevel);
                 ApproxCurve(startPoint, curvePoints.First(), fillColor, approxCount, approxLevel);
             }
         }
@@ -375,7 +389,7 @@ namespace canvas_test
 
         private void DrawVerticalLine(int xVal, int yDown, int yUp)
         {
-            int stepSize = Math.Sign(yUp-yDown);
+            int stepSize = Math.Sign(yUp - yDown);
             for (int ystep = yDown; ystep != yUp; ystep += stepSize)
             {
                 SetPixel(new ImageCoord(xVal, ystep), ForegroundColor);
@@ -397,8 +411,8 @@ namespace canvas_test
             if (0 < approxCount)
             {
                 GraphCoord intermediate = Geometry.GetIntermediate(startPoint, endPoint, level);
-                ApproxCurve(startPoint, intermediate, fillColor, approxCount-1, level/2);
-                ApproxCurve(intermediate, endPoint, fillColor, approxCount-1, level/2);
+                ApproxCurve(startPoint, intermediate, fillColor, approxCount - 1, level / 2);
+                ApproxCurve(intermediate, endPoint, fillColor, approxCount - 1, level / 2);
             }
             else
             {
@@ -512,14 +526,11 @@ namespace canvas_test
 
         public GraphCoord GetIntermediate(GraphCoord start, GraphCoord end, float level)
         {
-            float xdiff = end.X -  start.X;
+            float xdiff = end.X - start.X;
             float ydiff = end.Y - start.Y;
-            float xMed = start.X + xdiff/2 + xdiff*level*0.5f;
-            float yMed = start.Y + ydiff/2 + Math.Sign(ydiff)*ydiff*level*0.5f;
+            float xMed = start.X + xdiff / 2 - Math.Sign(ydiff) * xdiff * level * 0.5f;
+            float yMed = start.Y + ydiff / 2 + Math.Sign(ydiff) * ydiff * level * 0.5f;
             return new GraphCoord(xMed, yMed);
-            //int direction = Math.Sign(ydiff/xdiff);
-            //float distance = (float)Math.Sqrt(Math.Pow(ydiff, 2.0)/Math.Pow(xdiff, 2.0));
-
         }
 
         #endregion

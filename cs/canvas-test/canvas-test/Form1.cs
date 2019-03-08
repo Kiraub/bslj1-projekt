@@ -115,10 +115,21 @@ namespace canvas_test
             g.DrawLines(ps, g.ForegroundColor, true);
 
             List<PointF> lps = new List<PointF>();
+            lps.Add(new PointF(0f, 100f));
             lps.Add(new PointF(10f, 50f));
-            lps.Add(new PointF(30f, 20f));
-            lps.Add(new PointF(50f, 10f));
-            g.DrawCurve(lps.First(), lps.GetRange(1, 2), Color.Black);
+            lps.Add(new PointF(20f, 25f));
+            lps.Add(new PointF(30f, 12.5f));
+            lps.Add(new PointF(40f, 6.25f));
+            lps.Add(new PointF(50f, 3.125f));
+            lps.Add(new PointF(60f, 1.5625f));
+            lps.Add(new PointF(70f, 0.78625f));
+            Color[] nextC = {Color.Red, Color.Blue, Color.Green};
+            int counter = 0;
+            for (float lc = -0.8f; lc < 0.9f; lc += 0.2f)
+            {
+                g.DrawCurve(lps[0], lps.GetRange(1, lps.Count-1), nextC[(int)counter%3], 10, lc);
+                counter += 1;
+            }
         }
 
         private void AddChild( Control parent, Control child, int top=10, int left=10)
