@@ -241,16 +241,16 @@ namespace canvas_test
                 DrawMark(new GraphCoord(0f, yNegative));
             }
         }
-
+        
         /// <summary>
-        /// Zeichne eine approximierte Kurve durch Nutzung einzelner Geraden
-        /// <para>Die Genauigkeit der Kurve hängt vom mindest-Abstand ab</para>
-        /// <para>Je kleiner dieser gewählt wird, desto mehr kleine Geraden werden gezeichnet</para>
+        /// Verbindet Punkte der Reihe nach mit Näherungskurven
+        /// <para>Da dies durch zeichnen vielen Geraden realisiert wird, muss die Genauigkeit angegeben werden</para>
         /// </summary>
-        /// <param name="startPoint">Startpunkt der Kurve</param>
-        /// <param name="curvePoints">Punkte auf der Kurve</param>
-        /// <param name="fillColor">Füllfarbe der Kurve</param>
-        /// <param name="minDelta">Mindest-Abstand zweier Kurvenpunkte</param>
+        /// <param name="startPoint">Anfangspunkt der ersten Kurve</param>
+        /// <param name="curvePoints">Restpunkte</param>
+        /// <param name="fillColor">Füllfarbe der Kurven</param>
+        /// <param name="approxCount">Anzahl Annäherungen, höher=runder</param>
+        /// <param name="approxLevel">Richtung & Härte der Annäherungen, zwischen -1 und 1</param>
         public void DrawCurve(GraphCoord startPoint, List<GraphCoord> curvePoints, Color fillColor, int approxCount = 10, float approxLevel = 0.5f)
         {
             int count = curvePoints.Count;
