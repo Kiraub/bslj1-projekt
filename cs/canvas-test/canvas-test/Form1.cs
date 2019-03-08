@@ -123,23 +123,37 @@ namespace canvas_test
             lps.Add(new PointF(50f, 3.125f));
             lps.Add(new PointF(60f, 1.5625f));
             lps.Add(new PointF(70f, 0.78625f));
-            Color[] nextC = {Color.Red, Color.Blue, Color.Green};
+            Color[] nextC = { Color.Red, Color.Blue, Color.Green };
             int counter = 0;
             for (float lc = -0.8f; lc < 0.9f; lc += 0.2f)
             {
-                g.DrawCurve(lps[0], lps.GetRange(1, lps.Count-1), nextC[(int)counter%3], 10, lc);
+                g.DrawCurve(lps[0], lps.GetRange(1, lps.Count - 1), nextC[(int)counter % 3], 10, lc);
+                counter += 1;
+            }
+            float pi = (float)Math.PI;
+            List<PointF> pie = new List<PointF>();
+            float[] nextY = { 0f, 1f, 0f, -1f };
+            counter = 0;
+            for (float pic = 0f; pic < 100f; pic += pi)
+            {
+                pie.Add(new PointF(pic, nextY[counter % 4]));
+                counter += 1;
+            }
+            for (float lc = 0.5f; lc < 0.7f; lc += 0.2f)
+            {
+                g.DrawCurve(pie[0], pie.GetRange(1, pie.Count - 1), nextC[(int)counter % 3], 10, lc);
                 counter += 1;
             }
         }
 
-        private void AddChild( Control parent, Control child, int top=10, int left=10)
+        private void AddChild(Control parent, Control child, int top = 10, int left = 10)
         {
             child.Parent = parent;
             child.Top = top;
             child.Left = left;
         }
 
-        private void IncreaseRange( NumericUpDown numUpDown)
+        private void IncreaseRange(NumericUpDown numUpDown)
         {
             numUpDown.Maximum = 500.0m;
             numUpDown.Minimum = -500.0m;
@@ -149,6 +163,6 @@ namespace canvas_test
         {
             return g;
         }
-        
+
     }
 }
