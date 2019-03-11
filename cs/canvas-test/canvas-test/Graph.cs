@@ -118,6 +118,11 @@ namespace canvas_test
             FitToParent();
         }
 
+        public void ForceResize()
+        {
+            FitToParent();
+        }
+
         /// <summary>
         /// Beschriftungshintergründe durchsichtig/undurchsichtig umschalten
         /// </summary>
@@ -241,7 +246,7 @@ namespace canvas_test
                 DrawMark(new GraphCoord(0f, yNegative));
             }
         }
-        
+
         /// <summary>
         /// Verbindet Punkte der Reihe nach mit Näherungskurven
         /// <para>Da dies durch zeichnen vielen Geraden realisiert wird, muss die Genauigkeit angegeben werden</para>

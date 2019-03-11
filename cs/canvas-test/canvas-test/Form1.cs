@@ -18,6 +18,8 @@ namespace canvas_test
 
         NumericUpDown xLow, xHigh, yLow, yHigh;
 
+        FormWindowState previousWindowState;
+
         public Graph g;
 
         public Form1()
@@ -41,7 +43,6 @@ namespace canvas_test
                 Width = 200
             };
             btnTr.Click += Click_btnTr;
-            ResizeEnd += (object s, EventArgs e) => { GC.Collect(); GC.WaitForPendingFinalizers(); };
 
             // experimental UI for testing purposes
 
@@ -85,6 +86,12 @@ namespace canvas_test
             AddChild(mainCon.Panel2, yLabel, 120, 10);
             AddChild(mainCon.Panel2, yLow, 150, 10);
             AddChild(mainCon.Panel2, yHigh, 150, 150);
+
+            ResizeBegin += (object s, EventArgs e) => { g.AutoResize = false; };
+            ResizeEnd += (object s, EventArgs e) => { g.AutoResize = true; g.ForceResize(); };
+            ClientSizeChanged += (object s, EventArgs e) => { if (previousWindowState != WindowState) { g.ForceResize(); } };
+
+            previousWindowState = WindowState;
 
             ValueTable ResultData = new ValueTable();
         }
