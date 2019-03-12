@@ -12,8 +12,27 @@ namespace canvas_test
 {
     class ValueTable
     {
-        DataGrid tableGrid = new DataGrid();
-        DataGridTableStyle tableStyle = new DataGridTableStyle();
-        DataTable dtValues = new  DataTable();
+        public DataGrid addDataGrid()
+        {
+            DataGrid myDataGrid = new DataGrid();
+            myDataGrid.Location = new Point(50, 50);
+            myDataGrid.Size = new Size(300, 200);
+            myDataGrid.CaptionText = "Das Data Grid";
+
+            return myDataGrid;
+        }
+
+        public void addDataSet()
+        {
+            DataSet myDataSet = new DataSet();
+            DataTable dtResistance = new DataTable();
+            DataTable dtAmperage = new DataTable();
+            DataTable dtVoltage = new DataTable();
+
+            myDataSet.Tables.Add(dtResistance);
+            myDataSet.Tables.Add(dtAmperage);
+            myDataSet.Tables.Add(dtVoltage);
+        }
+
     }
 }

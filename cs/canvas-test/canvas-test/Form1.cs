@@ -86,14 +86,16 @@ namespace canvas_test
             AddChild(mainCon.Panel2, yLabel, 120, 10);
             AddChild(mainCon.Panel2, yLow, 150, 10);
             AddChild(mainCon.Panel2, yHigh, 150, 150);
-
             ResizeBegin += (object s, EventArgs e) => { g.AutoResize = false; };
             ResizeEnd += (object s, EventArgs e) => { g.AutoResize = true; g.ForceResize(); };
             ClientSizeChanged += (object s, EventArgs e) => { if (previousWindowState != WindowState) { g.ForceResize(); } };
 
             previousWindowState = WindowState;
 
-            ValueTable ResultData = new ValueTable();
+            //create DataGrid with DataSet including Tables
+            ValueTable ResultTable = new ValueTable();
+            this.Controls.Add(ResultTable.addDataGrid());
+            ResultTable.addDataSet();
         }
 
         private void NumUpDown_ValueChanged(object sender, EventArgs e)
