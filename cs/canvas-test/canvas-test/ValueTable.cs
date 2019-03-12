@@ -22,12 +22,41 @@ namespace canvas_test
             return myDataGrid;
         }
 
-        public void addDataSet()
+        public void addDataSet(int numColumns)
         {
             DataSet myDataSet = new DataSet();
             DataTable dtResistance = new DataTable();
             DataTable dtAmperage = new DataTable();
             DataTable dtVoltage = new DataTable();
+
+            DataColumn headRes = new DataColumn();
+            headRes.ColumnName = "headResistance";
+            headRes.Caption = "R(L)";
+            headRes.ReadOnly = true;
+            dtResistance.Columns.Add(headRes);
+
+            DataColumn headAmp = new DataColumn();
+            headAmp.ColumnName = "headAmperage";
+            headAmp.Caption = "I";
+            headAmp.ReadOnly = true;
+            dtAmperage.Columns.Add(headAmp);
+
+            DataColumn headVol = new DataColumn();
+            headVol.ColumnName = "headVoltage";
+            headVol.Caption = "U";
+            headVol.ReadOnly = true;
+            dtVoltage.Columns.Add(headVol);
+
+            for(int i = 0; i < (numColumns - 1); i++)
+            {
+                DataColumn cln = new DataColumn();
+                cln.ColumnName = "column" + i.ToString();
+                cln.Caption = i.ToString();
+
+                dtResistance.Columns.Add(cln);
+                dtAmperage.Columns.Add(cln);
+                dtVoltage.Columns.Add(cln);
+            }
 
             myDataSet.Tables.Add(dtResistance);
             myDataSet.Tables.Add(dtAmperage);

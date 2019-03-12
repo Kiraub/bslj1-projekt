@@ -95,7 +95,7 @@ namespace canvas_test
             //create DataGrid with DataSet including Tables
             ValueTable ResultTable = new ValueTable();
             this.Controls.Add(ResultTable.addDataGrid());
-            ResultTable.addDataSet();
+            ResultTable.addDataSet(6);
         }
 
         private void NumUpDown_ValueChanged(object sender, EventArgs e)
