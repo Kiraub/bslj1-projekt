@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -92,7 +91,7 @@ namespace canvas_test
 
             previousWindowState = WindowState;
 
-            //create DataGrid with DataSet including Tables
+            //Integrate DataGrid, DataSet including DataTables
             ValueTable ResultTable = new ValueTable();
             this.Controls.Add(ResultTable.addDataGrid());
             ResultTable.addDataSet(6);

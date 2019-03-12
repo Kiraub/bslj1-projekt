@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace canvas_test
@@ -14,6 +9,7 @@ namespace canvas_test
     {
         public DataGrid addDataGrid()
         {
+            //Create DataGrid
             DataGrid myDataGrid = new DataGrid();
             myDataGrid.Location = new Point(50, 50);
             myDataGrid.Size = new Size(300, 200);
@@ -47,6 +43,7 @@ namespace canvas_test
             headVol.ReadOnly = true;
             dtVoltage.Columns.Add(headVol);
 
+            //Create non-head columns
             for(int i = 0; i < (numColumns - 1); i++)
             {
                 DataColumn cln = new DataColumn();
@@ -58,9 +55,11 @@ namespace canvas_test
                 dtVoltage.Columns.Add(cln);
             }
 
+            //Add Tables to DataSet
             myDataSet.Tables.Add(dtResistance);
             myDataSet.Tables.Add(dtAmperage);
             myDataSet.Tables.Add(dtVoltage);
+
         }
 
     }
