@@ -44,15 +44,25 @@ namespace canvas_test
             dtVoltage.Columns.Add(headVol);
 
             //Create non-head columns
-            for(int i = 0; i < (numColumns - 1); i++)
+            for (int i = 0; i < (numColumns - 1); i++)
             {
-                DataColumn cln = new DataColumn();
-                cln.ColumnName = "column" + i.ToString();
-                cln.Caption = i.ToString();
+                DataColumn clnRes = new DataColumn();
+                clnRes.ColumnName = "column" + i.ToString();
+                clnRes.Caption = i.ToString();
 
-                dtResistance.Columns.Add(cln);
-                dtAmperage.Columns.Add(cln);
-                dtVoltage.Columns.Add(cln);
+                dtResistance.Columns.Add(clnRes);
+
+                DataColumn clnAmp = new DataColumn();
+                clnAmp.ColumnName = "column" + i.ToString();
+                clnAmp.Caption = i.ToString();
+
+                dtAmperage.Columns.Add(clnAmp);
+
+                DataColumn clnVol = new DataColumn();
+                clnVol.ColumnName = "column" + i.ToString();
+                clnVol.Caption = i.ToString();
+
+                dtVoltage.Columns.Add(clnVol);
             }
 
             //Add Tables to DataSet
