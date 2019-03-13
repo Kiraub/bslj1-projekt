@@ -14,6 +14,7 @@ namespace canvas_test
     {
 
         SplitContainer mainCon;
+        SplitContainer subCon;
 
         NumericUpDown xLow, xHigh, yLow, yHigh;
 
@@ -32,6 +33,12 @@ namespace canvas_test
                 //Feste Max/Min Werte, um Anzeige des Inhalts auf der rechten Seite zu gewährleisten
                 Panel1MinSize = Convert.ToInt32(Math.Round(Size.Width * 0.3, 0)),
                 Panel2MinSize = Convert.ToInt32(Math.Round(Size.Width * 0.3, 0))
+            };
+            subCon = new SplitContainer
+            {
+                Parent = mainCon.Panel2,
+                Dock = DockStyle.Fill,
+                Orientation = Orientation.Horizontal
             };
 
             g = new Graph();
@@ -76,15 +83,15 @@ namespace canvas_test
             yLow.ValueChanged += NumUpDown_ValueChanged;
             yHigh.ValueChanged += NumUpDown_ValueChanged;
 
-            AddChild(mainCon.Panel2, btnTr, 10, 10);
+            AddChild(subCon.Panel1, btnTr, 10, 10);
 
-            AddChild(mainCon.Panel2, xLabel, 50, 10);
-            AddChild(mainCon.Panel2, xLow, 80, 10);
-            AddChild(mainCon.Panel2, xHigh, 80, 150);
+            AddChild(subCon.Panel1, xLabel, 50, 10);
+            AddChild(subCon.Panel1, xLow, 80, 10);
+            AddChild(subCon.Panel1, xHigh, 80, 150);
 
-            AddChild(mainCon.Panel2, yLabel, 120, 10);
-            AddChild(mainCon.Panel2, yLow, 150, 10);
-            AddChild(mainCon.Panel2, yHigh, 150, 150);
+            AddChild(subCon.Panel1, yLabel, 120, 10);
+            AddChild(subCon.Panel1, yLow, 150, 10);
+            AddChild(subCon.Panel1, yHigh, 150, 150);
             ResizeBegin += (object s, EventArgs e) => { g.AutoResize = false; };
             ResizeEnd += (object s, EventArgs e) => { g.AutoResize = true; g.ForceResize(); };
             ClientSizeChanged += (object s, EventArgs e) => { if (previousWindowState != WindowState) { g.ForceResize(); } };
@@ -93,7 +100,8 @@ namespace canvas_test
 
             //Integrate DataGrid, DataSet including DataTables
             ValueTable ResultTable = new ValueTable();
-            this.Controls.Add(ResultTable.addDataGrid());
+            AddChild(subCon.Panel2, ResultTable.addDataGrid());
+            //Controls.Add(ResultTable.addDataGrid());
             ResultTable.addDataSet(6);
         }
 
