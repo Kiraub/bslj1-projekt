@@ -24,13 +24,13 @@ namespace canvas_test
             };
             myDataTable = new DataTable();
             myDataColumns = new List<DataColumn>();
-            addColumn("R in Ohm", false);
-            addColumn("U in V");
-            addColumn("I in A");
+            AddColumn("R in Ohm", false);
+            AddColumn("U in V");
+            AddColumn("I in A");
             myDataGrid.DataSource = myDataTable;
         }
 
-        public void addColumn(string name, bool readOnly=true)
+        public void AddColumn(string name, bool readOnly=true)
         {
             DataColumn dc = new DataColumn
             {
