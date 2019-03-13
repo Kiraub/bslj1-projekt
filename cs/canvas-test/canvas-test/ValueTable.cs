@@ -7,6 +7,34 @@ namespace canvas_test
 {
     class ValueTable
     {
+
+        public DataGrid myDataGrid;
+        public DataTable myDataTable;
+
+        public ValueTable()
+        {
+            myDataGrid = new DataGrid
+            {
+                CaptionText = "Das Data Grid",
+                Dock = DockStyle.Fill
+            };
+            myDataTable = new DataTable();
+            addColumn("R in Ohm");
+            addColumn("U in V");
+            addColumn("I in A");
+            myDataGrid.DataSource = myDataTable;
+        }
+
+        public void addColumn(string name)
+        {
+            myDataTable.Columns.Add(new DataColumn(name));
+        }
+
+        public void addRow(string name)
+        {
+            myDataTable.NewRow();
+        }
+
         public DataGrid addDataGrid()
         {
             //Create DataGrid
@@ -14,7 +42,7 @@ namespace canvas_test
             myDataGrid.Location = new Point(50, 50);
             myDataGrid.Size = new Size(300, 200);
             myDataGrid.CaptionText = "Das Data Grid";
-
+            
             return myDataGrid;
         }
 
