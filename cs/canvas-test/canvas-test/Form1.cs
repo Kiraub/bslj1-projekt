@@ -160,13 +160,13 @@ namespace canvas_test
                 counter += 1;
             }
 
-            Polynomial simpleQuadratic = new Polynomial
+            QuadPolynomial simpleQuadratic = new QuadPolynomial
             {
                 two = 2.0f,
                 one = 0.0f,
                 zero = 3.0f
             };
-            Polynomial simpleLinear = new Polynomial
+            QuadPolynomial simpleLinear = new QuadPolynomial
             {
                 two = 0.0f,
                 one = 0.5f,

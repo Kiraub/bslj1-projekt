@@ -218,6 +218,11 @@ namespace canvas_test
             }
         }
 
+        /// <summary>
+        /// Zeichnet ein '+'-Kreuz in den Graphen
+        /// </summary>
+        /// <param name="coord">Koordinate des Kreuz-Zentrums</param>
+        /// <param name="scale">+/- Bereich um Koordinate der Kreuz-Linien</param>
         public void DrawMark(GraphCoord coord, float scale = 0.75f)
         {
             float up = coord.Y + scale;
@@ -228,9 +233,11 @@ namespace canvas_test
             DrawLine(new GraphCoord(coord.X, down), new GraphCoord(coord.X, up), ForegroundColor, true);
         }
 
+        /// <summary>
+        /// Zeichnet die Achsen des Graphen, diese werden nicht im LineMemory gespeichert
+        /// </summary>
         public void DrawAxes()
         {
-            //System.Diagnostics.Debug.Print("Drawing Axes:");
             DrawLine(new GraphCoord(Geometry.LowX, 0f), new GraphCoord(Geometry.HighX, 0f), ForegroundColor, true);
             DrawLine(new GraphCoord(0f, Geometry.LowY), new GraphCoord(0f, Geometry.HighY), ForegroundColor, true);
             for (float xPositive = Geometry.ScalingX; xPositive < Geometry.HighX + Geometry.ScalingX; xPositive += Geometry.ScalingX)
@@ -299,7 +306,7 @@ namespace canvas_test
         /// <param name="polynomial">Quadratisches Polynom</param>
         /// <param name="fillColor">Füllfarbe der Linie</param>
         /// <param name="stepAccuracy"><para>Genauigkeits-Multiplikator mit der f(x) gezeichnet wird</para><para></para><para>1.0 entspricht 1/200 Schrittweite</para></param>
-        public void DrawPolynomialFunction(Polynomial polynomial, Color fillColor, float stepAccuracy=10.0f)
+        public void DrawPolynomialFunction(QuadPolynomial polynomial, Color fillColor, float stepAccuracy=10.0f)
         {
             // draw inside x-axis bounds
             float xLeft = Geometry.LowX;
@@ -320,13 +327,13 @@ namespace canvas_test
         }
 
         /// <summary>
-        /// Zeichnet eine rationale Funktion f(x)=P(x)/Q(x) Anhand Zähler/Nenner Polynome
+        /// Zeichnet eine rationale Funktion f(x)=P(x)/Q(x)
         /// </summary>
         /// <param name="pFunc">Das Zähler-Polynom</param>
         /// <param name="qFunc">Das Nenner-Polynom</param>
         /// <param name="fillColor">Füllfarbe der Linie</param>
         /// <param name="stepAccuracy"><para>Genauigkeits-Multiplikator mit der f(x) gezeichnet wird</para><para></para><para>1.0 entspricht 1/200 Schrittweite</para></param>
-        public void DrawRationalFunction(Polynomial pFunc, Polynomial qFunc, Color fillColor, float stepAccuracy=10.0f)
+        public void DrawRationalFunction(QuadPolynomial pFunc, QuadPolynomial qFunc, Color fillColor, float stepAccuracy=10.0f)
         {
             // draw inside x-axis bounds
             float xLeft = Geometry.LowX;
@@ -605,9 +612,9 @@ namespace canvas_test
     }
 
     /// <summary>
-    /// Repräsentiert eine polynomiale Funktion der Form f(x) = ax^2 + bx + c
+    /// Repräsentiert eine polynomiale Funktion zweiten Grades der Form f(x) = ax^2 + bx + c
     /// </summary>
-    public struct Polynomial
+    public struct QuadPolynomial
     {
         /// <summary>
         /// Faktor a von x^2
@@ -622,5 +629,40 @@ namespace canvas_test
         /// </summary>
         public float zero;
     }
+
+    /* If needed more polyniomal structs should be created like the one above.
+     * This separation is needed, since drawing functions need to know how to handle a polynom's degree.
+     * Examples:
+        public struct LinearPolynomial
+        {
+            public float one;
+            public float zero;
+        }
+        public struct QubicPolynomial
+        {
+            public float three;
+            public float two;
+            public float one;
+            public float zero;
+        }
+     * These could also be created nested, although this is not necessary for current feature requirements.
+     * Example:
+        public struct QubicPolynomial
+        {
+            public float three;
+            public QuadPolynomial quadPolynomial;
+        }
+        public struct QuadPolynomial
+        {
+            public float two;
+            public LinearPolynomial linearPolynomial;
+        }
+        public struct LinearPolynomial
+        {
+            public float one;
+            public float zero;
+        }
+     * Note that neither of these examples are tested and should be expected to require modifications upon implementation.
+     */
 
 }
