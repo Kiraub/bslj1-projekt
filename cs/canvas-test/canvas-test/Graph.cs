@@ -23,33 +23,76 @@ namespace canvas_test
     /// </summary>
     public class Graph
     {
+        #region public class fields
+        /// <summary>
+        /// Default-Breite der visuellen Darstellungsfläche in Pixel
+        /// </summary>
+        public static int DEFAULT_WIDTH = 100;
+        /// <summary>
+        /// Default-Höhe der visuellen Darstellungsfläche in Pixel
+        /// </summary>
+        public static int DEFAULT_HEIGHT = 100;
+        #endregion
 
         #region public instance fields
 
-        public static int DEFAULT_WIDTH = 100;
-        public static int DEFAULT_HEIGHT = 100;
-
         #region graph render options
         //TODO separate render options into own options class
+        /// <summary>
+        /// Transparente Hintergründe der Graphenbeschriftungen
+        /// </summary>
         public bool TransparentLabels { get; set; } = false;
+        /// <summary>
+        /// Automatisches neu-Zeichnen des Graphen bei geg. Event
+        /// </summary>
         public bool AutoResize { get; set; } = true;
+        /// <summary>
+        /// Schaltet Gedächtnis für Linien an/aus
+        /// </summary>
         public bool RememberDrawing { get; set; } = false;
         #endregion
+        /// <summary>
+        /// Hauptachsenbeschriftung der Y-Achse
+        /// </summary>
         public Label LblY { get; set; }
+        /// <summary>
+        /// Hauptachsenbeschriftung der X-Achse
+        /// </summary>
         public Label LblX { get; set; }
+        /// <summary>
+        /// List aller Label, welche für Achsenbeschriftung o.ä. dynamisch erstellt sind
+        /// </summary>
         public List<Label> LblLegende { get; set; }
 
+        /// <summary>
+        /// Repräsentiert die visuelle Darstellungsfläche
+        /// </summary>
         public Bitmap DrawArea { get; set; }
+        /// <summary>
+        /// Container der visuellen Darstellungsfläche
+        /// </summary>
         public PictureBox DrawAreaContainer { get; set; }
 
+        /// <summary>
+        /// Vordergrundfarbe der visuellen Darstellungsfläche
+        /// </summary>
         public Color ForegroundColor { get; set; }
+        /// <summary>
+        /// Hintergrundfarbe der visuellen Darstellungsfläche
+        /// </summary>
         public Color BackgroundColor { get; set; }
 
+        /// <summary>
+        /// Repräsentiert die X-Achsen Limits
+        /// </summary>
         public Boundary HorizontalAxis
         {
             get { return new Boundary(Geometry.LowX, Geometry.HighX); }
             set { Geometry.LowX = value.Item1; Geometry.HighX = value.Item2; FitToParent(); }
         }
+        /// <summary>
+        /// Repräsentiert die Y-Achsen Limits
+        /// </summary>
         public Boundary VerticalAxis
         {
             get { return new Boundary(Geometry.LowY, Geometry.HighY); }
@@ -59,16 +102,34 @@ namespace canvas_test
         #endregion
 
         #region private instance fields
-
+        /// <summary>
+        /// Breite der visuellen Darstellungsfläche
+        /// </summary>
         private int ImageWidth => DrawArea.Width;
+        /// <summary>
+        /// Höhe der visuellen Darstellungsfläche
+        /// </summary>
         private int ImageHeight => DrawArea.Height;
+        /// <summary>
+        /// Container der geomtrischen Schnittstelle
+        /// </summary>
         private GraphProperties Geometry { get; set; }
+        /// <summary>
+        /// Gedächtnis der zu vorhandenen Linien
+        /// </summary>
         private List<SimpleLine> LineMemory { get; set; }
 
         #endregion
 
         #region constructors
 
+        /// <summary>
+        /// Erstelle einen neuen Graphen mit visuellem und geometrischem Container
+        /// <para></para>
+        /// <para>Default-Einstellungen</para>
+        /// <para>Vordergrund-Farbe: Schwarz</para>
+        /// <para>Hintergrund-Farbe: Beige</para>
+        /// </summary>
         public Graph()
         {
             ForegroundColor = Color.Black;
@@ -110,6 +171,10 @@ namespace canvas_test
 
         #region public instance methods
 
+        /// <summary>
+        /// Hängt den Graphen an ein Control-Element und fügt einen Event-Listener an dessen SizeChanged-Event
+        /// </summary>
+        /// <param name="newParent">Neues Parent Control-Element</param>
         public void SetParent(Control newParent)
         {
             DrawAreaContainer.Parent = newParent;
@@ -117,6 +182,9 @@ namespace canvas_test
             FitToParent();
         }
 
+        /// <summary>
+        /// Löst ein neu berechnen/zeichnen des Graphen aus, egal wie die derzeitigen Eigenschaften sind
+        /// </summary>
         public void ForceResize()
         {
             bool previous = AutoResize;
