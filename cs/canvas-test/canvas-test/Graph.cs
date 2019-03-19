@@ -294,9 +294,33 @@ namespace canvas_test
         }
 
         /// <summary>
+        /// Zeichnet eine polynomielle Funktion zweiten Grades f(x)=ax^2+bx+c
+        /// </summary>
+        /// <param name="polynomial">Quadratisches Polynom</param>
+        /// <param name="fillColor">Füllfarbe der Linie</param>
+        /// <param name="stepAccuracy"><para>Genauigkeits-Multiplikator mit der f(x) gezeichnet wird</para><para></para><para>1.0 entspricht 1/200 Schrittweite</para></param>
+        public void DrawPolynomialFunction(Polynomial polynomial, Color fillColor, float stepAccuracy=10.0f)
+        {
+            // draw inside x-axis bounds
+            float xLeft = Geometry.LowX;
+            float xRight = Geometry.HighX;
+            GraphCoord lastPoint = new GraphCoord(-1f, -1f);
+            float stepIncrement = Geometry.Width / (200f * stepAccuracy);
+            for( float xStep = xLeft; xStep <= xRight; xStep += stepIncrement)
+            {
+                // calculate y = f(x) = P(x) / Q(x)
+                float yStep = (float) Math.Pow(polynomial.two, 2.0)*xStep + polynomial.one*xStep + polynomial.zero;
+                GraphCoord functionPoint = new GraphCoord(xStep, yStep);
+                if ( xStep > xLeft )
+                {
+                    DrawLine(lastPoint, functionPoint, fillColor, false);
+                }
+                lastPoint = functionPoint;
+            }
+        }
+
+        /// <summary>
         /// Zeichnet eine rationale Funktion f(x)=P(x)/Q(x) Anhand Zähler/Nenner Polynome
-        /// <para></para>
-        /// <para>Dies muss nach jedem Resize neu gezeichnet werden und wird nicht gemerkt</para>
         /// </summary>
         /// <param name="pFunc">Das Zähler-Polynom</param>
         /// <param name="qFunc">Das Nenner-Polynom</param>
@@ -325,7 +349,6 @@ namespace canvas_test
                     DrawLine(lastPoint, functionPoint, fillColor, false);
                 }
                 lastPoint = functionPoint;
-                //SetPoint(functionPoint, fillColor);
             }
         }
 
