@@ -114,13 +114,15 @@ namespace canvas_test
         {
             DrawAreaContainer.Parent = newParent;
             newParent.SizeChanged += ParentResize;
-            //newParent.SizeChanged += (object s, EventArgs e) => { System.Diagnostics.Debug.Print(System.DateTime.Now.ToString() + " Size of container changed"); };
             FitToParent();
         }
 
         public void ForceResize()
         {
+            bool previous = AutoResize;
+            AutoResize = true;
             FitToParent();
+            AutoResize = previous;
         }
 
         /// <summary>
@@ -137,9 +139,11 @@ namespace canvas_test
         /// </summary>
         /// <param name="start">Start-Koordinate der Linie</param>
         /// <param name="end">End-Koordinate der Linie</param>
-        public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor, bool redraw = false)
+        /// <param name="fillColor">Füllfarbe der Linie</param>
+        /// <param name="is_redraw"><para>True: Linie wird nicht gespeichert</para><para></para><para>False: Linie wird gespeichert</para></param>
+        public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor, bool is_redraw = false)
         {
-            if (!redraw && RememberDrawing)
+            if (!is_redraw && RememberDrawing)
             {
                 LineMemory.Add(new SimpleLine(graphStart, graphEnd, fillColor));
             }
@@ -255,7 +259,7 @@ namespace canvas_test
         /// <param name="curvePoints">Restpunkte</param>
         /// <param name="fillColor">Füllfarbe der Kurven</param>
         /// <param name="approxCount">Anzahl Annäherungen, höher=runder</param>
-        /// <param name="approxLevel">Richtung & Härte der Annäherungen, zwischen -1 und 1</param>
+        /// <param name="approxLevel">Richtung &amp; Härte der Annäherungen, zwischen -1 und 1</param>
         public void DrawCurve(GraphCoord startPoint, List<GraphCoord> curvePoints, Color fillColor, int approxCount = 10, float approxLevel = 0.5f)
         {
             int count = curvePoints.Count;
@@ -289,6 +293,42 @@ namespace canvas_test
             }
         }
 
+        /// <summary>
+        /// Zeichnet eine rationale Funktion f(x)=P(x)/Q(x) Anhand Zähler/Nenner Polynome
+        /// <para></para>
+        /// <para>Dies muss nach jedem Resize neu gezeichnet werden und wird nicht gemerkt</para>
+        /// </summary>
+        /// <param name="pFunc">Das Zähler-Polynom</param>
+        /// <param name="qFunc">Das Nenner-Polynom</param>
+        /// <param name="fillColor">Füllfarbe der Linie</param>
+        /// <param name="stepAccuracy"><para>Genauigkeits-Multiplikator mit der f(x) gezeichnet wird</para><para></para><para>1.0 entspricht 1/200 Schrittweite</para></param>
+        public void DrawRationalFunction(Polynomial pFunc, Polynomial qFunc, Color fillColor, float stepAccuracy=10.0f)
+        {
+            // draw inside x-axis bounds
+            float xLeft = Geometry.LowX;
+            float xRight = Geometry.HighX;
+            GraphCoord lastPoint = new GraphCoord(-1f, -1f);
+            float stepIncrement = Geometry.Width / (200f * stepAccuracy);
+            for( float xStep = xLeft; xStep <= xRight; xStep += stepIncrement)
+            {
+                // calculate y = f(x) = P(x) / Q(x)
+                double pStep = Math.Pow(pFunc.two, 2.0)*xStep + pFunc.one*xStep + pFunc.zero;
+                double qStep = Math.Pow(qFunc.two, 2.0)*xStep + qFunc.one*xStep + qFunc.zero;
+                if (qStep == 0.0)
+                {
+                    continue;
+                }
+                float yStep = (float) (pStep/qStep);
+                GraphCoord functionPoint = new GraphCoord(xStep, yStep);
+                if ( xStep > xLeft )
+                {
+                    DrawLine(lastPoint, functionPoint, fillColor, false);
+                }
+                lastPoint = functionPoint;
+                //SetPoint(functionPoint, fillColor);
+            }
+        }
+
         #endregion
 
         #region private instance methods
@@ -296,8 +336,6 @@ namespace canvas_test
         private void ParentResize(object sender, EventArgs e)
         {
             Control parent = (Control)sender;
-            //System.Diagnostics.Debug.Print("Dimensions of sender: " + parent.Size.ToString());
-            //System.Diagnostics.Debug.Print("Dimensions of cont:   " + DrawAreaContainer.Parent.Size.ToString());
             FitToParent();
         }
 
@@ -542,4 +580,24 @@ namespace canvas_test
         #region private instance methods
         #endregion
     }
+
+    /// <summary>
+    /// Repräsentiert eine polynomiale Funktion der Form f(x) = ax^2 + bx + c
+    /// </summary>
+    public struct Polynomial
+    {
+        /// <summary>
+        /// Faktor a von x^2
+        /// </summary>
+        public float two;
+        /// <summary>
+        /// Faktor b von x
+        /// </summary>
+        public float one;
+        /// <summary>
+        /// Summand c
+        /// </summary>
+        public float zero;
+    }
+
 }

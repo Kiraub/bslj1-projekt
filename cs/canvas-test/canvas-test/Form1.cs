@@ -94,6 +94,7 @@ namespace canvas_test
             AddChild(subCon.Panel1, yHigh, 150, 150);
             ResizeBegin += (object s, EventArgs e) => { g.AutoResize = false; };
             ResizeEnd += (object s, EventArgs e) => { g.AutoResize = true; g.ForceResize(); };
+            
             ClientSizeChanged += (object s, EventArgs e) => { if (previousWindowState != WindowState) { g.ForceResize(); } };
 
             previousWindowState = WindowState;
@@ -158,6 +159,21 @@ namespace canvas_test
                 g.DrawCurve(pie[0], pie.GetRange(1, pie.Count - 1), nextC[(int)counter % 3], 10, lc);
                 counter += 1;
             }
+
+            Polynomial simpleQuadratic = new Polynomial
+            {
+                two = 2.0f,
+                one = 0.0f,
+                zero = 3.0f
+            };
+            Polynomial simpleLinear = new Polynomial
+            {
+                two = 0.0f,
+                one = 0.5f,
+                zero = 4.0f
+            };
+
+            g.DrawRationalFunction(simpleLinear, simpleQuadratic, Color.Black);
         }
 
         private void AddChild(Control parent, Control child, int top = 10, int left = 10)
