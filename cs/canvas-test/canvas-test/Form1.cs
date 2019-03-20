@@ -31,11 +31,12 @@ namespace canvas_test
             mainCon = new SplitContainer
             {
                 Parent = this,
+                IsSplitterFixed = true,
                 Dock = DockStyle.Fill,
 
                 //Feste Max/Min Werte, um Anzeige des Inhalts auf der rechten Seite zu gewährleisten
-                Panel1MinSize = Convert.ToInt32(Math.Round(Size.Width * 0.3, 0)),
-                Panel2MinSize = Convert.ToInt32(Math.Round(Size.Width * 0.3, 0))
+                //Panel1MinSize = Convert.ToInt32(Math.Round(Size.Width * 0.3, 0)),
+                //Panel2MinSize = Convert.ToInt32(Math.Round(Size.Width * 0.3, 0))
             };
             subCon = new SplitContainer
             {
