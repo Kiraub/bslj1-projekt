@@ -1,0 +1,28 @@
+var classcanvas__test_1_1_graph =
+[
+    [ "Graph", "classcanvas__test_1_1_graph.html#a543186e57a1b7990ead621dac5a2cfda", null ],
+    [ "DrawAxes", "classcanvas__test_1_1_graph.html#ad9e73a12f554eb0ae24edc043c30bd9e", null ],
+    [ "DrawCurve", "classcanvas__test_1_1_graph.html#a4adc1dcbd95046a1f0fa45d7acb67be5", null ],
+    [ "DrawLine", "classcanvas__test_1_1_graph.html#a85d54a03f2ecf4f9407ad3a17101b7d8", null ],
+    [ "DrawLines", "classcanvas__test_1_1_graph.html#a44282a6009352ba7a597da0e8b87fd89", null ],
+    [ "DrawMark", "classcanvas__test_1_1_graph.html#a574c313239b9f71dddadb31031743d9c", null ],
+    [ "DrawPolynomialFunction", "classcanvas__test_1_1_graph.html#a8b2cd79ce062444c421b678744a4382d", null ],
+    [ "DrawRationalFunction", "classcanvas__test_1_1_graph.html#ad63bc5b8cbedf8379096cacb67be5786", null ],
+    [ "ForceResize", "classcanvas__test_1_1_graph.html#aa6c654380697cc0bcb826ac838d9a04d", null ],
+    [ "SetParent", "classcanvas__test_1_1_graph.html#a220edd27f3d7088343425446e77ce550", null ],
+    [ "ToggleLabelTransparency", "classcanvas__test_1_1_graph.html#ac9a07da40c98d1ecb6eb3d7035936fc7", null ],
+    [ "AutoResize", "classcanvas__test_1_1_graph.html#a82342f480c3a24f9855569b479639a3a", null ],
+    [ "BackgroundColor", "classcanvas__test_1_1_graph.html#ae6aef86af20b9664cdca44fdd812476a", null ],
+    [ "DrawArea", "classcanvas__test_1_1_graph.html#ab5b9538a775f7f10303f128597694c6a", null ],
+    [ "DrawAreaContainer", "classcanvas__test_1_1_graph.html#ad533c34b549ddb6e774f9c18b32bed72", null ],
+    [ "ForegroundColor", "classcanvas__test_1_1_graph.html#aa9d8ce44e675d71f793a955566b2c8ff", null ],
+    [ "Geometry", "classcanvas__test_1_1_graph.html#a3776d39bfe40e38ab67bd7afb879ead7", null ],
+    [ "HorizontalAxis", "classcanvas__test_1_1_graph.html#a4dc8f3d28032b298999371acecb2c1b5", null ],
+    [ "LblLegende", "classcanvas__test_1_1_graph.html#a8d7ad719723791efa6564affa74dc504", null ],
+    [ "LblX", "classcanvas__test_1_1_graph.html#a3f65c68d3f9d4d3df01e396f8ed38ba6", null ],
+    [ "LblY", "classcanvas__test_1_1_graph.html#a796e99fb58ff778238ec0c46bd2d9016", null ],
+    [ "LineMemory", "classcanvas__test_1_1_graph.html#a4264247e1780fec44b9d078e1e34a9b7", null ],
+    [ "RememberDrawing", "classcanvas__test_1_1_graph.html#a7c7ac18119604c95b936bd98f70728db", null ],
+    [ "TransparentLabels", "classcanvas__test_1_1_graph.html#a9fed1c0633d808272a2564d7f10509ba", null ],
+    [ "VerticalAxis", "classcanvas__test_1_1_graph.html#a2bd522abaaf36e7e24dec5fcc4f9ac8d", null ]
+];
