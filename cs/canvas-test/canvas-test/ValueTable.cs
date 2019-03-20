@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace canvas_test
 {
-    class ValueTable
+    class ValueTable : IDisposable
     {
 
         public DataGrid myDataGrid;
@@ -42,6 +42,16 @@ namespace canvas_test
             };
             myDataColumns.Add(dc);
             myDataTable.Columns.Add(dc);
+        }
+
+        public void Dispose()
+        {
+            foreach( DataColumn dc in myDataColumns)
+            {
+                dc.Dispose();
+            }
+            myDataTable.Dispose();
+            myDataGrid.Dispose();
         }
     }
 }
