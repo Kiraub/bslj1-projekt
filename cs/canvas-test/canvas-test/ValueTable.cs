@@ -28,6 +28,7 @@ namespace canvas_test
             AddColumn("R in Ohm", false);
             AddColumn("U in V");
             AddColumn("I in A");
+            AddColumn("P in Watt");
             myDataGridView.DataSource = myDataTable;
         }
 
