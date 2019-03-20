@@ -205,8 +205,8 @@ namespace canvas_test
         /// <summary>
         /// Zeichne eine Linie in den Graphen
         /// </summary>
-        /// <param name="start">Start-Koordinate der Linie</param>
-        /// <param name="end">End-Koordinate der Linie</param>
+        /// <param name="graphStart">Start-Koordinate der Linie</param>
+        /// <param name="graphEnd">End-Koordinate der Linie</param>
         /// <param name="fillColor">Füllfarbe der Linie</param>
         /// <param name="is_redraw"><para>True: Linie wird nicht gespeichert</para><para></para><para>False: Linie wird gespeichert</para></param>
         public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor, bool is_redraw = false)
@@ -267,6 +267,7 @@ namespace canvas_test
         /// Zeichne mehrere, verbundene Linien in den Graphen
         /// </summary>
         /// <param name="points">Liste der zu verbindenden Koordinaten</param>
+        /// <param name="fillColor">Füllfarbe der Linie</param>
         /// <param name="connect_ends">Verbinde erste und letzte Koordinate</param>
         public void DrawLines(GraphCoord[] points, Color fillColor, bool connect_ends = false)
         {
@@ -481,8 +482,7 @@ namespace canvas_test
         /// <summary>
         /// Setze einen Pixel des Bitmap Objekts
         /// </summary>
-        /// <param name="x">Horizontale Bild-Koordinate</param>
-        /// <param name="y">Vertikale Bild-Koordinate</param>
+        /// <param name="imageCoord">Bild-Koordinaten des Pixels</param>
         /// <param name="fill">Füllfarbe</param>
         private void SetPixel(ImageCoord imageCoord, Color fill)
         {
@@ -611,8 +611,7 @@ namespace canvas_test
         /// Setzt neue low/high Grenzwerte der Y-Achse
         /// <para>Reihenfolge der Werte hat keine Auswirkung</para>
         /// </summary>
-        /// <param name="lim1">Erster Grenzwert</param>
-        /// <param name="lim2">Zweiter Grenzwert</param>
+        /// <param name="limits">Grenzwert-Tupel</param>
         public void SetLimitsY(Boundary limits)
         {
             if (limits.Item1 <= limits.Item2)
@@ -631,8 +630,7 @@ namespace canvas_test
         /// Setzt neue low/high Grenzwerte der X-Achse
         /// <para>Reihenfolge der Werte hat keine Auswirkung</para>
         /// </summary>
-        /// <param name="lim1">Erster Grenzwert</param>
-        /// <param name="lim2">Zweiter Grenzwert</param>
+        /// <param name="limits">Grenzwert-Tupel</param>
         public void SetLimitsX(Boundary limits)
         {
             if (limits.Item1 <= limits.Item2)
