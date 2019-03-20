@@ -36,21 +36,19 @@ namespace canvas_test
 
         #region public instance fields
 
-        #region graph render options
-        //TODO separate render options into own options class
         /// <summary>
         /// Transparente Hintergründe der Graphenbeschriftungen
         /// </summary>
-        public bool TransparentLabels { get; set; } = false;
+        public bool TransparentLabels { get {return Options.TransparentLabels;} set{Options.TransparentLabels=value;} }
         /// <summary>
         /// Automatisches neu-Zeichnen des Graphen bei geg. Event
         /// </summary>
-        public bool AutoResize { get; set; } = true;
+        public bool AutoResize { get {return Options.AutoResize;} set{Options.AutoResize=value;} }
         /// <summary>
         /// Schaltet Gedächtnis für Linien an/aus
         /// </summary>
-        public bool RememberDrawing { get; set; } = false;
-        #endregion
+        public bool RememberDrawing { get {return Options.RememberDrawing;} set{Options.RememberDrawing=value;} }
+
         /// <summary>
         /// Hauptachsenbeschriftung der Y-Achse
         /// </summary>
@@ -114,6 +112,8 @@ namespace canvas_test
         /// Höhe der visuellen Darstellungsfläche
         /// </summary>
         private int ImageHeight => DrawArea.Height;
+
+        private GraphOptions Options { get; set; }
         /// <summary>
         /// Container der geomtrischen Schnittstelle
         /// </summary>
@@ -136,6 +136,8 @@ namespace canvas_test
         /// </summary>
         public Graph()
         {
+            Options = new GraphOptions();
+
             ForegroundColor = Color.Black;
             BackgroundColor = Color.Beige;
 
@@ -621,6 +623,27 @@ namespace canvas_test
 
         #endregion
 
+    }
+
+    /// <summary>
+    /// Container-Klasse für Optionen der Graph-Visualisierung
+    /// </summary>
+    public class GraphOptions
+    {
+        /// <summary>
+        /// Transparente Hintergründe der Graphenbeschriftungen
+        /// </summary>
+        public bool TransparentLabels { get; set; } = false;
+
+        /// <summary>
+        /// Automatisches neu-Zeichnen des Graphen bei geg. Event
+        /// </summary>
+        public bool AutoResize { get; set; } = true;
+
+        /// <summary>
+        /// Schaltet Gedächtnis für Linien an/aus
+        /// </summary>
+        public bool RememberDrawing { get; set; } = false;
     }
 
     /// <summary>
