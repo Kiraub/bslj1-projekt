@@ -11,23 +11,23 @@ namespace canvas_test
     class ValueTable : IDisposable
     {
 
-        public DataGrid myDataGrid;
+        public DataGridView myDataGridView;
         public DataTable myDataTable;
         public List<DataColumn> myDataColumns;
 
         public ValueTable()
         {
-            myDataGrid = new DataGrid
-            {
-                CaptionText = "Das Data Grid",
-                Dock = DockStyle.Fill
-            };
             myDataTable = new DataTable();
             myDataColumns = new List<DataColumn>();
+            myDataGridView = new DataGridView
+            {
+                Dock = DockStyle.Fill,
+                DataSource = myDataTable
+            };
             AddColumn("R in Ohm", false);
             AddColumn("U in V");
             AddColumn("I in A");
-            myDataGrid.DataSource = myDataTable;
+            myDataGridView.DataSource = myDataTable;
         }
 
         public void AddColumn(string name, bool readOnly=true)
@@ -51,7 +51,7 @@ namespace canvas_test
                 dc.Dispose();
             }
             myDataTable.Dispose();
-            myDataGrid.Dispose();
+            myDataGridView.Dispose();
         }
     }
 }

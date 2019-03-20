@@ -104,7 +104,7 @@ namespace canvas_test
 
             //Integrate DataGrid, DataSet including DataTables
             ValueTable ResultTable = new ValueTable();
-            AddChild(subCon.Panel2, ResultTable.myDataGrid);
+            AddChild(subCon.Panel2, ResultTable.myDataGridView);
         }
 
         private void NumUpDown_ValueChanged(object sender, EventArgs e)
