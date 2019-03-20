@@ -65,4 +65,4 @@
 ###############################################################################
 # vendored paths
 ###############################################################################
-cs/canvas-test-doc/* linguist-vendored=true
+cs/canvas-test-doc/html/* linguist-vendored=true
