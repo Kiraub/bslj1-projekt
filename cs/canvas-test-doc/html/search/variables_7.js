@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zero',['zero',['../structcanvas__test_1_1_quad_polynomial.html#a8a05c6b7d62761963b30d8bf30c32210',1,'canvas_test::QuadPolynomial']]]
+  ['previouswindowstate',['previousWindowState',['../classcanvas__test_1_1_form1.html#a32a540521b7d53d2d60b37b6e11e8da1',1,'canvas_test::Form1']]]
 ];

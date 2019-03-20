@@ -1,7 +1,7 @@
 var _graph_8cs =
 [
     [ "Graph", "classcanvas__test_1_1_graph.html", "classcanvas__test_1_1_graph" ],
-    [ "GraphProperties", "classcanvas__test_1_1_graph_properties.html", "classcanvas__test_1_1_graph_properties" ],
+    [ "GraphGeomtry", "classcanvas__test_1_1_graph_geomtry.html", "classcanvas__test_1_1_graph_geomtry" ],
     [ "QuadPolynomial", "structcanvas__test_1_1_quad_polynomial.html", "structcanvas__test_1_1_quad_polynomial" ],
     [ "Boundary", "_graph_8cs.html#a1abf876fe81d53f503af2910d1929c9b", null ],
     [ "GraphCoord", "_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd", null ],

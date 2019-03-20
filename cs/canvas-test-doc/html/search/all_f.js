@@ -1,9 +1,15 @@
 var searchData=
 [
-  ['temporarygeneratedfile_5f036c0b5b_2d1481_2d4323_2d8d20_2d8f5adcb23d92_2ecs',['TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs',['../_debug_2_temporary_generated_file__036_c0_b5_b-1481-4323-8_d20-8_f5_a_d_c_b23_d92_8cs.html',1,'(Global Namespace)'],['../doc_2_temporary_generated_file__036_c0_b5_b-1481-4323-8_d20-8_f5_a_d_c_b23_d92_8cs.html',1,'(Global Namespace)']]],
-  ['temporarygeneratedfile_5f5937a670_2d0e60_2d4077_2d877b_2df7221da3dda1_2ecs',['TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs',['../_debug_2_temporary_generated_file__5937a670-0e60-4077-877b-f7221da3dda1_8cs.html',1,'(Global Namespace)'],['../doc_2_temporary_generated_file__5937a670-0e60-4077-877b-f7221da3dda1_8cs.html',1,'(Global Namespace)']]],
-  ['temporarygeneratedfile_5fe7a71f73_2d0f8d_2d4b9b_2db56e_2d8e70b10bc5d3_2ecs',['TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs',['../_debug_2_temporary_generated_file___e7_a71_f73-0_f8_d-4_b9_b-_b56_e-8_e70_b10_b_c5_d3_8cs.html',1,'(Global Namespace)'],['../doc_2_temporary_generated_file___e7_a71_f73-0_f8_d-4_b9_b-_b56_e-8_e70_b10_b_c5_d3_8cs.html',1,'(Global Namespace)']]],
-  ['togglelabeltransparency',['ToggleLabelTransparency',['../classcanvas__test_1_1_graph.html#ac9a07da40c98d1ecb6eb3d7035936fc7',1,'canvas_test::Graph']]],
-  ['transparentlabels',['TransparentLabels',['../classcanvas__test_1_1_graph.html#a9fed1c0633d808272a2564d7f10509ba',1,'canvas_test::Graph']]],
-  ['two',['two',['../structcanvas__test_1_1_quad_polynomial.html#af8fd85bed5666572a4295e1aa5ee8e51',1,'canvas_test::QuadPolynomial']]]
+  ['scalingx',['ScalingX',['../classcanvas__test_1_1_graph_geomtry.html#a49972639ffff3fe4c8ca26c355045c14',1,'canvas_test::GraphGeomtry']]],
+  ['scalingy',['ScalingY',['../classcanvas__test_1_1_graph_geomtry.html#ab0bc43e2ecd6992c479995cd3909d376',1,'canvas_test::GraphGeomtry']]],
+  ['setlabeltransparency',['SetLabelTransparency',['../classcanvas__test_1_1_graph.html#a420593cce8aa5e14ea51d13f5b3cabd7',1,'canvas_test::Graph']]],
+  ['setlimitsx',['SetLimitsX',['../classcanvas__test_1_1_graph_geomtry.html#a4bb6b542d822d768c79889798bdc2fa5',1,'canvas_test::GraphGeomtry']]],
+  ['setlimitsy',['SetLimitsY',['../classcanvas__test_1_1_graph_geomtry.html#a8a2a4f4b2710857ff8f34770238fa68d',1,'canvas_test::GraphGeomtry']]],
+  ['setparent',['SetParent',['../classcanvas__test_1_1_graph.html#a220edd27f3d7088343425446e77ce550',1,'canvas_test::Graph']]],
+  ['setpixel',['SetPixel',['../classcanvas__test_1_1_graph.html#add2c27f4cf468ea21cc7dfe840faac24',1,'canvas_test::Graph']]],
+  ['setpoint',['SetPoint',['../classcanvas__test_1_1_graph.html#a096ba35f8cddafd2afb64d6177e4f49d',1,'canvas_test::Graph']]],
+  ['settings',['Settings',['../classcanvas__test_1_1_properties_1_1_settings.html',1,'canvas_test::Properties']]],
+  ['settings_2edesigner_2ecs',['Settings.Designer.cs',['../_settings_8_designer_8cs.html',1,'']]],
+  ['simpleline',['SimpleLine',['../_graph_8cs.html#a61b7cf6554ba17577ed4c6b4b77491b9',1,'Graph.cs']]],
+  ['subcon',['subCon',['../classcanvas__test_1_1_form1.html#adb663096fb663b86e7ad48afd4bf5128',1,'canvas_test::Form1']]]
 ];

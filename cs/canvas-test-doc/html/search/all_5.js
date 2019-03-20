@@ -1,11 +1,13 @@
 var searchData=
 [
   ['g',['g',['../classcanvas__test_1_1_form1.html#ac5a0105559f0a295324c56a836b2f1ef',1,'canvas_test::Form1']]],
+  ['geometry',['Geometry',['../classcanvas__test_1_1_graph.html#a4338486beca1bf7dff97c3fa3cf55320',1,'canvas_test::Graph']]],
   ['getgraph',['GetGraph',['../classcanvas__test_1_1_form1.html#aad437be5dc64e7351f0d789f43292b57',1,'canvas_test::Form1']]],
-  ['getintermediate',['GetIntermediate',['../classcanvas__test_1_1_graph_properties.html#a26cfec1c3fdc424e1243b1286e5313ec',1,'canvas_test::GraphProperties']]],
-  ['getrelative',['GetRelative',['../classcanvas__test_1_1_graph_properties.html#a6a15172a3f851c5e4689e4e4e7f038ec',1,'canvas_test::GraphProperties']]],
+  ['getintermediate',['GetIntermediate',['../classcanvas__test_1_1_graph_geomtry.html#a6bf851716d4ff3d012812dedbd3f7d8a',1,'canvas_test::GraphGeomtry']]],
+  ['getrelative',['GetRelative',['../classcanvas__test_1_1_graph_geomtry.html#ace8fec0b474d8b2041ae53056498f1b4',1,'canvas_test::GraphGeomtry']]],
   ['graph',['Graph',['../classcanvas__test_1_1_graph.html',1,'canvas_test.Graph'],['../classcanvas__test_1_1_graph.html#a543186e57a1b7990ead621dac5a2cfda',1,'canvas_test.Graph.Graph()']]],
   ['graph_2ecs',['Graph.cs',['../_graph_8cs.html',1,'']]],
+  ['graph2image',['Graph2Image',['../classcanvas__test_1_1_graph.html#a547a8abcdb19baa094dbafb6cf5b22ac',1,'canvas_test::Graph']]],
   ['graphcoord',['GraphCoord',['../_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd',1,'Graph.cs']]],
-  ['graphproperties',['GraphProperties',['../classcanvas__test_1_1_graph_properties.html',1,'canvas_test.GraphProperties'],['../classcanvas__test_1_1_graph_properties.html#a908101f6d1aa2b101339bc9bbb9da17a',1,'canvas_test.GraphProperties.GraphProperties()']]]
+  ['graphgeomtry',['GraphGeomtry',['../classcanvas__test_1_1_graph_geomtry.html',1,'canvas_test.GraphGeomtry'],['../classcanvas__test_1_1_graph_geomtry.html#a3c5e3f9de177e2fa2a4622a34d5394ff',1,'canvas_test.GraphGeomtry.GraphGeomtry()']]]
 ];

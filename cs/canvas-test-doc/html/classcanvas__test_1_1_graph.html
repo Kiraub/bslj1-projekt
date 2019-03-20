@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Canvas test
-   &#160;<span id="projectnumber">0.2</span>
+   &#160;<span id="projectnumber">0.4</span>
    </div>
    <div id="projectbrief">Testing C# features</div>
   </td>
@@ -91,13 +91,15 @@ $(document).ready(function(){initNavTree('classcanvas__test_1_1_graph.html','');
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classcanvas__test_1_1_graph-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">canvas_test.Graph Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Repräsentiert die visuelle Schnittstelle um Graphen zu zeichnen  
+<p>Repräsentiert die zusammengefasste Schnittstelle um Graphen zu zeichnen  
  <a href="classcanvas__test_1_1_graph.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -106,10 +108,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a543186e57a1b7990ead621dac5a2cfda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erstelle einen neuen Graphen mit visuellem und geometrischem Container  <a href="#a543186e57a1b7990ead621dac5a2cfda">More...</a><br /></td></tr>
 <tr class="separator:a543186e57a1b7990ead621dac5a2cfda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a220edd27f3d7088343425446e77ce550"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a220edd27f3d7088343425446e77ce550">SetParent</a> (Control newParent)</td></tr>
-<tr class="memdesc:a220edd27f3d7088343425446e77ce550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hängt den Graphen an ein Control-Element und fügt einen Event-Listener an dessen SizeChanged-Event  <a href="#a220edd27f3d7088343425446e77ce550">More...</a><br /></td></tr>
+<tr class="memdesc:a220edd27f3d7088343425446e77ce550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hängt den Graphen an das gegebene Control-Element und fügt einen Event-Listener an dessen SizeChanged-Event  <a href="#a220edd27f3d7088343425446e77ce550">More...</a><br /></td></tr>
 <tr class="separator:a220edd27f3d7088343425446e77ce550"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6c654380697cc0bcb826ac838d9a04d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#aa6c654380697cc0bcb826ac838d9a04d">ForceResize</a> ()</td></tr>
-<tr class="memdesc:aa6c654380697cc0bcb826ac838d9a04d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Löst ein neu berechnen/zeichnen des Graphen aus, egal wie die derzeitigen Eigenschaften sind  <a href="#aa6c654380697cc0bcb826ac838d9a04d">More...</a><br /></td></tr>
+<tr class="memdesc:aa6c654380697cc0bcb826ac838d9a04d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Löst ein neu berechnen/zeichnen des Graphen aus, unabhängig von derzeitigen Eigenschaften  <a href="#aa6c654380697cc0bcb826ac838d9a04d">More...</a><br /></td></tr>
 <tr class="separator:aa6c654380697cc0bcb826ac838d9a04d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9a07da40c98d1ecb6eb3d7035936fc7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#ac9a07da40c98d1ecb6eb3d7035936fc7">ToggleLabelTransparency</a> ()</td></tr>
 <tr class="memdesc:ac9a07da40c98d1ecb6eb3d7035936fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Beschriftungshintergründe durchsichtig/undurchsichtig umschalten  <a href="#ac9a07da40c98d1ecb6eb3d7035936fc7">More...</a><br /></td></tr>
@@ -135,6 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad63bc5b8cbedf8379096cacb67be5786"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#ad63bc5b8cbedf8379096cacb67be5786">DrawRationalFunction</a> (<a class="el" href="structcanvas__test_1_1_quad_polynomial.html">QuadPolynomial</a> pFunc, <a class="el" href="structcanvas__test_1_1_quad_polynomial.html">QuadPolynomial</a> qFunc, Color fillColor, float stepAccuracy=10.0f)</td></tr>
 <tr class="memdesc:ad63bc5b8cbedf8379096cacb67be5786"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zeichnet eine rationale Funktion f(x)=P(x)/Q(x)  <a href="#ad63bc5b8cbedf8379096cacb67be5786">More...</a><br /></td></tr>
 <tr class="separator:ad63bc5b8cbedf8379096cacb67be5786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c914603f9f03c2e52453bc3a71eeda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#ab5c914603f9f03c2e52453bc3a71eeda">ClearLineMemory</a> ()</td></tr>
+<tr class="memdesc:ab5c914603f9f03c2e52453bc3a71eeda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entfernt sämtliche Linien bedingungslos aus dem Gedächtnis  <a href="#ab5c914603f9f03c2e52453bc3a71eeda">More...</a><br /></td></tr>
+<tr class="separator:ab5c914603f9f03c2e52453bc3a71eeda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -156,15 +161,15 @@ Properties</h2></td></tr>
 <tr class="memitem:a7c7ac18119604c95b936bd98f70728db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a7c7ac18119604c95b936bd98f70728db">RememberDrawing</a> = false<code> [get, set]</code></td></tr>
 <tr class="memdesc:a7c7ac18119604c95b936bd98f70728db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schaltet Gedächtnis für Linien an/aus  <a href="#a7c7ac18119604c95b936bd98f70728db">More...</a><br /></td></tr>
 <tr class="separator:a7c7ac18119604c95b936bd98f70728db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a796e99fb58ff778238ec0c46bd2d9016"><td class="memItemLeft" align="right" valign="top">Label&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a796e99fb58ff778238ec0c46bd2d9016">LblY</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a796e99fb58ff778238ec0c46bd2d9016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauptachsenbeschriftung der Y-Achse  <a href="#a796e99fb58ff778238ec0c46bd2d9016">More...</a><br /></td></tr>
-<tr class="separator:a796e99fb58ff778238ec0c46bd2d9016"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f65c68d3f9d4d3df01e396f8ed38ba6"><td class="memItemLeft" align="right" valign="top">Label&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a3f65c68d3f9d4d3df01e396f8ed38ba6">LblX</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a3f65c68d3f9d4d3df01e396f8ed38ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauptachsenbeschriftung der X-Achse  <a href="#a3f65c68d3f9d4d3df01e396f8ed38ba6">More...</a><br /></td></tr>
-<tr class="separator:a3f65c68d3f9d4d3df01e396f8ed38ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d7ad719723791efa6564affa74dc504"><td class="memItemLeft" align="right" valign="top">List&lt; Label &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a8d7ad719723791efa6564affa74dc504">LblLegende</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a8d7ad719723791efa6564affa74dc504"><td class="mdescLeft">&#160;</td><td class="mdescRight">List aller Label, welche für Achsenbeschriftung o.ä. dynamisch erstellt sind  <a href="#a8d7ad719723791efa6564affa74dc504">More...</a><br /></td></tr>
-<tr class="separator:a8d7ad719723791efa6564affa74dc504"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeaa828db8d31cd3f65ee512e8964247"><td class="memItemLeft" align="right" valign="top">Label&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#adeaa828db8d31cd3f65ee512e8964247">LblYAxis</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:adeaa828db8d31cd3f65ee512e8964247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauptachsenbeschriftung der Y-Achse  <a href="#adeaa828db8d31cd3f65ee512e8964247">More...</a><br /></td></tr>
+<tr class="separator:adeaa828db8d31cd3f65ee512e8964247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a528bae9ce00daf3351ee10863fad9b89"><td class="memItemLeft" align="right" valign="top">Label&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a528bae9ce00daf3351ee10863fad9b89">LblXAxis</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a528bae9ce00daf3351ee10863fad9b89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauptachsenbeschriftung der X-Achse  <a href="#a528bae9ce00daf3351ee10863fad9b89">More...</a><br /></td></tr>
+<tr class="separator:a528bae9ce00daf3351ee10863fad9b89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa04fd823fb7a810ac7ac8d8422eebfab"><td class="memItemLeft" align="right" valign="top">List&lt; Label &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#aa04fd823fb7a810ac7ac8d8422eebfab">LstLblMarkings</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aa04fd823fb7a810ac7ac8d8422eebfab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste aller Label, welche für Achsenbeschriftung o.ä. dynamisch erstellt werden  <a href="#aa04fd823fb7a810ac7ac8d8422eebfab">More...</a><br /></td></tr>
+<tr class="separator:aa04fd823fb7a810ac7ac8d8422eebfab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5b9538a775f7f10303f128597694c6a"><td class="memItemLeft" align="right" valign="top">Bitmap&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#ab5b9538a775f7f10303f128597694c6a">DrawArea</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ab5b9538a775f7f10303f128597694c6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repräsentiert die visuelle Darstellungsfläche  <a href="#ab5b9538a775f7f10303f128597694c6a">More...</a><br /></td></tr>
 <tr class="separator:ab5b9538a775f7f10303f128597694c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,17 +183,67 @@ Properties</h2></td></tr>
 <tr class="memdesc:ae6aef86af20b9664cdca44fdd812476a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hintergrundfarbe der visuellen Darstellungsfläche  <a href="#ae6aef86af20b9664cdca44fdd812476a">More...</a><br /></td></tr>
 <tr class="separator:ae6aef86af20b9664cdca44fdd812476a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4dc8f3d28032b298999371acecb2c1b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_graph_8cs.html#a1abf876fe81d53f503af2910d1929c9b">Boundary</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a4dc8f3d28032b298999371acecb2c1b5">HorizontalAxis</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a4dc8f3d28032b298999371acecb2c1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repräsentiert die X-Achsen Limits  <a href="#a4dc8f3d28032b298999371acecb2c1b5">More...</a><br /></td></tr>
+<tr class="memdesc:a4dc8f3d28032b298999371acecb2c1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repräsentiert die geometrischen X-Achsen Limits des Geometrie-Objekts  <a href="#a4dc8f3d28032b298999371acecb2c1b5">More...</a><br /></td></tr>
 <tr class="separator:a4dc8f3d28032b298999371acecb2c1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bd522abaaf36e7e24dec5fcc4f9ac8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_graph_8cs.html#a1abf876fe81d53f503af2910d1929c9b">Boundary</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a2bd522abaaf36e7e24dec5fcc4f9ac8d">VerticalAxis</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a2bd522abaaf36e7e24dec5fcc4f9ac8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repräsentiert die Y-Achsen Limits  <a href="#a2bd522abaaf36e7e24dec5fcc4f9ac8d">More...</a><br /></td></tr>
+<tr class="memdesc:a2bd522abaaf36e7e24dec5fcc4f9ac8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repräsentiert die geomtrischen Y-Achsen Limits des Geometrie-Objekts  <a href="#a2bd522abaaf36e7e24dec5fcc4f9ac8d">More...</a><br /></td></tr>
 <tr class="separator:a2bd522abaaf36e7e24dec5fcc4f9ac8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4338486beca1bf7dff97c3fa3cf55320"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcanvas__test_1_1_graph_geomtry.html">GraphGeomtry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a4338486beca1bf7dff97c3fa3cf55320">Geometry</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a4338486beca1bf7dff97c3fa3cf55320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container der geomtrischen Schnittstelle  <a href="#a4338486beca1bf7dff97c3fa3cf55320">More...</a><br /></td></tr>
+<tr class="separator:a4338486beca1bf7dff97c3fa3cf55320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4264247e1780fec44b9d078e1e34a9b7"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="_graph_8cs.html#a61b7cf6554ba17577ed4c6b4b77491b9">SimpleLine</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a4264247e1780fec44b9d078e1e34a9b7">LineMemory</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a4264247e1780fec44b9d078e1e34a9b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gedächtnis der vorhandenen Linien  <a href="#a4264247e1780fec44b9d078e1e34a9b7">More...</a><br /></td></tr>
+<tr class="separator:a4264247e1780fec44b9d078e1e34a9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ad75af2febe0db29bbddf76ca09d69207"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#ad75af2febe0db29bbddf76ca09d69207">Parent_SizeChanged</a> (object sender, EventArgs _e)</td></tr>
+<tr class="memdesc:ad75af2febe0db29bbddf76ca09d69207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Listener-Funktion auf das SizeChanged-Event des Parent Control-Elements  <a href="#ad75af2febe0db29bbddf76ca09d69207">More...</a><br /></td></tr>
+<tr class="separator:ad75af2febe0db29bbddf76ca09d69207"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90553896b0f5f59208ff1bf9c139c5bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a90553896b0f5f59208ff1bf9c139c5bf">FitToParent</a> ()</td></tr>
+<tr class="memdesc:a90553896b0f5f59208ff1bf9c139c5bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bedingtes anpassen an das Parent Control-Element:  <a href="#a90553896b0f5f59208ff1bf9c139c5bf">More...</a><br /></td></tr>
+<tr class="separator:a90553896b0f5f59208ff1bf9c139c5bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a547a8abcdb19baa094dbafb6cf5b22ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_graph_8cs.html#a0841288ccbf9ea0f024bface06ecc7f8">ImageCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a547a8abcdb19baa094dbafb6cf5b22ac">Graph2Image</a> (<a class="el" href="_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd">GraphCoord</a> gc)</td></tr>
+<tr class="memdesc:a547a8abcdb19baa094dbafb6cf5b22ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Konvertiert eine geometrische in eine visuelle Koordinate  <a href="#a547a8abcdb19baa094dbafb6cf5b22ac">More...</a><br /></td></tr>
+<tr class="separator:a547a8abcdb19baa094dbafb6cf5b22ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd1914701f729dd757383db40c450848"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd">GraphCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#acd1914701f729dd757383db40c450848">Image2Graph</a> (<a class="el" href="_graph_8cs.html#a0841288ccbf9ea0f024bface06ecc7f8">ImageCoord</a> ic)</td></tr>
+<tr class="memdesc:acd1914701f729dd757383db40c450848"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nicht implementierte Funktion, da visuelle zu geometrische Konvertierung noch nicht benötigt ist.  <a href="#acd1914701f729dd757383db40c450848">More...</a><br /></td></tr>
+<tr class="separator:acd1914701f729dd757383db40c450848"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add2c27f4cf468ea21cc7dfe840faac24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#add2c27f4cf468ea21cc7dfe840faac24">SetPixel</a> (<a class="el" href="_graph_8cs.html#a0841288ccbf9ea0f024bface06ecc7f8">ImageCoord</a> imageCoord, Color fill)</td></tr>
+<tr class="memdesc:add2c27f4cf468ea21cc7dfe840faac24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setze einen Pixel des Bitmap Objekts  <a href="#add2c27f4cf468ea21cc7dfe840faac24">More...</a><br /></td></tr>
+<tr class="separator:add2c27f4cf468ea21cc7dfe840faac24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a096ba35f8cddafd2afb64d6177e4f49d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a096ba35f8cddafd2afb64d6177e4f49d">SetPoint</a> (<a class="el" href="_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd">GraphCoord</a> gc, Color c)</td></tr>
+<tr class="separator:a096ba35f8cddafd2afb64d6177e4f49d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a420593cce8aa5e14ea51d13f5b3cabd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a420593cce8aa5e14ea51d13f5b3cabd7">SetLabelTransparency</a> (bool transparent)</td></tr>
+<tr class="memdesc:a420593cce8aa5e14ea51d13f5b3cabd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setze die Hintergrundfarbe der Label-Objekte  <a href="#a420593cce8aa5e14ea51d13f5b3cabd7">More...</a><br /></td></tr>
+<tr class="separator:a420593cce8aa5e14ea51d13f5b3cabd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50c921ea88e410f11905bacc0e4aaac1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a50c921ea88e410f11905bacc0e4aaac1">DrawHorizontalLine</a> (int yVal, int xLeft, int xRight)</td></tr>
+<tr class="memdesc:a50c921ea88e410f11905bacc0e4aaac1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zeichnet eine horizontale Linie in den Graphen  <a href="#a50c921ea88e410f11905bacc0e4aaac1">More...</a><br /></td></tr>
+<tr class="separator:a50c921ea88e410f11905bacc0e4aaac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4521012e926b29c55f1b50cb9a7d35af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a4521012e926b29c55f1b50cb9a7d35af">DrawVerticalLine</a> (int xVal, int yDown, int yUp)</td></tr>
+<tr class="memdesc:a4521012e926b29c55f1b50cb9a7d35af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zeichnet eine vertikale Linie in den Graphen  <a href="#a4521012e926b29c55f1b50cb9a7d35af">More...</a><br /></td></tr>
+<tr class="separator:a4521012e926b29c55f1b50cb9a7d35af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1305801aecd33ba6738e40d5c4f3d210"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a1305801aecd33ba6738e40d5c4f3d210">RedrawGraph</a> ()</td></tr>
+<tr class="memdesc:a1305801aecd33ba6738e40d5c4f3d210"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zeichnet sämtliche Linien die derzeit im Gedächtnis sind  <a href="#a1305801aecd33ba6738e40d5c4f3d210">More...</a><br /></td></tr>
+<tr class="separator:a1305801aecd33ba6738e40d5c4f3d210"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad52ddd63839b9711a1e0795c7c0be2d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#ad52ddd63839b9711a1e0795c7c0be2d0">ApproxCurve</a> (<a class="el" href="_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd">GraphCoord</a> startPoint, <a class="el" href="_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd">GraphCoord</a> endPoint, Color fillColor, int approxCount, float level)</td></tr>
+<tr class="memdesc:ad52ddd63839b9711a1e0795c7c0be2d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nähert eine Kurve durch zwei Punkte an, durch verbinden generierter Zwischenpunkte  <a href="#ad52ddd63839b9711a1e0795c7c0be2d0">More...</a><br /></td></tr>
+<tr class="separator:ad52ddd63839b9711a1e0795c7c0be2d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a702b3b4c74913e4a366eff939d4f3078"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#a702b3b4c74913e4a366eff939d4f3078">ImageWidth</a> =&gt; DrawArea.Width</td></tr>
+<tr class="memdesc:a702b3b4c74913e4a366eff939d4f3078"><td class="mdescLeft">&#160;</td><td class="mdescRight">Breite der visuellen Darstellungsfläche  <a href="#a702b3b4c74913e4a366eff939d4f3078">More...</a><br /></td></tr>
+<tr class="separator:a702b3b4c74913e4a366eff939d4f3078"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad44dc5a365c6cfafd61fc61ab68b765f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_graph.html#ad44dc5a365c6cfafd61fc61ab68b765f">ImageHeight</a> =&gt; DrawArea.Height</td></tr>
+<tr class="memdesc:ad44dc5a365c6cfafd61fc61ab68b765f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Höhe der visuellen Darstellungsfläche  <a href="#ad44dc5a365c6cfafd61fc61ab68b765f">More...</a><br /></td></tr>
+<tr class="separator:ad44dc5a365c6cfafd61fc61ab68b765f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Repräsentiert die visuelle Schnittstelle um Graphen zu zeichnen </p>
-<p>Beinhaltet sowohl Bild-/ als auch Geometrieobjekte</p>
+<div class="textblock"><p>Repräsentiert die zusammengefasste Schnittstelle um Graphen zu zeichnen </p>
+<p>Beinhaltet hauptsächlich visuelle Eigenschaften mit einer ausgelagerten Geometrie</p>
 <p>Das Bildobjekt arbeitet mit Integer-Pixel Koordinaten</p>
-<p>Daher reicht für die Geometrie-Berechnung Float-Genauigkeit</p>
+<p>Die Geometrie-Berechnung arbeitet mit Float-Genauigkeit</p>
 <p>Kantenglättung ist nicht implementiert</p>
 
 <p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00024">24</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
@@ -213,11 +268,100 @@ Properties</h2></td></tr>
 <p>Vordergrund-Farbe: Schwarz</p>
 <p>Hintergrund-Farbe: Beige</p>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00133">133</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00137">137</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad52ddd63839b9711a1e0795c7c0be2d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad52ddd63839b9711a1e0795c7c0be2d0">&#9670;&nbsp;</a></span>ApproxCurve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.Graph.ApproxCurve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd">GraphCoord</a>&#160;</td>
+          <td class="paramname"><em>startPoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd">GraphCoord</a>&#160;</td>
+          <td class="paramname"><em>endPoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Color&#160;</td>
+          <td class="paramname"><em>fillColor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>approxCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>level</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nähert eine Kurve durch zwei Punkte an, durch verbinden generierter Zwischenpunkte </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">startPoint</td><td>Anfangspunkt</td></tr>
+    <tr><td class="paramname">endPoint</td><td>Endpunkt</td></tr>
+    <tr><td class="paramname">fillColor</td><td>Füllfarbe</td></tr>
+    <tr><td class="paramname">approxCount</td><td>Anzahl der generierten Zwischenschritte</td></tr>
+    <tr><td class="paramname">level</td><td>Gewicht der Annäherung</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00606">606</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="ab5c914603f9f03c2e52453bc3a71eeda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c914603f9f03c2e52453bc3a71eeda">&#9670;&nbsp;</a></span>ClearLineMemory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.Graph.ClearLineMemory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Entfernt sämtliche Linien bedingungslos aus dem Gedächtnis </p>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00436">436</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
 <a id="ad9e73a12f554eb0ae24edc043c30bd9e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad9e73a12f554eb0ae24edc043c30bd9e">&#9670;&nbsp;</a></span>DrawAxes()</h2>
 
@@ -235,7 +379,7 @@ Properties</h2></td></tr>
 
 <p>Zeichnet die Achsen des Graphen, diese werden nicht im LineMemory gespeichert </p>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00308">308</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00310">310</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -296,7 +440,61 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00339">339</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00341">341</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="a50c921ea88e410f11905bacc0e4aaac1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50c921ea88e410f11905bacc0e4aaac1">&#9670;&nbsp;</a></span>DrawHorizontalLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.Graph.DrawHorizontalLine </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yVal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xLeft</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xRight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Zeichnet eine horizontale Linie in den Graphen </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">yVal</td><td>visueller Y-Wert der Linie</td></tr>
+    <tr><td class="paramname">xLeft</td><td>visuell linker X-Wert der Linie</td></tr>
+    <tr><td class="paramname">xRight</td><td>visuell rechter X-Wert der Linie</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00564">564</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -341,16 +539,16 @@ Properties</h2></td></tr>
 <p>Zeichne eine Linie in den Graphen </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">graphStart</td><td>Start-Koordinate der Linie</td></tr>
-    <tr><td class="paramname">graphEnd</td><td>End-Koordinate der Linie</td></tr>
-    <tr><td class="paramname">fillColor</td><td>Füllfarbe der Linie</td></tr>
+    <tr><td class="paramname">graphStart</td><td>Start-Koordinate</td></tr>
+    <tr><td class="paramname">graphEnd</td><td>End-Koordinate</td></tr>
+    <tr><td class="paramname">fillColor</td><td>Füllfarbe</td></tr>
     <tr><td class="paramname">is_redraw</td><td>True: Linie wird nicht gespeichert</td></tr>
   </table>
   </dd>
 </dl>
 <p>False: Linie wird gespeichert</p>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00212">212</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00216">216</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -396,7 +594,7 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00272">272</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00274">274</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -435,7 +633,7 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00295">295</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00297">297</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -482,7 +680,7 @@ Properties</h2></td></tr>
 </dl>
 <p>1.0 entspricht 1/200 Schrittweite</p>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00378">378</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00380">380</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -536,7 +734,94 @@ Properties</h2></td></tr>
 </dl>
 <p>1.0 entspricht 1/200 Schrittweite</p>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00405">405</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00407">407</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="a4521012e926b29c55f1b50cb9a7d35af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4521012e926b29c55f1b50cb9a7d35af">&#9670;&nbsp;</a></span>DrawVerticalLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.Graph.DrawVerticalLine </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xVal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yDown</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yUp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Zeichnet eine vertikale Linie in den Graphen </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xVal</td><td>visueller X-Wert der Linie</td></tr>
+    <tr><td class="paramname">yDown</td><td>visuell niedrigerer Y-Wert der Linie</td></tr>
+    <tr><td class="paramname">yUp</td><td>visuell höherer Y-Wert der Linie</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00578">578</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="a90553896b0f5f59208ff1bf9c139c5bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90553896b0f5f59208ff1bf9c139c5bf">&#9670;&nbsp;</a></span>FitToParent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.Graph.FitToParent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bedingtes anpassen an das Parent Control-Element: </p>
+<p>- Setzt DockStyle, Breite und Höhe des visuellen Containers</p>
+<p>- Generiert neue Darstellungsfläche und fügt diese in den Container ein</p>
+<p>- Repositioniert die Graphenbeschriftung</p>
+<p>- Zeichnet Achsen und Graphen neu</p>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00466">466</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -555,9 +840,203 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Löst ein neu berechnen/zeichnen des Graphen aus, egal wie die derzeitigen Eigenschaften sind </p>
+<p>Löst ein neu berechnen/zeichnen des Graphen aus, unabhängig von derzeitigen Eigenschaften </p>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00188">188</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00192">192</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="a547a8abcdb19baa094dbafb6cf5b22ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a547a8abcdb19baa094dbafb6cf5b22ac">&#9670;&nbsp;</a></span>Graph2Image()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_graph_8cs.html#a0841288ccbf9ea0f024bface06ecc7f8">ImageCoord</a> canvas_test.Graph.Graph2Image </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd">GraphCoord</a>&#160;</td>
+          <td class="paramname"><em>gc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Konvertiert eine geometrische in eine visuelle Koordinate </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gc</td><td>geometrische Koordinate</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>visuelle Koordinate</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00492">492</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="acd1914701f729dd757383db40c450848"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd1914701f729dd757383db40c450848">&#9670;&nbsp;</a></span>Image2Graph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd">GraphCoord</a> canvas_test.Graph.Image2Graph </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_graph_8cs.html#a0841288ccbf9ea0f024bface06ecc7f8">ImageCoord</a>&#160;</td>
+          <td class="paramname"><em>ic</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nicht implementierte Funktion, da visuelle zu geometrische Konvertierung noch nicht benötigt ist. </p>
+<p>Möglicherweise wenn Interaktion im Bild möglich werden soll wichtig</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ic</td><td>visuelle Korrdinate</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">NotImplementedException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>geometrische Koordinate</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00512">512</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="ad75af2febe0db29bbddf76ca09d69207"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad75af2febe0db29bbddf76ca09d69207">&#9670;&nbsp;</a></span>Parent_SizeChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.Graph.Parent_SizeChanged </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EventArgs&#160;</td>
+          <td class="paramname"><em>_e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Listener-Funktion auf das SizeChanged-Event des Parent Control-Elements </p>
+<p>Löst ein bedingtes Anpassen an das Parent aus</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>Parent Control-Element</td></tr>
+    <tr><td class="paramname">_e</td><td>Nicht verarbeitete Event-Infos</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00452">452</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="a1305801aecd33ba6738e40d5c4f3d210"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1305801aecd33ba6738e40d5c4f3d210">&#9670;&nbsp;</a></span>RedrawGraph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.Graph.RedrawGraph </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Zeichnet sämtliche Linien die derzeit im Gedächtnis sind </p>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00590">590</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="a420593cce8aa5e14ea51d13f5b3cabd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a420593cce8aa5e14ea51d13f5b3cabd7">&#9670;&nbsp;</a></span>SetLabelTransparency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.Graph.SetLabelTransparency </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>transparent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setze die Hintergrundfarbe der Label-Objekte </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">transparent</td><td>T: Transparent; F: BackgroundColor</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00536">536</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -577,7 +1056,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Hängt den Graphen an ein Control-Element und fügt einen Event-Listener an dessen SizeChanged-Event </p>
+<p>Hängt den Graphen an das gegebene Control-Element und fügt einen Event-Listener an dessen SizeChanged-Event </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">newParent</td><td>Neues Parent Control-Element</td></tr>
@@ -585,7 +1064,90 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00178">178</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00182">182</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="add2c27f4cf468ea21cc7dfe840faac24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add2c27f4cf468ea21cc7dfe840faac24">&#9670;&nbsp;</a></span>SetPixel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.Graph.SetPixel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_graph_8cs.html#a0841288ccbf9ea0f024bface06ecc7f8">ImageCoord</a>&#160;</td>
+          <td class="paramname"><em>imageCoord</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Color&#160;</td>
+          <td class="paramname"><em>fill</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setze einen Pixel des Bitmap Objekts </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">imageCoord</td><td>Bild-Koordinaten des Pixels</td></tr>
+    <tr><td class="paramname">fill</td><td>Füllfarbe</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00522">522</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="a096ba35f8cddafd2afb64d6177e4f49d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a096ba35f8cddafd2afb64d6177e4f49d">&#9670;&nbsp;</a></span>SetPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.Graph.SetPoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd">GraphCoord</a>&#160;</td>
+          <td class="paramname"><em>gc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Color&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -606,7 +1168,7 @@ Properties</h2></td></tr>
 
 <p>Beschriftungshintergründe durchsichtig/undurchsichtig umschalten </p>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00199">199</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00203">203</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -660,6 +1222,58 @@ Properties</h2></td></tr>
 <p>Default-Breite der visuellen Darstellungsfläche in Pixel </p>
 
 <p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00030">30</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="ad44dc5a365c6cfafd61fc61ab68b765f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad44dc5a365c6cfafd61fc61ab68b765f">&#9670;&nbsp;</a></span>ImageHeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int canvas_test.Graph.ImageHeight =&gt; DrawArea.Height</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Höhe der visuellen Darstellungsfläche </p>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00116">116</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="a702b3b4c74913e4a366eff939d4f3078"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a702b3b4c74913e4a366eff939d4f3078">&#9670;&nbsp;</a></span>ImageWidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int canvas_test.Graph.ImageWidth =&gt; DrawArea.Width</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Breite der visuellen Darstellungsfläche </p>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00112">112</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -794,6 +1408,32 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a4338486beca1bf7dff97c3fa3cf55320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4338486beca1bf7dff97c3fa3cf55320">&#9670;&nbsp;</a></span>Geometry</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcanvas__test_1_1_graph_geomtry.html">GraphGeomtry</a> canvas_test.Graph.Geometry</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Container der geomtrischen Schnittstelle </p>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00120">120</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
 <a id="a4dc8f3d28032b298999371acecb2c1b5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4dc8f3d28032b298999371acecb2c1b5">&#9670;&nbsp;</a></span>HorizontalAxis</h2>
 
@@ -814,14 +1454,15 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Repräsentiert die X-Achsen Limits </p>
+<p>Repräsentiert die geometrischen X-Achsen Limits des Geometrie-Objekts </p>
+<p>Löst bei setzen ein bedingtes Anpassen an das Parent aus</p>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00089">89</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00091">91</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
-<a id="a8d7ad719723791efa6564affa74dc504"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d7ad719723791efa6564affa74dc504">&#9670;&nbsp;</a></span>LblLegende</h2>
+<a id="a528bae9ce00daf3351ee10863fad9b89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a528bae9ce00daf3351ee10863fad9b89">&#9670;&nbsp;</a></span>LblXAxis</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -830,33 +1471,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">List&lt;Label&gt; canvas_test.Graph.LblLegende</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>List aller Label, welche für Achsenbeschriftung o.ä. dynamisch erstellt sind </p>
-
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00065">65</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
-
-</div>
-</div>
-<a id="a3f65c68d3f9d4d3df01e396f8ed38ba6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f65c68d3f9d4d3df01e396f8ed38ba6">&#9670;&nbsp;</a></span>LblX</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Label canvas_test.Graph.LblX</td>
+          <td class="memname">Label canvas_test.Graph.LblXAxis</td>
         </tr>
       </table>
   </td>
@@ -872,8 +1487,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a796e99fb58ff778238ec0c46bd2d9016"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a796e99fb58ff778238ec0c46bd2d9016">&#9670;&nbsp;</a></span>LblY</h2>
+<a id="adeaa828db8d31cd3f65ee512e8964247"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adeaa828db8d31cd3f65ee512e8964247">&#9670;&nbsp;</a></span>LblYAxis</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -882,7 +1497,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Label canvas_test.Graph.LblY</td>
+          <td class="memname">Label canvas_test.Graph.LblYAxis</td>
         </tr>
       </table>
   </td>
@@ -895,6 +1510,58 @@ Properties</h2></td></tr>
 <p>Hauptachsenbeschriftung der Y-Achse </p>
 
 <p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00057">57</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="a4264247e1780fec44b9d078e1e34a9b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4264247e1780fec44b9d078e1e34a9b7">&#9670;&nbsp;</a></span>LineMemory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;<a class="el" href="_graph_8cs.html#a61b7cf6554ba17577ed4c6b4b77491b9">SimpleLine</a>&gt; canvas_test.Graph.LineMemory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gedächtnis der vorhandenen Linien </p>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00124">124</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+
+</div>
+</div>
+<a id="aa04fd823fb7a810ac7ac8d8422eebfab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa04fd823fb7a810ac7ac8d8422eebfab">&#9670;&nbsp;</a></span>LstLblMarkings</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;Label&gt; canvas_test.Graph.LstLblMarkings</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Liste aller Label, welche für Achsenbeschriftung o.ä. dynamisch erstellt werden </p>
+
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00065">65</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>
@@ -970,9 +1637,10 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Repräsentiert die Y-Achsen Limits </p>
+<p>Repräsentiert die geomtrischen Y-Achsen Limits des Geometrie-Objekts </p>
+<p>Löst bei setzen ein bedingtes Anpassen an das Parent aus</p>
 
-<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00097">97</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_graph_8cs_source.html#l00101">101</a> of file <a class="el" href="_graph_8cs_source.html">Graph.cs</a>.</p>
 
 </div>
 </div>

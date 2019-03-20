@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['verticalaxis',['VerticalAxis',['../classcanvas__test_1_1_graph.html#a2bd522abaaf36e7e24dec5fcc4f9ac8d',1,'canvas_test::Graph']]]
+  ['scalingx',['ScalingX',['../classcanvas__test_1_1_graph_geomtry.html#a49972639ffff3fe4c8ca26c355045c14',1,'canvas_test::GraphGeomtry']]],
+  ['scalingy',['ScalingY',['../classcanvas__test_1_1_graph_geomtry.html#ab0bc43e2ecd6992c479995cd3909d376',1,'canvas_test::GraphGeomtry']]]
 ];
