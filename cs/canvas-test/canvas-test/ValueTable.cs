@@ -22,7 +22,8 @@ namespace canvas_test
             myDataGridView = new DataGridView
             {
                 Dock = DockStyle.Fill,
-                DataSource = myDataTable
+                DataSource = myDataTable,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             };
             AddColumn("R in Ohm", false);
             AddColumn("U in V");
