@@ -20,8 +20,11 @@ namespace canvas_test
 
         FormWindowState previousWindowState;
 
-        public Graph g;
+        Graph g;
 
+        /// <summary>
+        /// Form-Objekt, welches die zu testenden Programm-Bausteine beinhaltet
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -189,7 +192,7 @@ namespace canvas_test
             numUpDown.Minimum = -500.0m;
         }
 
-        public Graph GetGraph()
+        private Graph GetGraph()
         {
             return g;
         }

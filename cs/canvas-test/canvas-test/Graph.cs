@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Drawing;
+using System.Drawing; 
 using System.Windows.Forms;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +15,10 @@ using Boundary = System.Tuple<float, float>;
 namespace canvas_test
 {
     /// <summary>
-    /// Repräsentiert die visuelle Schnittstelle um Graphen zu zeichnen
-    /// <para>Beinhaltet sowohl Bild-/ als auch Geometrieobjekte</para>
+    /// Repräsentiert die zusammengefasste Schnittstelle um Graphen zu zeichnen
+    /// <para>Beinhaltet hauptsächlich visuelle Eigenschaften mit einer ausgelagerten Geometrie</para>
     /// <para>Das Bildobjekt arbeitet mit Integer-Pixel Koordinaten</para>
-    /// <para>Daher reicht für die Geometrie-Berechnung Float-Genauigkeit</para>
+    /// <para>Die Geometrie-Berechnung arbeitet mit Float-Genauigkeit</para>
     /// <para>Kantenglättung ist nicht implementiert</para>
     /// </summary>
     public class Graph
@@ -54,15 +54,15 @@ namespace canvas_test
         /// <summary>
         /// Hauptachsenbeschriftung der Y-Achse
         /// </summary>
-        public Label LblY { get; set; }
+        public Label LblYAxis { get; set; }
         /// <summary>
         /// Hauptachsenbeschriftung der X-Achse
         /// </summary>
-        public Label LblX { get; set; }
+        public Label LblXAxis { get; set; }
         /// <summary>
-        /// List aller Label, welche für Achsenbeschriftung o.ä. dynamisch erstellt sind
+        /// Liste aller Label, welche für Achsenbeschriftung o.ä. dynamisch erstellt werden
         /// </summary>
-        public List<Label> LblLegende { get; set; }
+        public List<Label> LstLblMarkings { get; set; }
 
         /// <summary>
         /// Repräsentiert die visuelle Darstellungsfläche
@@ -83,7 +83,9 @@ namespace canvas_test
         public Color BackgroundColor { get; set; }
 
         /// <summary>
-        /// Repräsentiert die X-Achsen Limits
+        /// Repräsentiert die geometrischen X-Achsen Limits des Geometrie-Objekts
+        /// <para></para>
+        /// <para>Löst bei setzen ein bedingtes Anpassen an das Parent aus</para>
         /// </summary>
         public Boundary HorizontalAxis
         {
@@ -91,7 +93,9 @@ namespace canvas_test
             set { Geometry.LowX = value.Item1; Geometry.HighX = value.Item2; FitToParent(); }
         }
         /// <summary>
-        /// Repräsentiert die Y-Achsen Limits
+        /// Repräsentiert die geomtrischen Y-Achsen Limits des Geometrie-Objekts
+        /// <para></para>
+        /// <para>Löst bei setzen ein bedingtes Anpassen an das Parent aus</para>
         /// </summary>
         public Boundary VerticalAxis
         {
@@ -113,9 +117,9 @@ namespace canvas_test
         /// <summary>
         /// Container der geomtrischen Schnittstelle
         /// </summary>
-        private GraphProperties Geometry { get; set; }
+        private GraphGeomtry Geometry { get; set; }
         /// <summary>
-        /// Gedächtnis der zu vorhandenen Linien
+        /// Gedächtnis der vorhandenen Linien
         /// </summary>
         private List<SimpleLine> LineMemory { get; set; }
 
@@ -141,7 +145,7 @@ namespace canvas_test
             DrawAreaContainer.BorderStyle = BorderStyle.FixedSingle;
             DrawAreaContainer.BackColor = BackgroundColor;
 
-            LblX = new Label
+            LblXAxis = new Label
             {
                 BorderStyle = BorderStyle.FixedSingle,
                 Text = "X Achse",
@@ -149,7 +153,7 @@ namespace canvas_test
                 BackColor = BackgroundColor
             };
 
-            LblY = new Label
+            LblYAxis = new Label
             {
                 BorderStyle = BorderStyle.FixedSingle,
                 Text = "Y Achse",
@@ -157,12 +161,12 @@ namespace canvas_test
                 BackColor = BackgroundColor
             };
 
-            LblLegende = new List<Label>();
+            LstLblMarkings = new List<Label>();
             LineMemory = new List<SimpleLine>();
 
             TransparentLabels = false;
 
-            Geometry = new GraphProperties();
+            Geometry = new GraphGeomtry();
             HorizontalAxis = new Boundary(-10f, 100f);
             VerticalAxis = new Boundary(-10f, 100f);
         }
@@ -172,18 +176,18 @@ namespace canvas_test
         #region public instance methods
 
         /// <summary>
-        /// Hängt den Graphen an ein Control-Element und fügt einen Event-Listener an dessen SizeChanged-Event
+        /// Hängt den Graphen an das gegebene Control-Element und fügt einen Event-Listener an dessen SizeChanged-Event
         /// </summary>
         /// <param name="newParent">Neues Parent Control-Element</param>
         public void SetParent(Control newParent)
         {
             DrawAreaContainer.Parent = newParent;
-            newParent.SizeChanged += ParentResize;
+            newParent.SizeChanged += Parent_SizeChanged;
             FitToParent();
         }
 
         /// <summary>
-        /// Löst ein neu berechnen/zeichnen des Graphen aus, egal wie die derzeitigen Eigenschaften sind
+        /// Löst ein neu berechnen/zeichnen des Graphen aus, unabhängig von derzeitigen Eigenschaften
         /// </summary>
         public void ForceResize()
         {
@@ -205,9 +209,9 @@ namespace canvas_test
         /// <summary>
         /// Zeichne eine Linie in den Graphen
         /// </summary>
-        /// <param name="graphStart">Start-Koordinate der Linie</param>
-        /// <param name="graphEnd">End-Koordinate der Linie</param>
-        /// <param name="fillColor">Füllfarbe der Linie</param>
+        /// <param name="graphStart">Start-Koordinate</param>
+        /// <param name="graphEnd">End-Koordinate</param>
+        /// <param name="fillColor">Füllfarbe</param>
         /// <param name="is_redraw"><para>True: Linie wird nicht gespeichert</para><para></para><para>False: Linie wird gespeichert</para></param>
         public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor, bool is_redraw = false)
         {
@@ -220,8 +224,6 @@ namespace canvas_test
             // left and right points rather than start and end
             ImageCoord Left = start.X < end.X ? start : end;
             ImageCoord Right = start.X >= end.X ? start : end;
-            //System.Diagnostics.Debug.Print("Drawing Graph-Coords\n\t" + graphStart.ToString() + "\n\t" + graphEnd.ToString());
-            //System.Diagnostics.Debug.Print("Eq Pixel-Coords\n\t" + Left.ToString() + "\n\t" + Right.ToString());
             // xdiff is always positive or zero
             float xdiff = Right.X - Left.X;
             if (xdiff == 0f)
@@ -428,16 +430,39 @@ namespace canvas_test
             }
         }
 
+        /// <summary>
+        /// Entfernt sämtliche Linien bedingungslos aus dem Gedächtnis
+        /// </summary>
+        public void ClearLineMemory()
+        {
+            LineMemory.Clear();
+        }
+
         #endregion
 
         #region private instance methods
 
-        private void ParentResize(object sender, EventArgs e)
+        /// <summary>
+        /// Listener-Funktion auf das SizeChanged-Event des Parent Control-Elements
+        /// <para></para>
+        /// <para>Löst ein bedingtes Anpassen an das Parent aus</para>
+        /// </summary>
+        /// <param name="sender">Parent Control-Element</param>
+        /// <param name="_e">Nicht verarbeitete Event-Infos</param>
+        private void Parent_SizeChanged(object sender, EventArgs _e)
         {
             Control parent = (Control)sender;
             FitToParent();
         }
 
+        /// <summary>
+        /// Bedingtes anpassen an das Parent Control-Element:
+        /// <para></para>
+        /// <para>- Setzt DockStyle, Breite und Höhe des visuellen Containers</para>
+        /// <para>- Generiert neue Darstellungsfläche und fügt diese in den Container ein</para>
+        /// <para>- Repositioniert die Graphenbeschriftung</para>
+        /// <para>- Zeichnet Achsen und Graphen neu</para>
+        /// </summary>
         private void FitToParent()
         {
             if (!AutoResize) return;
@@ -447,36 +472,46 @@ namespace canvas_test
             DrawArea = new Bitmap(newWidth, newHeight);
             DrawAreaContainer.Image = DrawArea;
             //TODO dynamische labelpositioning nach graph-achsen
-            LblY.Parent = DrawAreaContainer;
-            LblY.Top = 10;
-            LblY.Left = 10;
+            LblYAxis.Parent = DrawAreaContainer;
+            LblYAxis.Top = 10;
+            LblYAxis.Left = 10;
 
-            LblX.Parent = DrawAreaContainer;
-            LblX.Top = newHeight - LblX.Height - 20;
-            LblX.Left = newWidth - LblX.Width - 20;
+            LblXAxis.Parent = DrawAreaContainer;
+            LblXAxis.Top = newHeight - LblXAxis.Height - 20;
+            LblXAxis.Left = newWidth - LblXAxis.Width - 20;
 
             DrawAxes();
             RedrawGraph();
         }
 
+        /// <summary>
+        /// Konvertiert eine geometrische in eine visuelle Koordinate
+        /// </summary>
+        /// <param name="gc">geometrische Koordinate</param>
+        /// <returns>visuelle Koordinate</returns>
         private ImageCoord Graph2Image(GraphCoord gc)
         {
             GraphCoord relative = Geometry.GetRelative(gc);
-            //System.Diagnostics.Debug.Print(relative.ToString());
             // Die Asurichtung der X-Achse der Bitmap stimmt mit der X-Achse des Graphen überein
             float relX = relative.X;
             // Die Ausrichtung der Y-Achse der Bitmap entgegen der Y-Achse des Graphen
             float relY = 1f - relative.Y;
             int imgX = (int)Math.Floor((double)ImageWidth * relX);
             int imgY = (int)Math.Floor((double)ImageHeight * relY);
-            //System.Diagnostics.Debug.Print(imgX.ToString());
-            //System.Diagnostics.Debug.Print(imgY.ToString());
             return new ImageCoord(imgX, imgY);
         }
 
+        /// <summary>
+        /// Nicht implementierte Funktion, da visuelle zu geometrische Konvertierung noch nicht benötigt ist.
+        /// <para></para>
+        /// <para>Möglicherweise wenn Interaktion im Bild möglich werden soll wichtig</para>
+        /// </summary>
+        /// <param name="ic">visuelle Korrdinate</param>
+        /// <exception cref="NotImplementedException"></exception>
+        /// <returns>geometrische Koordinate</returns>
         private GraphCoord Image2Graph(ImageCoord ic)
         {
-            return new GraphCoord(0, 0);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -502,24 +537,30 @@ namespace canvas_test
         {
             if (transparent)
             {
-                LblX.BackColor = Color.Transparent;
-                LblY.BackColor = Color.Transparent;
-                foreach (Label lbl in LblLegende)
+                LblXAxis.BackColor = Color.Transparent;
+                LblYAxis.BackColor = Color.Transparent;
+                foreach (Label lbl in LstLblMarkings)
                 {
                     lbl.BackColor = Color.Transparent;
                 }
             }
             else
             {
-                LblX.BackColor = BackgroundColor;
-                LblY.BackColor = BackgroundColor;
-                foreach (Label lbl in LblLegende)
+                LblXAxis.BackColor = BackgroundColor;
+                LblYAxis.BackColor = BackgroundColor;
+                foreach (Label lbl in LstLblMarkings)
                 {
                     lbl.BackColor = BackgroundColor;
                 }
             }
         }
 
+        /// <summary>
+        /// Zeichnet eine horizontale Linie in den Graphen
+        /// </summary>
+        /// <param name="yVal">visueller Y-Wert der Linie</param>
+        /// <param name="xLeft">visuell linker X-Wert der Linie</param>
+        /// <param name="xRight">visuell rechter X-Wert der Linie</param>
         private void DrawHorizontalLine(int yVal, int xLeft, int xRight)
         {
             for (int xstep = xLeft; xstep < xRight; xstep += 1)
@@ -528,6 +569,12 @@ namespace canvas_test
             }
         }
 
+        /// <summary>
+        /// Zeichnet eine vertikale Linie in den Graphen
+        /// </summary>
+        /// <param name="xVal">visueller X-Wert der Linie</param>
+        /// <param name="yDown">visuell niedrigerer Y-Wert der Linie</param>
+        /// <param name="yUp">visuell höherer Y-Wert der Linie</param>
         private void DrawVerticalLine(int xVal, int yDown, int yUp)
         {
             int stepSize = Math.Sign(yUp - yDown);
@@ -537,6 +584,9 @@ namespace canvas_test
             }
         }
 
+        /// <summary>
+        /// Zeichnet sämtliche Linien die derzeit im Gedächtnis sind
+        /// </summary>
         private void RedrawGraph()
         {
             foreach (SimpleLine line in LineMemory)
@@ -545,6 +595,14 @@ namespace canvas_test
             }
         }
 
+        /// <summary>
+        /// Nähert eine Kurve durch zwei Punkte an, durch verbinden generierter Zwischenpunkte
+        /// </summary>
+        /// <param name="startPoint">Anfangspunkt</param>
+        /// <param name="endPoint">Endpunkt</param>
+        /// <param name="fillColor">Füllfarbe</param>
+        /// <param name="approxCount">Anzahl der generierten Zwischenschritte</param>
+        /// <param name="level">Gewicht der Annäherung</param>
         private void ApproxCurve(GraphCoord startPoint, GraphCoord endPoint, Color fillColor, int approxCount, float level)
         {
             ImageCoord start = Graph2Image(startPoint);
@@ -568,12 +626,24 @@ namespace canvas_test
     /// <summary>
     /// Repräsentiert die Eigenschaften eines geometrischen Koordinatensystems
     /// </summary>
-    class GraphProperties
+    class GraphGeomtry
     {
         #region public instance fields
+        /// <summary>
+        /// Minimaler X-Wert des Definitionsbereichs
+        /// </summary>
         public float LowX { get; set; }
+        /// <summary>
+        /// Maximaler X-Wert des Definitionsbereichs
+        /// </summary>
         public float HighX { get; set; }
+        /// <summary>
+        /// Minimaler Y-Wert des Wertebereichs
+        /// </summary>
         public float LowY { get; set; }
+        /// <summary>
+        /// Maximaler Y-Wert des Wertebereichs
+        /// </summary>
         public float HighY { get; set; }
 
         /// <summary>
@@ -585,15 +655,27 @@ namespace canvas_test
         /// </summary>
         public float ScalingY { get; set; }
 
+        /// <summary>
+        /// Größe des möglichen Definitionsbereichs
+        /// </summary>
         public float Width => HighX - LowX;
+        /// <summary>
+        /// Größe des möglichen Wertebereichs
+        /// </summary>
         public float Height => HighY - LowY;
         #endregion
+
         #region private instance fields
         #endregion
 
         #region constructors
 
-        public GraphProperties()
+        /// <summary>
+        /// Erstellt eine neue Geometrie-Instanz mit '0f'-instanzierten Definitions- und Wertebereich Limits
+        /// <para></para>
+        /// <para>Es ist erforderlich die Limits nachträglich anzupassen</para>
+        /// </summary>
+        public GraphGeomtry()
         {
             LowX = 0.0f;
             LowY = 0.0f;
@@ -608,8 +690,9 @@ namespace canvas_test
         #region public instance methods
 
         /// <summary>
-        /// Setzt neue low/high Grenzwerte der Y-Achse
-        /// <para>Reihenfolge der Werte hat keine Auswirkung</para>
+        /// Setzt neue Min/Max Grenzwerte des Wertebereichs
+        /// <para>Reihenfolge der Werte ist irrelevant, es wird immer der niedrigere als Min und der höhere als Max gesetzt</para>
+        /// <para>Bei Gleichheit beider Werte ist der zweite das neue Min und der erste das neue Max</para>
         /// </summary>
         /// <param name="limits">Grenzwert-Tupel</param>
         public void SetLimitsY(Boundary limits)
@@ -627,8 +710,9 @@ namespace canvas_test
         }
 
         /// <summary>
-        /// Setzt neue low/high Grenzwerte der X-Achse
-        /// <para>Reihenfolge der Werte hat keine Auswirkung</para>
+        /// Setzt neue Min/Max Grenzwerte des Definitionsbereichs
+        /// <para>Reihenfolge der Werte ist irrelevant, es wird immer der niedrigere als Min und der höhere als Max gesetzt</para>
+        /// <para>Bei Gleichheit beider Werte ist der zweite das neue Min und der erste das neue Max</para>
         /// </summary>
         /// <param name="limits">Grenzwert-Tupel</param>
         public void SetLimitsX(Boundary limits)
@@ -649,11 +733,11 @@ namespace canvas_test
         /// Wandelt absolute Koordinate in relative um
         /// </summary>
         /// <param name="absoluteCoord">Absolute Koordinate</param>
-        /// <returns>Relative Koordinate</returns>
+        /// <returns>Zu (MinX,MinY) Relative Koordinate mit Werten 0&lt;=(x|y)&lt;=1</returns>
         public GraphCoord GetRelative(GraphCoord absoluteCoord)
         {
             // Division durch Null vermeiden
-            if (Width == 0.0f)
+            if (Width == 0.0f || Height == 0.0f)
             {
                 return new GraphCoord(-1.0f, -1.0f);
             }
@@ -663,6 +747,13 @@ namespace canvas_test
             );
         }
 
+        /// <summary>
+        /// Berechnet Koordinate zwischen den gegebenen für eine Kurvenannäherung
+        /// </summary>
+        /// <param name="start">Erste Koordinate</param>
+        /// <param name="end">Zweite Koordinate</param>
+        /// <param name="level">Gewicht der Annäherung, positiv Richtung erste, negativ Richtung zweite Koordinate</param>
+        /// <returns>Für Kurvenannäherung geeignete Koordinate</returns>
         public GraphCoord GetIntermediate(GraphCoord start, GraphCoord end, float level)
         {
             float xdiff = end.X - start.X;
@@ -673,6 +764,7 @@ namespace canvas_test
         }
 
         #endregion
+
         #region private instance methods
         #endregion
     }

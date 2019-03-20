@@ -1,5 +1,8 @@
 ﻿namespace canvas_test
 {
+    /// <summary>
+    /// Vom Windows Form-Designer generierte Klasse
+    /// </summary>
     partial class Form1
     {
         /// <summary>
