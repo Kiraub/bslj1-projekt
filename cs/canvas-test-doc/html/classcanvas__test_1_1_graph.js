@@ -38,6 +38,7 @@ var classcanvas__test_1_1_graph =
     [ "LblYAxis", "classcanvas__test_1_1_graph.html#adeaa828db8d31cd3f65ee512e8964247", null ],
     [ "LineMemory", "classcanvas__test_1_1_graph.html#a4264247e1780fec44b9d078e1e34a9b7", null ],
     [ "LstLblMarkings", "classcanvas__test_1_1_graph.html#aa04fd823fb7a810ac7ac8d8422eebfab", null ],
+    [ "Options", "classcanvas__test_1_1_graph.html#a596544b7806d1be48160b6e97d34962a", null ],
     [ "RememberDrawing", "classcanvas__test_1_1_graph.html#a7c7ac18119604c95b936bd98f70728db", null ],
     [ "TransparentLabels", "classcanvas__test_1_1_graph.html#a9fed1c0633d808272a2564d7f10509ba", null ],
     [ "VerticalAxis", "classcanvas__test_1_1_graph.html#a2bd522abaaf36e7e24dec5fcc4f9ac8d", null ]

@@ -8,6 +8,7 @@ var hierarchy =
     ] ],
     [ "canvas_test.Graph", "classcanvas__test_1_1_graph.html", null ],
     [ "canvas_test.GraphGeomtry", "classcanvas__test_1_1_graph_geomtry.html", null ],
+    [ "canvas_test.GraphOptions", "classcanvas__test_1_1_graph_options.html", null ],
     [ "IDisposable", null, [
       [ "canvas_test.ValueTable", "classcanvas__test_1_1_value_table.html", null ]
     ] ],

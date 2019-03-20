@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['scalingx',['ScalingX',['../classcanvas__test_1_1_graph_geomtry.html#a49972639ffff3fe4c8ca26c355045c14',1,'canvas_test::GraphGeomtry']]],
-  ['scalingy',['ScalingY',['../classcanvas__test_1_1_graph_geomtry.html#ab0bc43e2ecd6992c479995cd3909d376',1,'canvas_test::GraphGeomtry']]]
+  ['rememberdrawing',['RememberDrawing',['../classcanvas__test_1_1_graph.html#a7c7ac18119604c95b936bd98f70728db',1,'canvas_test.Graph.RememberDrawing()'],['../classcanvas__test_1_1_graph_options.html#a3b3ac582e0a308553467e2466d7087a8',1,'canvas_test.GraphOptions.RememberDrawing()']]],
+  ['resourcemanager',['ResourceManager',['../classcanvas__test_1_1_properties_1_1_resources.html#a4837888ee356261002a65cd3dab23778',1,'canvas_test::Properties::Resources']]]
 ];

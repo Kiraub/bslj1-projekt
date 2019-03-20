@@ -4,6 +4,7 @@ var namespacecanvas__test =
     [ "Form1", "classcanvas__test_1_1_form1.html", "classcanvas__test_1_1_form1" ],
     [ "Graph", "classcanvas__test_1_1_graph.html", "classcanvas__test_1_1_graph" ],
     [ "GraphGeomtry", "classcanvas__test_1_1_graph_geomtry.html", "classcanvas__test_1_1_graph_geomtry" ],
+    [ "GraphOptions", "classcanvas__test_1_1_graph_options.html", "classcanvas__test_1_1_graph_options" ],
     [ "Program", "classcanvas__test_1_1_program.html", "classcanvas__test_1_1_program" ],
     [ "QuadPolynomial", "structcanvas__test_1_1_quad_polynomial.html", "structcanvas__test_1_1_quad_polynomial" ],
     [ "ValueTable", "classcanvas__test_1_1_value_table.html", "classcanvas__test_1_1_value_table" ]

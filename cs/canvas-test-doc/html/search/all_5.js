@@ -9,5 +9,6 @@ var searchData=
   ['graph_2ecs',['Graph.cs',['../_graph_8cs.html',1,'']]],
   ['graph2image',['Graph2Image',['../classcanvas__test_1_1_graph.html#a547a8abcdb19baa094dbafb6cf5b22ac',1,'canvas_test::Graph']]],
   ['graphcoord',['GraphCoord',['../_graph_8cs.html#a0eba2dad7e9ff3283099dac363c620dd',1,'Graph.cs']]],
-  ['graphgeomtry',['GraphGeomtry',['../classcanvas__test_1_1_graph_geomtry.html',1,'canvas_test.GraphGeomtry'],['../classcanvas__test_1_1_graph_geomtry.html#a3c5e3f9de177e2fa2a4622a34d5394ff',1,'canvas_test.GraphGeomtry.GraphGeomtry()']]]
+  ['graphgeomtry',['GraphGeomtry',['../classcanvas__test_1_1_graph_geomtry.html',1,'canvas_test.GraphGeomtry'],['../classcanvas__test_1_1_graph_geomtry.html#a3c5e3f9de177e2fa2a4622a34d5394ff',1,'canvas_test.GraphGeomtry.GraphGeomtry()']]],
+  ['graphoptions',['GraphOptions',['../classcanvas__test_1_1_graph_options.html',1,'canvas_test']]]
 ];
