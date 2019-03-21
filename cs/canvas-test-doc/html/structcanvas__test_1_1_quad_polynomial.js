@@ -1,6 +1,7 @@
 var structcanvas__test_1_1_quad_polynomial =
 [
-    [ "one", "structcanvas__test_1_1_quad_polynomial.html#ac2f4c43677f20ec641687c94fe2079d5", null ],
-    [ "two", "structcanvas__test_1_1_quad_polynomial.html#af8fd85bed5666572a4295e1aa5ee8e51", null ],
-    [ "zero", "structcanvas__test_1_1_quad_polynomial.html#a8a05c6b7d62761963b30d8bf30c32210", null ]
+    [ "FunctionValue", "structcanvas__test_1_1_quad_polynomial.html#ab13497a1cf21d52ec640ff0d028ff937", null ],
+    [ "one", "structcanvas__test_1_1_quad_polynomial.html#ae4a119f3b2de73950a4efee51e1ff01c", null ],
+    [ "two", "structcanvas__test_1_1_quad_polynomial.html#a0b74e7246375c8dd4b5db987739100b3", null ],
+    [ "zero", "structcanvas__test_1_1_quad_polynomial.html#ad88c42e4e0b8296059524f4ae1ca8eea", null ]
 ];

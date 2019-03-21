@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['zero',['zero',['../structcanvas__test_1_1_quad_polynomial.html#a8a05c6b7d62761963b30d8bf30c32210',1,'canvas_test::QuadPolynomial']]]
+  ['yhigh',['yHigh',['../classcanvas__test_1_1_form1.html#a2fc67b611e91597ca22661e9356044f1',1,'canvas_test::Form1']]],
+  ['ylow',['yLow',['../classcanvas__test_1_1_form1.html#a57d9be2ea0bbe22e220e452c655a7c2f',1,'canvas_test::Form1']]]
 ];

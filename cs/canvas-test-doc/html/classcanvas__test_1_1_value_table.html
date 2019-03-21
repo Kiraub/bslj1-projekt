@@ -28,9 +28,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="favicon.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Canvas test
-   &#160;<span id="projectnumber">0.4.2</span>
+   &#160;<span id="projectnumber">0.5.2</span>
    </div>
    <div id="projectbrief">Testing C# features</div>
   </td>
@@ -90,6 +91,10 @@ $(document).ready(function(){initNavTree('classcanvas__test_1_1_value_table.html
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#properties">Properties</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classcanvas__test_1_1_value_table-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">canvas_test.ValueTable Class Reference</div>  </div>
@@ -110,15 +115,45 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acf8719a52171741e1ab5dfa3d6ee1534"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c9784c2c0d072252bf135ae3299700c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a5c9784c2c0d072252bf135ae3299700c">Dispose</a> ()</td></tr>
 <tr class="separator:a5c9784c2c0d072252bf135ae3299700c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad34ef934bc341971743c07c85b60229c"><td class="memItemLeft" align="right" valign="top">double [,]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#ad34ef934bc341971743c07c85b60229c">GetTableContents</a> ()</td></tr>
+<tr class="separator:ad34ef934bc341971743c07c85b60229c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a6b39b993f1e5481cb5c94986717c3f14"><td class="memItemLeft" align="right" valign="top">DataGrid&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a6b39b993f1e5481cb5c94986717c3f14">myDataGrid</a></td></tr>
-<tr class="separator:a6b39b993f1e5481cb5c94986717c3f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8950f31cd3c9a2d0aefa46523ff6a0b"><td class="memItemLeft" align="right" valign="top">DataTable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#ab8950f31cd3c9a2d0aefa46523ff6a0b">myDataTable</a></td></tr>
-<tr class="separator:ab8950f31cd3c9a2d0aefa46523ff6a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1955774de8da3a4835f8661d91a7cf21"><td class="memItemLeft" align="right" valign="top">List&lt; DataColumn &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a1955774de8da3a4835f8661d91a7cf21">myDataColumns</a></td></tr>
-<tr class="separator:a1955774de8da3a4835f8661d91a7cf21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e0c14a6ea6c5a07135f19864d275d8f"><td class="memItemLeft" align="right" valign="top">Color []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a3e0c14a6ea6c5a07135f19864d275d8f">ColumnColors</a> = { Color.Black, Color.Red, Color.Blue, Color.Green }</td></tr>
+<tr class="separator:a3e0c14a6ea6c5a07135f19864d275d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a5426ffe7b531009cde477826062fc77e"><td class="memItemLeft" align="right" valign="top">static readonly string []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a5426ffe7b531009cde477826062fc77e">ColumnNames</a> = { &quot;R_L in Ohm&quot;, &quot;I in A&quot;, &quot;U_L in V&quot;, &quot;P_L in Watt&quot; }</td></tr>
+<tr class="separator:a5426ffe7b531009cde477826062fc77e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a573cb7a2b1da50d8eb27794a1b816231"><td class="memItemLeft" align="right" valign="top">static readonly double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a573cb7a2b1da50d8eb27794a1b816231">VoltageSource</a> = 10.0</td></tr>
+<tr class="separator:a573cb7a2b1da50d8eb27794a1b816231"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4689b959a48ce91eb47b29dfb02d9601"><td class="memItemLeft" align="right" valign="top">static readonly <a class="el" href="structcanvas__test_1_1_quad_polynomial.html">QuadPolynomial</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a4689b959a48ce91eb47b29dfb02d9601">AmpereFunction</a></td></tr>
+<tr class="separator:a4689b959a48ce91eb47b29dfb02d9601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8759cb94b70fe949ae426ac717ba4fe"><td class="memItemLeft" align="right" valign="top">static readonly <a class="el" href="structcanvas__test_1_1_quad_polynomial.html">QuadPolynomial</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#ab8759cb94b70fe949ae426ac717ba4fe">VoltageFunction</a></td></tr>
+<tr class="separator:ab8759cb94b70fe949ae426ac717ba4fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dbc6edf9356dad484df4469d37d8c97"><td class="memItemLeft" align="right" valign="top">static readonly <a class="el" href="structcanvas__test_1_1_quad_polynomial.html">QuadPolynomial</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a6dbc6edf9356dad484df4469d37d8c97">PowerFunction</a></td></tr>
+<tr class="separator:a6dbc6edf9356dad484df4469d37d8c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a3402684b86c1f0021474f7e30d90ba5d"><td class="memItemLeft" align="right" valign="top">DataGridView&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a3402684b86c1f0021474f7e30d90ba5d">MyDataGridView</a><code> [get, set]</code></td></tr>
+<tr class="separator:a3402684b86c1f0021474f7e30d90ba5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a40f6fa2211ecf516049e7adc233cc72f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a40f6fa2211ecf516049e7adc233cc72f">MyDataTable_ColumnChanged</a> (object sender, DataColumnChangeEventArgs e)</td></tr>
+<tr class="separator:a40f6fa2211ecf516049e7adc233cc72f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef1261a68b09ee93d2675a500920750a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#aef1261a68b09ee93d2675a500920750a">MyDataGridView_DataError</a> (object sender, DataGridViewDataErrorEventArgs e)</td></tr>
+<tr class="separator:aef1261a68b09ee93d2675a500920750a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3aaa2bef590e412a518ddd3f043f352"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#aa3aaa2bef590e412a518ddd3f043f352">SetReadOnly</a> (bool readOnly)</td></tr>
+<tr class="separator:aa3aaa2bef590e412a518ddd3f043f352"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a3239113d5923ddc6b2fbcef38da66367"><td class="memItemLeft" align="right" valign="top">DataTable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcanvas__test_1_1_value_table.html#a3239113d5923ddc6b2fbcef38da66367">MyDataTable</a></td></tr>
+<tr class="separator:a3239113d5923ddc6b2fbcef38da66367"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -139,7 +174,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00018">18</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00047">47</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
 
 </div>
 </div>
@@ -170,7 +205,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00033">33</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00104">104</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
 
 </div>
 </div>
@@ -189,56 +224,322 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00047">47</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00118">118</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+
+</div>
+</div>
+<a id="ad34ef934bc341971743c07c85b60229c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad34ef934bc341971743c07c85b60229c">&#9670;&nbsp;</a></span>GetTableContents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double [,] canvas_test.ValueTable.GetTableContents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00124">124</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+
+</div>
+</div>
+<a id="aef1261a68b09ee93d2675a500920750a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1261a68b09ee93d2675a500920750a">&#9670;&nbsp;</a></span>MyDataGridView_DataError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.ValueTable.MyDataGridView_DataError </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataGridViewDataErrorEventArgs&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00088">88</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+
+</div>
+</div>
+<a id="a40f6fa2211ecf516049e7adc233cc72f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40f6fa2211ecf516049e7adc233cc72f">&#9670;&nbsp;</a></span>MyDataTable_ColumnChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.ValueTable.MyDataTable_ColumnChanged </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataColumnChangeEventArgs&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00069">69</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+
+</div>
+</div>
+<a id="aa3aaa2bef590e412a518ddd3f043f352"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3aaa2bef590e412a518ddd3f043f352">&#9670;&nbsp;</a></span>SetReadOnly()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canvas_test.ValueTable.SetReadOnly </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>readOnly</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00095">95</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a1955774de8da3a4835f8661d91a7cf21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1955774de8da3a4835f8661d91a7cf21">&#9670;&nbsp;</a></span>myDataColumns</h2>
+<a id="a4689b959a48ce91eb47b29dfb02d9601"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4689b959a48ce91eb47b29dfb02d9601">&#9670;&nbsp;</a></span>AmpereFunction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly <a class="el" href="structcanvas__test_1_1_quad_polynomial.html">QuadPolynomial</a> canvas_test.ValueTable.AmpereFunction</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= <span class="keyword">new</span> QuadPolynomial</div><div class="line">        {</div><div class="line">            two = (_) =&gt; 0f,</div><div class="line">            one = (x) =&gt; (float) (<a class="code" href="classcanvas__test_1_1_value_table.html#a573cb7a2b1da50d8eb27794a1b816231">VoltageSource</a>/Math.Pow(x,2.0)),</div><div class="line">            zero = (_) =&gt; 0f</div><div class="line">        }</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00022">22</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+
+</div>
+</div>
+<a id="a3e0c14a6ea6c5a07135f19864d275d8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e0c14a6ea6c5a07135f19864d275d8f">&#9670;&nbsp;</a></span>ColumnColors</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">List&lt;DataColumn&gt; canvas_test.ValueTable.myDataColumns</td>
+          <td class="memname">Color [] canvas_test.ValueTable.ColumnColors = { Color.Black, Color.Red, Color.Blue, Color.Green }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00016">16</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00043">43</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
 
 </div>
 </div>
-<a id="a6b39b993f1e5481cb5c94986717c3f14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b39b993f1e5481cb5c94986717c3f14">&#9670;&nbsp;</a></span>myDataGrid</h2>
+<a id="a5426ffe7b531009cde477826062fc77e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5426ffe7b531009cde477826062fc77e">&#9670;&nbsp;</a></span>ColumnNames</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">DataGrid canvas_test.ValueTable.myDataGrid</td>
+          <td class="memname">readonly string [] canvas_test.ValueTable.ColumnNames = { &quot;R_L in Ohm&quot;, &quot;I in A&quot;, &quot;U_L in V&quot;, &quot;P_L in Watt&quot; }</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00014">14</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+<p></p>
+<p>R_L = U_S / I</p>
+<p>I = U_S / R_L</p>
+<p>U_L = R_L * I</p>
+<p>P_L = U_L * I || U_L^2 / R_L || I^2 * R_L</p>
+
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00019">19</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
 
 </div>
 </div>
-<a id="ab8950f31cd3c9a2d0aefa46523ff6a0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8950f31cd3c9a2d0aefa46523ff6a0b">&#9670;&nbsp;</a></span>myDataTable</h2>
+<a id="a3239113d5923ddc6b2fbcef38da66367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3239113d5923ddc6b2fbcef38da66367">&#9670;&nbsp;</a></span>MyDataTable</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">DataTable canvas_test.ValueTable.myDataTable</td>
+          <td class="memname">DataTable canvas_test.ValueTable.MyDataTable</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00015">15</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00045">45</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+
+</div>
+</div>
+<a id="a6dbc6edf9356dad484df4469d37d8c97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dbc6edf9356dad484df4469d37d8c97">&#9670;&nbsp;</a></span>PowerFunction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly <a class="el" href="structcanvas__test_1_1_quad_polynomial.html">QuadPolynomial</a> canvas_test.ValueTable.PowerFunction</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= <span class="keyword">new</span> QuadPolynomial</div><div class="line">        {</div><div class="line">            two = (_) =&gt; 0f,</div><div class="line">            one = (x) =&gt; { <span class="keywordflow">return</span> (<a class="code" href="classcanvas__test_1_1_value_table.html#a4689b959a48ce91eb47b29dfb02d9601">AmpereFunction</a>.<a class="code" href="structcanvas__test_1_1_quad_polynomial.html#ab13497a1cf21d52ec640ff0d028ff937">FunctionValue</a>(x) * <a class="code" href="classcanvas__test_1_1_value_table.html#ab8759cb94b70fe949ae426ac717ba4fe">VoltageFunction</a>.<a class="code" href="structcanvas__test_1_1_quad_polynomial.html#ab13497a1cf21d52ec640ff0d028ff937">FunctionValue</a>(x)) / x; },</div><div class="line">            zero = (_) =&gt; 0f</div><div class="line">        }</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00036">36</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+
+</div>
+</div>
+<a id="ab8759cb94b70fe949ae426ac717ba4fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8759cb94b70fe949ae426ac717ba4fe">&#9670;&nbsp;</a></span>VoltageFunction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly <a class="el" href="structcanvas__test_1_1_quad_polynomial.html">QuadPolynomial</a> canvas_test.ValueTable.VoltageFunction</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= <span class="keyword">new</span> QuadPolynomial</div><div class="line">        {</div><div class="line">            two = (_) =&gt; 0f,</div><div class="line">            one = (x) =&gt; <a class="code" href="classcanvas__test_1_1_value_table.html#a4689b959a48ce91eb47b29dfb02d9601">AmpereFunction</a>.<a class="code" href="structcanvas__test_1_1_quad_polynomial.html#ab13497a1cf21d52ec640ff0d028ff937">FunctionValue</a>(x),</div><div class="line">            zero = (_) =&gt; 0f</div><div class="line">        }</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00029">29</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+
+</div>
+</div>
+<a id="a573cb7a2b1da50d8eb27794a1b816231"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a573cb7a2b1da50d8eb27794a1b816231">&#9670;&nbsp;</a></span>VoltageSource</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly double canvas_test.ValueTable.VoltageSource = 10.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00020">20</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a3402684b86c1f0021474f7e30d90ba5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3402684b86c1f0021474f7e30d90ba5d">&#9670;&nbsp;</a></span>MyDataGridView</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataGridView canvas_test.ValueTable.MyDataGridView</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_value_table_8cs_source.html#l00044">44</a> of file <a class="el" href="_value_table_8cs_source.html">ValueTable.cs</a>.</p>
 
 </div>
 </div>

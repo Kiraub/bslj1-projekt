@@ -8,5 +8,6 @@ var searchData=
   ['resourceman',['resourceMan',['../classcanvas__test_1_1_properties_1_1_resources.html#a1b78a94c4fd53d1fca15638a0e780259',1,'canvas_test::Properties::Resources']]],
   ['resourcemanager',['ResourceManager',['../classcanvas__test_1_1_properties_1_1_resources.html#a4837888ee356261002a65cd3dab23778',1,'canvas_test::Properties::Resources']]],
   ['resources',['Resources',['../classcanvas__test_1_1_properties_1_1_resources.html',1,'canvas_test.Properties.Resources'],['../classcanvas__test_1_1_properties_1_1_resources.html#aeb9765e2ef4dcb86d9d9b71cc45e4044',1,'canvas_test.Properties.Resources.Resources()']]],
-  ['resources_2edesigner_2ecs',['Resources.Designer.cs',['../_resources_8_designer_8cs.html',1,'']]]
+  ['resources_2edesigner_2ecs',['Resources.Designer.cs',['../_resources_8_designer_8cs.html',1,'']]],
+  ['resulttable',['ResultTable',['../classcanvas__test_1_1_form1.html#a9de1f1f789b6fbff205d133c08547495',1,'canvas_test::Form1']]]
 ];

@@ -6,5 +6,6 @@ var searchData=
   ['form1',['Form1',['../classcanvas__test_1_1_form1.html',1,'canvas_test.Form1'],['../classcanvas__test_1_1_form1.html#a31e73455f1883eed58add6fa8146f85d',1,'canvas_test.Form1.Form1()']]],
   ['form1_2ecs',['Form1.cs',['../_form1_8cs.html',1,'']]],
   ['form1_2edesigner_2ecs',['Form1.Designer.cs',['../_form1_8_designer_8cs.html',1,'']]],
-  ['form1_5fload',['Form1_Load',['../classcanvas__test_1_1_form1.html#a87c6ffa07fbc8876bf5fd9cb9b7a8a7e',1,'canvas_test::Form1']]]
+  ['form1_5fload',['Form1_Load',['../classcanvas__test_1_1_form1.html#a87c6ffa07fbc8876bf5fd9cb9b7a8a7e',1,'canvas_test::Form1']]],
+  ['functionvalue',['FunctionValue',['../structcanvas__test_1_1_quad_polynomial.html#ab13497a1cf21d52ec640ff0d028ff937',1,'canvas_test::QuadPolynomial']]]
 ];

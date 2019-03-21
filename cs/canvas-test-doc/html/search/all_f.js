@@ -8,6 +8,7 @@ var searchData=
   ['setparent',['SetParent',['../classcanvas__test_1_1_graph.html#a220edd27f3d7088343425446e77ce550',1,'canvas_test::Graph']]],
   ['setpixel',['SetPixel',['../classcanvas__test_1_1_graph.html#add2c27f4cf468ea21cc7dfe840faac24',1,'canvas_test::Graph']]],
   ['setpoint',['SetPoint',['../classcanvas__test_1_1_graph.html#a096ba35f8cddafd2afb64d6177e4f49d',1,'canvas_test::Graph']]],
+  ['setreadonly',['SetReadOnly',['../classcanvas__test_1_1_value_table.html#aa3aaa2bef590e412a518ddd3f043f352',1,'canvas_test::ValueTable']]],
   ['settings',['Settings',['../classcanvas__test_1_1_properties_1_1_settings.html',1,'canvas_test::Properties']]],
   ['settings_2edesigner_2ecs',['Settings.Designer.cs',['../_settings_8_designer_8cs.html',1,'']]],
   ['simpleline',['SimpleLine',['../_graph_8cs.html#a61b7cf6554ba17577ed4c6b4b77491b9',1,'Graph.cs']]],

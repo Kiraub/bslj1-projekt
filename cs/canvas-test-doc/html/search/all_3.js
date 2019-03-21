@@ -9,11 +9,12 @@ var searchData=
   ['drawareacontainer',['DrawAreaContainer',['../classcanvas__test_1_1_graph.html#ad533c34b549ddb6e774f9c18b32bed72',1,'canvas_test::Graph']]],
   ['drawaxes',['DrawAxes',['../classcanvas__test_1_1_graph.html#ad9e73a12f554eb0ae24edc043c30bd9e',1,'canvas_test::Graph']]],
   ['drawcurve',['DrawCurve',['../classcanvas__test_1_1_graph.html#a4adc1dcbd95046a1f0fa45d7acb67be5',1,'canvas_test::Graph']]],
-  ['drawhorizontalline',['DrawHorizontalLine',['../classcanvas__test_1_1_graph.html#a50c921ea88e410f11905bacc0e4aaac1',1,'canvas_test::Graph']]],
+  ['drawhorizontalline',['DrawHorizontalLine',['../classcanvas__test_1_1_graph.html#a41355663ddaec5ac7fb0374acf7ccef8',1,'canvas_test::Graph']]],
   ['drawline',['DrawLine',['../classcanvas__test_1_1_graph.html#a85d54a03f2ecf4f9407ad3a17101b7d8',1,'canvas_test::Graph']]],
   ['drawlines',['DrawLines',['../classcanvas__test_1_1_graph.html#a44282a6009352ba7a597da0e8b87fd89',1,'canvas_test::Graph']]],
-  ['drawmark',['DrawMark',['../classcanvas__test_1_1_graph.html#a574c313239b9f71dddadb31031743d9c',1,'canvas_test::Graph']]],
+  ['drawmark',['DrawMark',['../classcanvas__test_1_1_graph.html#a780036cafa98ba956c83588c4ada1593',1,'canvas_test::Graph']]],
   ['drawpolynomialfunction',['DrawPolynomialFunction',['../classcanvas__test_1_1_graph.html#a8b2cd79ce062444c421b678744a4382d',1,'canvas_test::Graph']]],
   ['drawrationalfunction',['DrawRationalFunction',['../classcanvas__test_1_1_graph.html#ad63bc5b8cbedf8379096cacb67be5786',1,'canvas_test::Graph']]],
-  ['drawverticalline',['DrawVerticalLine',['../classcanvas__test_1_1_graph.html#a4521012e926b29c55f1b50cb9a7d35af',1,'canvas_test::Graph']]]
+  ['drawtestimage',['DrawTestImage',['../classcanvas__test_1_1_form1.html#a687024ba9c1bb5d7ba2735e965c860d5',1,'canvas_test::Form1']]],
+  ['drawverticalline',['DrawVerticalLine',['../classcanvas__test_1_1_graph.html#a11fc04faac8a9358413f17ca543e1f87',1,'canvas_test::Graph']]]
 ];
