@@ -20,7 +20,8 @@ namespace canvas_test
 
         FormWindowState previousWindowState;
 
-        Graph g;
+        Graph TestGraph { get; set; }
+        ValueTable ResultTable { get; set; }
 
         /// <summary>
         /// Form-Objekt, welches die zu testenden Programm-Bausteine beinhaltet
@@ -45,14 +46,20 @@ namespace canvas_test
                 Orientation = Orientation.Horizontal
             };
 
-            g = new Graph();
+            TestGraph = new Graph();
 
-            Button btnTr = new Button
+            Button btnTransparency = new Button
             {
                 Text = "Toggle transparent Labels",
                 Width = 200
             };
-            btnTr.Click += Click_btnTr;
+            btnTransparency.Click += Click_btnTransparency;
+            Button btnRenderTable = new Button
+            {
+                Text = "Render data",
+                Width = 150
+            };
+            btnRenderTable.Click += Click_btnRenderTable;
 
             // experimental UI for testing purposes
 
@@ -77,17 +84,18 @@ namespace canvas_test
             yHigh = new NumericUpDown();
             IncreaseRange(yHigh);
 
-            xLow.Value = (decimal)g.HorizontalAxis.Item1;
-            xHigh.Value = (decimal)g.HorizontalAxis.Item2;
-            yLow.Value = (decimal)g.VerticalAxis.Item1;
-            yHigh.Value = (decimal)g.VerticalAxis.Item2;
+            xLow.Value = (decimal)TestGraph.HorizontalAxis.Item1;
+            xHigh.Value = (decimal)TestGraph.HorizontalAxis.Item2;
+            yLow.Value = (decimal)TestGraph.VerticalAxis.Item1;
+            yHigh.Value = (decimal)TestGraph.VerticalAxis.Item2;
 
             xLow.ValueChanged += NumUpDown_ValueChanged;
             xHigh.ValueChanged += NumUpDown_ValueChanged;
             yLow.ValueChanged += NumUpDown_ValueChanged;
             yHigh.ValueChanged += NumUpDown_ValueChanged;
 
-            AddChild(subCon.Panel1, btnTr, 10, 10);
+            AddChild(subCon.Panel1, btnTransparency, 10, 10);
+            AddChild(subCon.Panel1, btnRenderTable, 10, (10 + btnTransparency.Width) + 5);
 
             AddChild(subCon.Panel1, xLabel, 50, 10);
             AddChild(subCon.Panel1, xLow, 80, 10);
@@ -96,88 +104,60 @@ namespace canvas_test
             AddChild(subCon.Panel1, yLabel, 120, 10);
             AddChild(subCon.Panel1, yLow, 150, 10);
             AddChild(subCon.Panel1, yHigh, 150, 150);
-            ResizeBegin += (object s, EventArgs e) => { g.AutoResize = false; };
-            ResizeEnd += (object s, EventArgs e) => { g.AutoResize = true; g.ForceResize(); };
-            
-            ClientSizeChanged += (object s, EventArgs e) => { if (previousWindowState != WindowState) { g.ForceResize(); } };
+            ResizeBegin += (object s, EventArgs e) => { TestGraph.AutoResize = false; };
+            ResizeEnd += (object s, EventArgs e) => { TestGraph.AutoResize = true; TestGraph.ForceResize(); };
+
+            ClientSizeChanged += (object s, EventArgs e) => { if (previousWindowState != WindowState) { TestGraph.ForceResize(); } };
 
             previousWindowState = WindowState;
 
-            //Integrate DataGrid, DataSet including DataTables
-            ValueTable ResultTable = new ValueTable();
-            AddChild(subCon.Panel2, ResultTable.myDataGridView);
+            //Integrate DataGridView, DataSet including DataTables
+            ResultTable = new ValueTable();
+            AddChild(subCon.Panel2, ResultTable.MyDataGridView);
+        }
+
+        private void Click_btnRenderTable(object sender, EventArgs e)
+        {
+            TestGraph.ClearLineMemory();
+            double[,] data = ResultTable.GetTableContents();
+            int columnCount = data.GetLength(0);
+            int rowCount = data.GetLength(1);
+            // first column are X-values
+            // loop through other columns for Y-values
+            for (int column=1; column<columnCount; column+=1)
+            {
+                for (int row = 0; row < rowCount; row += 1)
+                {
+                    //debugging output
+                    //System.Diagnostics.Debug.Print(row.ToString() + ": " + data[column, row].ToString() + " ");
+                    TestGraph.DrawMark(new PointF((float)data[0, row], (float)data[column, row]), ResultTable.ColumnColors[column], false);
+                }
+                //System.Diagnostics.Debug.Print("----");
+            }
+            TestGraph.ForceResize();
+            TestGraph.DrawPolynomialFunction(ValueTable.AmpereFunction, ResultTable.ColumnColors[1]);
+            TestGraph.DrawPolynomialFunction(ValueTable.VoltageFunction, ResultTable.ColumnColors[2]);
+            TestGraph.DrawPolynomialFunction(ValueTable.PowerFunction, ResultTable.ColumnColors[3]);
         }
 
         private void NumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            g.HorizontalAxis = new Tuple<float, float>((float)xLow.Value, (float)xHigh.Value);
-            g.VerticalAxis = new Tuple<float, float>((float)yLow.Value, (float)yHigh.Value);
+            TestGraph.HorizontalAxis = new Tuple<float, float>((float)xLow.Value, (float)xHigh.Value);
+            TestGraph.VerticalAxis = new Tuple<float, float>((float)yLow.Value, (float)yHigh.Value);
         }
 
-        private void Click_btnTr(object sender, EventArgs e)
+        private void Click_btnTransparency(object sender, EventArgs e)
         {
-            GetGraph().ToggleLabelTransparency();
+            TestGraph.ToggleLabelTransparency();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             //Bei Start Splitter in die Mitte setzen
-            mainCon.SplitterDistance = Convert.ToInt32(Math.Round(this.Width * 0.5, 0));
-            g.SetParent(mainCon.Panel1);
-            g.RememberDrawing = true;
-            PointF[] ps = new PointF[5];
-            ps[0] = new PointF(10f, 50f);
-            ps[1] = new PointF(80f, 70f);
-            ps[2] = new PointF(25f, 80f);
-            ps[3] = new PointF(50f, 35f);
-            ps[4] = new PointF(65f, 95f);
-            g.DrawLines(ps, g.ForegroundColor, true);
-
-            List<PointF> lps = new List<PointF>();
-            lps.Add(new PointF(0f, 100f));
-            lps.Add(new PointF(10f, 50f));
-            lps.Add(new PointF(20f, 25f));
-            lps.Add(new PointF(30f, 12.5f));
-            lps.Add(new PointF(40f, 6.25f));
-            lps.Add(new PointF(50f, 3.125f));
-            lps.Add(new PointF(60f, 1.5625f));
-            lps.Add(new PointF(70f, 0.78625f));
-            Color[] nextC = { Color.Red, Color.Blue, Color.Green };
-            int counter = 0;
-            for (float lc = -0.8f; lc < 0.9f; lc += 0.2f)
-            {
-                g.DrawCurve(lps[0], lps.GetRange(1, lps.Count - 1), nextC[(int)counter % 3], 10, lc);
-                counter += 1;
-            }
-            float pi = (float)Math.PI;
-            List<PointF> pie = new List<PointF>();
-            float[] nextY = { 0f, 1f, 0f, -1f };
-            counter = 0;
-            for (float pic = 0f; pic < 100f; pic += pi)
-            {
-                pie.Add(new PointF(pic, nextY[counter % 4]));
-                counter += 1;
-            }
-            for (float lc = 0.5f; lc < 0.7f; lc += 0.2f)
-            {
-                g.DrawCurve(pie[0], pie.GetRange(1, pie.Count - 1), nextC[(int)counter % 3], 10, lc);
-                counter += 1;
-            }
-
-            QuadPolynomial simpleQuadratic = new QuadPolynomial
-            {
-                two = 2.0f,
-                one = 0.0f,
-                zero = 3.0f
-            };
-            QuadPolynomial simpleLinear = new QuadPolynomial
-            {
-                two = 0.0f,
-                one = 0.5f,
-                zero = 4.0f
-            };
-
-            g.DrawRationalFunction(simpleLinear, simpleQuadratic, Color.Black);
+            mainCon.SplitterDistance = Convert.ToInt32(Math.Round(Width * 0.5, 0));
+            TestGraph.SetParent(mainCon.Panel1);
+            TestGraph.RememberDrawing = true;
+            
         }
 
         private void AddChild(Control parent, Control child, int top = 10, int left = 10)
@@ -193,9 +173,61 @@ namespace canvas_test
             numUpDown.Minimum = -500.0m;
         }
 
-        private Graph GetGraph()
+        private void DrawTestImage()
         {
-            return g;
+            PointF[] ps = new PointF[5];
+            ps[0] = new PointF(10f, 50f);
+            ps[1] = new PointF(80f, 70f);
+            ps[2] = new PointF(25f, 80f);
+            ps[3] = new PointF(50f, 35f);
+            ps[4] = new PointF(65f, 95f);
+            TestGraph.DrawLines(ps, TestGraph.ForegroundColor, true);
+
+            List<PointF> lps = new List<PointF>();
+            lps.Add(new PointF(0f, 100f));
+            lps.Add(new PointF(10f, 50f));
+            lps.Add(new PointF(20f, 25f));
+            lps.Add(new PointF(30f, 12.5f));
+            lps.Add(new PointF(40f, 6.25f));
+            lps.Add(new PointF(50f, 3.125f));
+            lps.Add(new PointF(60f, 1.5625f));
+            lps.Add(new PointF(70f, 0.78625f));
+            Color[] nextC = { Color.Red, Color.Blue, Color.Green };
+            int counter = 0;
+            for (float lc = -0.8f; lc < 0.9f; lc += 0.2f)
+            {
+                TestGraph.DrawCurve(lps[0], lps.GetRange(1, lps.Count - 1), nextC[(int)counter % 3], 10, lc);
+                counter += 1;
+            }
+            float pi = (float)Math.PI;
+            List<PointF> pie = new List<PointF>();
+            float[] nextY = { 0f, 1f, 0f, -1f };
+            counter = 0;
+            for (float pic = 0f; pic < 100f; pic += pi)
+            {
+                pie.Add(new PointF(pic, nextY[counter % 4]));
+                counter += 1;
+            }
+            for (float lc = 0.5f; lc < 0.7f; lc += 0.2f)
+            {
+                TestGraph.DrawCurve(pie[0], pie.GetRange(1, pie.Count - 1), nextC[(int)counter % 3], 10, lc);
+                counter += 1;
+            }
+
+            QuadPolynomial simpleQuadratic = new QuadPolynomial
+            {
+                two = (_) => 2.0f,
+                one = (_) => 0.0f,
+                zero = (_) => 3.0f
+            };
+            QuadPolynomial simpleLinear = new QuadPolynomial
+            {
+                two = (_) => 0.0f,
+                one = (_) => 0.5f,
+                zero = (_) => 4.0f
+            };
+
+            TestGraph.DrawRationalFunction(simpleLinear, simpleQuadratic, Color.Black);
         }
 
     }
