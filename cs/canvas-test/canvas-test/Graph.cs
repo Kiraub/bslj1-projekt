@@ -230,13 +230,13 @@ namespace canvas_test
             float xdiff = Right.X - Left.X;
             if (xdiff == 0f)
             {
-                DrawVerticalLine(Left.X, Left.Y, Right.Y);
+                DrawVerticalLine(Left.X, Left.Y, Right.Y, fillColor);
             }
             // ydiff is positive if up-slope; negative if down-slope; zero if even line
             float ydiff = Right.Y - Left.Y;
             if (ydiff == 0f)
             {
-                DrawHorizontalLine(Left.Y, Left.X, Right.X);
+                DrawHorizontalLine(Left.Y, Left.X, Right.X, fillColor);
             }
             // steepness of the slope
             float m = ydiff / xdiff;
@@ -295,15 +295,17 @@ namespace canvas_test
         /// Zeichnet ein '+'-Kreuz in den Graphen
         /// </summary>
         /// <param name="coord">Koordinate des Kreuz-Zentrums</param>
+        /// <param name="fillColor">Füllfarbe</param>
+        /// <param name="is_redraw">True: Markierung brauch nicht gemerkt zu werden</param>
         /// <param name="scale">+/- Bereich um Koordinate der Kreuz-Linien</param>
-        public void DrawMark(GraphCoord coord, float scale = 0.75f)
+        public void DrawMark(GraphCoord coord, Color fillColor, bool is_redraw, float scale = 0.75f)
         {
             float up = coord.Y + scale;
             float down = coord.Y - scale;
             float left = coord.X - scale;
             float right = coord.X + scale;
-            DrawLine(new GraphCoord(left, coord.Y), new GraphCoord(right, coord.Y), ForegroundColor, true);
-            DrawLine(new GraphCoord(coord.X, down), new GraphCoord(coord.X, up), ForegroundColor, true);
+            DrawLine(new GraphCoord(left, coord.Y), new GraphCoord(right, coord.Y), fillColor, is_redraw);
+            DrawLine(new GraphCoord(coord.X, down), new GraphCoord(coord.X, up), fillColor, is_redraw);
         }
 
         /// <summary>
@@ -315,19 +317,19 @@ namespace canvas_test
             DrawLine(new GraphCoord(0f, Geometry.LowY), new GraphCoord(0f, Geometry.HighY), ForegroundColor, true);
             for (float xPositive = Geometry.ScalingX; xPositive < Geometry.HighX + Geometry.ScalingX; xPositive += Geometry.ScalingX)
             {
-                DrawMark(new GraphCoord(xPositive, 0f));
+                DrawMark(new GraphCoord(xPositive, 0f), ForegroundColor, true);
             }
             for (float xNegative = -Geometry.ScalingX; xNegative > Geometry.LowX - Geometry.ScalingX; xNegative -= Geometry.ScalingX)
             {
-                DrawMark(new GraphCoord(xNegative, 0f));
+                DrawMark(new GraphCoord(xNegative, 0f), ForegroundColor, true);
             }
             for (float yPositive = Geometry.ScalingY; yPositive < Geometry.HighY + Geometry.ScalingY; yPositive += Geometry.ScalingY)
             {
-                DrawMark(new GraphCoord(0f, yPositive));
+                DrawMark(new GraphCoord(0f, yPositive), ForegroundColor, true);
             }
             for (float yNegative = -Geometry.ScalingY; yNegative > Geometry.LowY - Geometry.ScalingY; yNegative -= Geometry.ScalingY)
             {
-                DrawMark(new GraphCoord(0f, yNegative));
+                DrawMark(new GraphCoord(0f, yNegative), ForegroundColor, true);
             }
         }
 
@@ -389,11 +391,12 @@ namespace canvas_test
             for( float xStep = xLeft; xStep <= xRight; xStep += stepIncrement)
             {
                 // calculate y = f(x) = P(x) / Q(x)
-                float yStep = (float) Math.Pow(polynomial.two, 2.0)*xStep + polynomial.one*xStep + polynomial.zero;
+                float yStep = polynomial.FunctionValue(xStep);
                 GraphCoord functionPoint = new GraphCoord(xStep, yStep);
                 if ( xStep > xLeft )
                 {
                     DrawLine(lastPoint, functionPoint, fillColor, false);
+                    //System.Diagnostics.Debug.Print("zeichne linie: " + lastPoint.ToString() + "; " + functionPoint.ToString());
                 }
                 lastPoint = functionPoint;
             }
@@ -416,8 +419,8 @@ namespace canvas_test
             for( float xStep = xLeft; xStep <= xRight; xStep += stepIncrement)
             {
                 // calculate y = f(x) = P(x) / Q(x)
-                double pStep = Math.Pow(pFunc.two, 2.0)*xStep + pFunc.one*xStep + pFunc.zero;
-                double qStep = Math.Pow(qFunc.two, 2.0)*xStep + qFunc.one*xStep + qFunc.zero;
+                double pStep = pFunc.FunctionValue(xStep);
+                double qStep = qFunc.FunctionValue(xStep);
                 if (qStep == 0.0)
                 {
                     continue;
@@ -563,11 +566,12 @@ namespace canvas_test
         /// <param name="yVal">visueller Y-Wert der Linie</param>
         /// <param name="xLeft">visuell linker X-Wert der Linie</param>
         /// <param name="xRight">visuell rechter X-Wert der Linie</param>
-        private void DrawHorizontalLine(int yVal, int xLeft, int xRight)
+        /// <param name="fillColor">Füllfarbe</param>
+        private void DrawHorizontalLine(int yVal, int xLeft, int xRight, Color fillColor)
         {
             for (int xstep = xLeft; xstep < xRight; xstep += 1)
             {
-                SetPixel(new ImageCoord(xstep, yVal), ForegroundColor);
+                SetPixel(new ImageCoord(xstep, yVal), fillColor);
             }
         }
 
@@ -577,12 +581,13 @@ namespace canvas_test
         /// <param name="xVal">visueller X-Wert der Linie</param>
         /// <param name="yDown">visuell niedrigerer Y-Wert der Linie</param>
         /// <param name="yUp">visuell höherer Y-Wert der Linie</param>
-        private void DrawVerticalLine(int xVal, int yDown, int yUp)
+        /// <param name="fillColor">Füllfarbe</param>
+        private void DrawVerticalLine(int xVal, int yDown, int yUp, Color fillColor)
         {
             int stepSize = Math.Sign(yUp - yDown);
             for (int ystep = yDown; ystep != yUp; ystep += stepSize)
             {
-                SetPixel(new ImageCoord(xVal, ystep), ForegroundColor);
+                SetPixel(new ImageCoord(xVal, ystep), fillColor);
             }
         }
 
@@ -800,50 +805,23 @@ namespace canvas_test
         /// <summary>
         /// Faktor a von x^2
         /// </summary>
-        public float two;
+        public Func<float,float> two;
         /// <summary>
         /// Faktor b von x
         /// </summary>
-        public float one;
+        public Func<float,float> one;
         /// <summary>
         /// Summand c
         /// </summary>
-        public float zero;
+        public Func<float,float> zero;
+        /// <summary>
+        /// Funktionswert für geg. Eingabe
+        /// </summary>
+        /// <param name="xValue">Eingabewert</param>
+        /// <returns></returns>
+        public float FunctionValue(float xValue)
+        {
+            return (float)Math.Pow(xValue, 2.0) * two(xValue) + one(xValue) * xValue + zero(xValue);
+        }
     }
-
-    /* If needed more polyniomal structs should be created like the one above.
-     * This separation is needed, since drawing functions need to know how to handle a polynom's degree.
-     * Examples:
-        public struct LinearPolynomial
-        {
-            public float one;
-            public float zero;
-        }
-        public struct QubicPolynomial
-        {
-            public float three;
-            public float two;
-            public float one;
-            public float zero;
-        }
-     * These could also be created nested, although this is not necessary for current feature requirements.
-     * Example:
-        public struct QubicPolynomial
-        {
-            public float three;
-            public QuadPolynomial quadPolynomial;
-        }
-        public struct QuadPolynomial
-        {
-            public float two;
-            public LinearPolynomial linearPolynomial;
-        }
-        public struct LinearPolynomial
-        {
-            public float one;
-            public float zero;
-        }
-     * Note that neither of these examples are tested and should be expected to require modifications upon implementation.
-     */
-
 }
