@@ -29,6 +29,7 @@ namespace Bitgraph
         private List<CheckBox> OptionValues { get; set; }
         private List<Button> ActionButtons { get; set; }
         private List<NumericUpDown> GraphScales { get; set; }
+        private List<Label> GraphScalesText { get; set; }
 
         public BitgraphGUI()
         {
@@ -60,12 +61,14 @@ namespace Bitgraph
 
             GraphMan = new GraphManager();
             ValueTbl = new ValueTable();
+
+            GraphScalesText = new List<Label>();
         }
 
         private void BitgraphGUI_Load(object sender, EventArgs e)
         {
-            SplitVert.SplitterDistance = Convert.ToInt32(Math.Round(Width * 0.6, 0));
-            SplitHori.SplitterDistance = Convert.ToInt32(Math.Round(Height * 0.5, 0));
+            SplitVert.SplitterDistance = Convert.ToInt32(Math.Round(Width-300f, 0));
+            SplitHori.SplitterDistance = Convert.ToInt32(Math.Round(Height*0.5f, 0));
 
             TabCtrl.TabPages.Add(PageOptions);
             TabCtrl.TabPages.Add(PageImage);
@@ -85,7 +88,6 @@ namespace Bitgraph
                 cbx.Top = top;
                 cbx.Left = left;
                 cbx.Width = width;
-                //cbx.Dock = DockStyle.Top;
                 top += 30;
             }
 
@@ -96,12 +98,10 @@ namespace Bitgraph
                 btn.Top = top;
                 btn.Left = left;
                 btn.Width = width;
-                //btn.Dock = DockStyle.Top;
                 top += 30;
             }
 
-            top += 30;
-            left += 20;
+            top += 20;
             GraphScales = GraphMan.GetScales();
             // Half should be the break between X and Y relevant values
             int element = 1;
@@ -112,12 +112,20 @@ namespace Bitgraph
                 numUpDown.Top = top;
                 numUpDown.Left = left+(width+20)*(2-(element % (GraphScales.Count / 2)));
                 numUpDown.Width = width;
+                Label lbl = new Label { Parent=PageOptions, BackColor=Color.Transparent, Text = numUpDown.Name, Top = numUpDown.Top - 20, Left = numUpDown.Left, Width=numUpDown.Width };
+                GraphScalesText.Add(lbl);
                 if(element % (GraphScales.Count/2) == 0)
                 {
-                    top += 30;
+                    top += 45;
                 }
                 element += 1;
             }
+        }
+
+        private void BitgraphGUI_SizeChanged(object sender, EventArgs e)
+        {
+            SplitVert.SplitterDistance = Convert.ToInt32(Math.Round(Width - 300f, 0));
+            SplitHori.SplitterDistance = Convert.ToInt32(Math.Round(Height * 0.5f, 0));
         }
     }
 }

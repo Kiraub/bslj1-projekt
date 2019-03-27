@@ -88,7 +88,7 @@ namespace Bitgraph
         public Boundary HorizontalAxis
         {
             get { return new Boundary(Geometry.LowX, Geometry.HighX); }
-            set { Geometry.LowX = value.Item1; Geometry.HighX = value.Item2; FitToParent(); }
+            set { Geometry.SetLimitsX(value); FitToParent(); }
         }
         /// <summary>
         /// Repräsentiert die geomtrischen Y-Achsen Limits des Geometrie-Objekts
@@ -98,7 +98,7 @@ namespace Bitgraph
         public Boundary VerticalAxis
         {
             get { return new Boundary(Geometry.LowY, Geometry.HighY); }
-            set { Geometry.LowY = value.Item1; Geometry.HighY = value.Item2; FitToParent(); }
+            set { Geometry.SetLimitsY(value); FitToParent(); }
         }
 
         #endregion
@@ -149,28 +149,26 @@ namespace Bitgraph
 
             LblXAxis = new Label
             {
-                BorderStyle = BorderStyle.FixedSingle,
+                BorderStyle = BorderStyle.None,
                 Text = "X Achse",
                 Parent = DrawAreaContainer,
-                BackColor = BackgroundColor
+                BackColor = BackgroundColor,
+                AutoSize = true
             };
 
             LblYAxis = new Label
             {
-                BorderStyle = BorderStyle.FixedSingle,
+                BorderStyle = BorderStyle.None,
                 Text = "Y Achse",
                 Parent = DrawAreaContainer,
-                BackColor = BackgroundColor
+                BackColor = BackgroundColor,
+                AutoSize = true
             };
 
             LstLblMarkings = new List<Label>();
             LineMemory = new List<SimpleLine>();
 
-            TransparentLabels = false;
-
             Geometry = new GraphGeomtry();
-            HorizontalAxis = new Boundary(-10f, 100f);
-            VerticalAxis = new Boundary(-10f, 100f);
         }
 
         #endregion
@@ -239,6 +237,8 @@ namespace Bitgraph
             drawPlotButton.Click += (object s, EventArgs e) =>
             {
                 ClearLineMemory();
+                LblXAxis.Text = ValueTable.ColumnNames[0];
+                LblYAxis.Text = ValueTable.ColumnNames[1] + "\n" + ValueTable.ColumnNames[2] + "\n" + ValueTable.ColumnNames[3];
                 DrawPolynomialFunction(ValueTable.AmpereFunction, Options.PlotColors[0]);
                 DrawPolynomialFunction(ValueTable.VoltageFunction, Options.PlotColors[1]);
                 DrawPolynomialFunction(ValueTable.PowerFunction, Options.PlotColors[2]);
@@ -259,11 +259,8 @@ namespace Bitgraph
                 {
                     for (int row = 0; row < rowCount; row += 1)
                     {
-                        //debugging output
-                        //System.Diagnostics.Debug.Print(row.ToString() + ": " + data[column, row].ToString() + " ");
                         DrawMark(new PointF((float)data[0, row], (float)data[column, row]), Options.PlotColors[column-1], false);
                     }
-                    //System.Diagnostics.Debug.Print("----");
                 }
                 ForceResize();
             };
@@ -287,18 +284,28 @@ namespace Bitgraph
 
         public List<NumericUpDown> GetScales()
         {
-            NumericUpDown Xmin = new NumericUpDown { Text = "X Minimum", Maximum = 500.0m, Minimum = -500.0m, Value = (decimal)Geometry.LowX };
-            NumericUpDown Xmax = new NumericUpDown { Text = "X Maximum", Maximum = 500.0m, Minimum = -500.0m, Value = (decimal)Geometry.HighX };
-            NumericUpDown Xstep = new NumericUpDown { Text = "X Intervall", Maximum = 500.0m, Minimum = -500.0m, Value = (decimal)Geometry.ScalingX };
-            NumericUpDown Ymin = new NumericUpDown { Text = "Y Minimum", Maximum = 500.0m, Minimum = -500.0m, Value = (decimal)Geometry.LowY };
-            NumericUpDown Ymax = new NumericUpDown { Text = "Y Maximum", Maximum = 500.0m, Minimum = -500.0m, Value = (decimal)Geometry.HighY };
-            NumericUpDown Ystep = new NumericUpDown { Text = "Y Intervall", Maximum = 500.0m, Minimum = -500.0m, Value = (decimal)Geometry.ScalingY };
+            NumericUpDown Xmin = new NumericUpDown { Name = "X Minimum", Maximum = 500.0m, Minimum = -500.0m, DecimalPlaces = 1, Value = (decimal)Geometry.LowX };
+            NumericUpDown Xmax = new NumericUpDown { Name = "X Maximum", Maximum = 500.0m, Minimum = -500.0m, DecimalPlaces = 1, Value = (decimal)Geometry.HighX };
+            NumericUpDown Xstep = new NumericUpDown { Name = "X Intervall", Maximum = 100.0m, Minimum = 0.5m, DecimalPlaces = 1, Increment = 0.1m, Value = (decimal)Geometry.ScalingX };
+            NumericUpDown Ymin = new NumericUpDown { Name = "Y Minimum", Maximum = 500.0m, Minimum = -500.0m, DecimalPlaces = 1, Value = (decimal)Geometry.LowY };
+            NumericUpDown Ymax = new NumericUpDown { Name = "Y Maximum", Maximum = 500.0m, Minimum = -500.0m, DecimalPlaces = 1, Value = (decimal)Geometry.HighY };
+            NumericUpDown Ystep = new NumericUpDown { Name = "Y Intervall", Maximum = 100.0m, Minimum = 0.5m, DecimalPlaces = 1, Increment = 0.1m, Value = (decimal)Geometry.ScalingY };
+
+            Xmin.ValueChanged += (object sender, EventArgs e) => { HorizontalAxis = new Boundary((float)Xmin.Value, (float)Xmax.Value); Xmin.Value = (decimal)Geometry.LowX; };
+            Xmax.ValueChanged += (object sender, EventArgs e) => { HorizontalAxis = new Boundary((float)Xmin.Value, (float)Xmax.Value); Xmax.Value = (decimal)Geometry.HighX; };
+            Xstep.ValueChanged += (object sender, EventArgs e) => { Geometry.ScalingX = (float)Xstep.Value; ForceResize(); };
+            Ymin.ValueChanged += (object sender, EventArgs e) => { VerticalAxis = new Boundary((float)Ymin.Value, (float)Ymax.Value); Ymin.Value = (decimal)Geometry.LowY; };
+            Ymax.ValueChanged += (object sender, EventArgs e) => { VerticalAxis = new Boundary((float)Ymin.Value, (float)Ymax.Value); Ymax.Value = (decimal)Geometry.HighY; };
+            Ystep.ValueChanged += (object sender, EventArgs e) => { Geometry.ScalingY = (float)Ystep.Value; ForceResize(); };
+
             List<NumericUpDown> numUpDownList = new List<NumericUpDown>
             {
                 Xmin, Xmax, Xstep, Ymin, Ymax, Ystep
             };
             return numUpDownList;
         }
+
+        //public List<>
 
         #region Drawing related methods
 
@@ -383,25 +390,87 @@ namespace Bitgraph
         /// </summary>
         public void DrawAxes()
         {
+            foreach(Label lbl in LstLblMarkings)
+            {
+                lbl.Dispose();
+            }
+            LstLblMarkings.Clear();
+            BorderStyle lblBorder = BorderStyle.None;
+            Color lblBackground = TransparentLabels ? Color.Transparent : BackgroundColor;
+            int freeHoriSteps = 0;
+            int freeVertiSteps = 0;
+            int travelSteps = 0;
+            int lblHeight = (int)Math.Floor(ImageHeight / (Geometry.Height / (Geometry.ScalingY + freeVertiSteps * Geometry.ScalingY)));
+            int lblWidth = (int) Math.Floor(ImageWidth / (Geometry.Width / (Geometry.ScalingX + freeHoriSteps*Geometry.ScalingX)));
+            while (lblWidth < 23)
+            {
+                freeHoriSteps += 1;
+                lblWidth = (int)Math.Floor(ImageWidth / (Geometry.Width / (Geometry.ScalingX + freeHoriSteps * Geometry.ScalingX)));
+            }
+            while (lblHeight < 15)
+            {
+                freeVertiSteps += 1;
+                lblHeight = (int)Math.Floor(ImageHeight / (Geometry.Height / (Geometry.ScalingY + freeVertiSteps * Geometry.ScalingY)));
+            }
             DrawLine(new GraphCoord(Geometry.LowX, 0f), new GraphCoord(Geometry.HighX, 0f), ForegroundColor, true);
             DrawLine(new GraphCoord(0f, Geometry.LowY), new GraphCoord(0f, Geometry.HighY), ForegroundColor, true);
             for (float xPositive = Geometry.ScalingX; xPositive < Geometry.HighX + Geometry.ScalingX; xPositive += Geometry.ScalingX)
             {
+                if(travelSteps==0)
+                {
+                    ImageCoord lblPos = Graph2Image(new GraphCoord(xPositive, -1.5f));
+                    LstLblMarkings.Add(new Label { Text = xPositive.ToString(), BorderStyle = lblBorder, Parent = DrawAreaContainer, Top = lblPos.Y, Left = lblPos.X, Width = lblWidth, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
+                }
+                travelSteps += 1;
+                if(travelSteps>freeHoriSteps)
+                {
+                    travelSteps = 0;
+                }
                 DrawMark(new GraphCoord(xPositive, 0f), ForegroundColor, true, 1f);
                 DrawMark(new GraphCoord(xPositive - Geometry.ScalingX / 2, 0f), ForegroundColor, true, 0.4f);
             }
             for (float xNegative = -Geometry.ScalingX; xNegative > Geometry.LowX - Geometry.ScalingX; xNegative -= Geometry.ScalingX)
             {
+                if (travelSteps == 0)
+                {
+                    ImageCoord lblPos = Graph2Image(new GraphCoord(xNegative, -1.5f));
+                    LstLblMarkings.Add(new Label { Text = xNegative.ToString(), BorderStyle = lblBorder, Parent = DrawAreaContainer, Top = lblPos.Y, Left = lblPos.X, Width = lblWidth, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
+                }
+                travelSteps += 1;
+                if (travelSteps > freeHoriSteps)
+                {
+                    travelSteps = 0;
+                }
                 DrawMark(new GraphCoord(xNegative, 0f), ForegroundColor, true, 1f);
                 DrawMark(new GraphCoord(xNegative + Geometry.ScalingX / 2, 0f), ForegroundColor, true, 0.4f);
             }
             for (float yPositive = Geometry.ScalingY; yPositive < Geometry.HighY + Geometry.ScalingY; yPositive += Geometry.ScalingY)
             {
-                DrawMark(new GraphCoord(0f, yPositive), ForegroundColor, true, 1f);
+                if (travelSteps == 0)
+                {
+                    ImageCoord lblPos = Graph2Image(new GraphCoord(1.5f, yPositive));
+                    LstLblMarkings.Add(new Label { Text = yPositive.ToString(), BorderStyle = lblBorder, Parent = DrawAreaContainer, Top = lblPos.Y, Left = lblPos.X, Width = 30, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
+                }
+                travelSteps += 1;
+                if (travelSteps > freeVertiSteps)
+                {
+                    travelSteps = 0;
+                }
+            DrawMark(new GraphCoord(0f, yPositive), ForegroundColor, true, 1f);
                 DrawMark(new GraphCoord(0f, yPositive - Geometry.ScalingY / 2), ForegroundColor, true, 0.4f);
             }
             for (float yNegative = -Geometry.ScalingY; yNegative > Geometry.LowY - Geometry.ScalingY; yNegative -= Geometry.ScalingY)
             {
+                if (travelSteps == 0)
+                {
+                    ImageCoord lblPos = Graph2Image(new GraphCoord(1.5f, yNegative));
+                    LstLblMarkings.Add(new Label { Text = yNegative.ToString(), BorderStyle = lblBorder, Parent = DrawAreaContainer, Top = lblPos.Y, Left = lblPos.X, Width = 30, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
+                }
+                travelSteps += 1;
+                if (travelSteps > freeVertiSteps)
+                {
+                    travelSteps = 0;
+                }
                 DrawMark(new GraphCoord(0f, yNegative), ForegroundColor, true, 1f);
                 DrawMark(new GraphCoord(0f, yNegative + Geometry.ScalingY / 2), ForegroundColor, true, 0.4f);
             }
@@ -477,14 +546,17 @@ namespace Bitgraph
             int newHeight = DrawAreaContainer.Height;
             DrawArea = new Bitmap(newWidth, newHeight);
             DrawAreaContainer.Image = DrawArea;
-            //TODO dynamische labelpositioning nach graph-achsen
+
+            ImageCoord xLblPos = Graph2Image(new GraphCoord(Geometry.HighX, Geometry.ScalingY));
+            ImageCoord yLblPos = Graph2Image(new GraphCoord(Geometry.ScalingX, Geometry.HighY));
+
             LblYAxis.Parent = DrawAreaContainer;
-            LblYAxis.Top = 10;
-            LblYAxis.Left = 10;
+            LblYAxis.Top = yLblPos.Y;
+            LblYAxis.Left = yLblPos.X;//+LblYAxis.Width;
 
             LblXAxis.Parent = DrawAreaContainer;
-            LblXAxis.Top = newHeight - LblXAxis.Height - 20;
-            LblXAxis.Left = newWidth - LblXAxis.Width - 20;
+            LblXAxis.Top = xLblPos.Y;
+            LblXAxis.Left = xLblPos.X-LblXAxis.Width;
 
             DrawAxes();
             RedrawGraph();
@@ -498,7 +570,7 @@ namespace Bitgraph
         private ImageCoord Graph2Image(GraphCoord gc)
         {
             GraphCoord relative = Geometry.GetRelative(gc);
-            // Die Asurichtung der X-Achse der Bitmap stimmt mit der X-Achse des Graphen überein
+            // Die Ausrichtung der X-Achse der Bitmap stimmt mit der X-Achse des Graphen überein
             float relX = relative.X;
             // Die Ausrichtung der Y-Achse der Bitmap entgegen der Y-Achse des Graphen
             float relY = 1f - relative.Y;
@@ -615,7 +687,7 @@ namespace Bitgraph
         /// <summary>
         /// Transparente Hintergründe der Graphenbeschriftungen
         /// </summary>
-        public bool TransparentLabels { get; set; } = false;
+        public bool TransparentLabels { get; set; } = true;
 
         /// <summary>
         /// Automatisches neu-Zeichnen des Graphen bei geg. Event

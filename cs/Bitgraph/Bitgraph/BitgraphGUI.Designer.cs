@@ -42,6 +42,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bitgraph";
             this.Load += new System.EventHandler(this.BitgraphGUI_Load);
+            this.SizeChanged += new System.EventHandler(this.BitgraphGUI_SizeChanged);
             this.ResumeLayout(false);
 
         }
