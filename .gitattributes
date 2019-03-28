@@ -66,3 +66,4 @@
 # vendored paths
 ###############################################################################
 cs/canvas-test-doc/html/* linguist-vendored=true
+cs/Bitgraph-doc/html/* linguist-vendored=true
