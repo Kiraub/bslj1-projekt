@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Drawing; 
+using System.Drawing;
 using System.Windows.Forms;
-using System.Text;
-using System.Threading.Tasks;
 
 using ImageCoord = System.Drawing.Point;
 using GraphCoord = System.Drawing.PointF;
 using SimpleLine = System.Tuple<System.Drawing.PointF, System.Drawing.PointF, System.Drawing.Color>;
 using Boundary = System.Tuple<float, float>;
 
-
-namespace Bitgraph
+namespace Bitgraph.Graph
 {
     /// <summary>
     /// Repräsentiert die zusammengefasste Schnittstelle um Graphen zu zeichnen
@@ -21,19 +17,8 @@ namespace Bitgraph
     /// <para>Die Geometrie-Berechnung arbeitet mit Float-Genauigkeit</para>
     /// <para>Kantenglättung ist nicht implementiert</para>
     /// </summary>
-    public class GraphManager
+    public sealed class GraphManager
     {
-        #region public class fields
-        /// <summary>
-        /// Default-Breite der visuellen Darstellungsfläche in Pixel
-        /// </summary>
-        public static int DEFAULT_WIDTH = 100;
-        /// <summary>
-        /// Default-Höhe der visuellen Darstellungsfläche in Pixel
-        /// </summary>
-        public static int DEFAULT_HEIGHT = 100;
-        #endregion
-
         #region public instance fields
 
         /// <summary>
@@ -63,22 +48,17 @@ namespace Bitgraph
         public List<Label> LstLblMarkings { get; set; }
 
         /// <summary>
-        /// Repräsentiert die visuelle Darstellungsfläche
-        /// </summary>
-        public Bitmap DrawArea { get; set; }
-        /// <summary>
-        /// Container der visuellen Darstellungsfläche
-        /// </summary>
-        public PictureBox DrawAreaContainer { get; set; }
-
-        /// <summary>
         /// Vordergrundfarbe der visuellen Darstellungsfläche
         /// </summary>
-        public Color ForegroundColor { get; set; }
+        public Color ForegroundColor => Color.Black;
         /// <summary>
         /// Hintergrundfarbe der visuellen Darstellungsfläche
         /// </summary>
-        public Color BackgroundColor { get; set; }
+        public Color BackgroundColor => Color.Beige;
+        /// <summary>
+        /// Transparente "Farbe" der visuellen Darstellungsfläche
+        /// </summary>
+        public Color TransparentColor => Color.Transparent;
 
         /// <summary>
         /// Repräsentiert die geometrischen X-Achsen Limits des Geometrie-Objekts
@@ -104,16 +84,24 @@ namespace Bitgraph
         #endregion
 
         #region private instance fields
+
         /// <summary>
         /// Breite der visuellen Darstellungsfläche
         /// </summary>
-        private int ImageWidth => DrawArea.Width;
+        private int ImageWidth => Visualization.Width;
         /// <summary>
         /// Höhe der visuellen Darstellungsfläche
         /// </summary>
-        private int ImageHeight => DrawArea.Height;
+        private int ImageHeight => Visualization.Height;
 
+        /// <summary>
+        /// Container der Einstellungen des Graphen
+        /// </summary>
         private GraphOptions Options { get; set; }
+        /// <summary>
+        /// Container der visuellen Schnittstelle
+        /// </summary>
+        private GraphVisualization Visualization { get; set; }
         /// <summary>
         /// Container der geomtrischen Schnittstelle
         /// </summary>
@@ -129,38 +117,26 @@ namespace Bitgraph
 
         /// <summary>
         /// Erstelle einen neuen Graphen mit visuellem und geometrischem Container
-        /// <para></para>
-        /// <para>Default-Einstellungen</para>
-        /// <para>Vordergrund-Farbe: Schwarz</para>
-        /// <para>Hintergrund-Farbe: Beige</para>
         /// </summary>
-        public GraphManager()
+        public GraphManager(Control parent)
         {
             Options = new GraphOptions();
-
-            ForegroundColor = Color.Black;
-            BackgroundColor = Color.Beige;
-
-            DrawAreaContainer = new PictureBox();
-            DrawArea = new Bitmap(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-            DrawAreaContainer.Image = DrawArea;
-            DrawAreaContainer.BorderStyle = BorderStyle.FixedSingle;
-            DrawAreaContainer.BackColor = BackgroundColor;
+            Visualization = new GraphVisualization(BackgroundColor);
+            Geometry = new GraphGeomtry();
 
             LblXAxis = new Label
             {
                 BorderStyle = BorderStyle.None,
                 Text = "X Achse",
-                Parent = DrawAreaContainer,
+                Parent = Visualization.Container,
                 BackColor = BackgroundColor,
                 AutoSize = true
             };
-
             LblYAxis = new Label
             {
                 BorderStyle = BorderStyle.None,
                 Text = "Y Achse",
-                Parent = DrawAreaContainer,
+                Parent = Visualization.Container,
                 BackColor = BackgroundColor,
                 AutoSize = true
             };
@@ -168,7 +144,7 @@ namespace Bitgraph
             LstLblMarkings = new List<Label>();
             LineMemory = new List<SimpleLine>();
 
-            Geometry = new GraphGeomtry();
+            SetParent(parent);
         }
 
         #endregion
@@ -181,7 +157,7 @@ namespace Bitgraph
         /// <param name="newParent">Neues Parent Control-Element</param>
         public void SetParent(Control newParent)
         {
-            DrawAreaContainer.Parent = newParent;
+            Visualization.Parent = newParent;
             newParent.SizeChanged += Parent_SizeChanged;
             FitToParent();
         }
@@ -208,7 +184,174 @@ namespace Bitgraph
             TransparentLabels = !TransparentLabels;
             SetLabelTransparency(TransparentLabels);
         }
+        
+        /// <summary>
+        /// Zeichne eine Linie in den Graphen
+        /// </summary>
+        /// <param name="graphStart">Start-Koordinate</param>
+        /// <param name="graphEnd">End-Koordinate</param>
+        /// <param name="fillColor">Füllfarbe</param>
+        /// <param name="is_redraw"><para>True: Linie wird nicht gespeichert</para><para></para><para>False: Linie wird gespeichert</para></param>
+        public void PlotLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor, bool is_redraw = false)
+        {
+            if (!is_redraw && RememberDrawing)
+            {
+                LineMemory.Add(new SimpleLine(graphStart, graphEnd, fillColor));
+            }
+            ImageCoord start = Graph2Image(graphStart);
+            ImageCoord end = Graph2Image(graphEnd);
+            Visualization.DrawLine(start, end, fillColor);
+        }
+        
+        /// <summary>
+        /// Zeichnet ein '+'-Kreuz in den Graphen
+        /// </summary>
+        /// <param name="coord">Koordinate des Kreuz-Zentrums</param>
+        /// <param name="fillColor">Füllfarbe</param>
+        /// <param name="is_redraw">True: Markierung brauch nicht gemerkt zu werden</param>
+        /// <param name="scale">+/- Bereich um Koordinate der Kreuz-Linien</param>
+        public void PlotMark(GraphCoord coord, Color fillColor, bool is_redraw, float scale = 0.75f)
+        {
+            float up = coord.Y + scale;
+            float down = coord.Y - scale;
+            float left = coord.X - scale;
+            float right = coord.X + scale;
+            PlotLine(new GraphCoord(left, coord.Y), new GraphCoord(right, coord.Y), fillColor, is_redraw);
+            PlotLine(new GraphCoord(coord.X, down), new GraphCoord(coord.X, up), fillColor, is_redraw);
+        }
 
+        /// <summary>
+        /// Zeichnet die Achsen des Graphen, diese werden nicht im LineMemory gespeichert
+        /// </summary>
+        public void PlotAxes()
+        {
+            foreach(Label lbl in LstLblMarkings)
+            {
+                lbl.Dispose();
+            }
+            LstLblMarkings.Clear();
+            BorderStyle lblBorder = BorderStyle.None;
+            Color lblBackground = TransparentLabels ? TransparentColor : BackgroundColor;
+            int freeHoriSteps = 0;
+            int freeVertiSteps = 0;
+            int travelSteps = 0;
+            int lblHeight = (int)Math.Floor(ImageHeight / (Geometry.Height / (Geometry.ScalingY + freeVertiSteps * Geometry.ScalingY)));
+            int lblWidth = (int) Math.Floor(ImageWidth / (Geometry.Width / (Geometry.ScalingX + freeHoriSteps*Geometry.ScalingX)));
+            while (lblWidth < 23)
+            {
+                freeHoriSteps += 1;
+                lblWidth = (int)Math.Floor(ImageWidth / (Geometry.Width / (Geometry.ScalingX + freeHoriSteps * Geometry.ScalingX)));
+            }
+            lblWidth = lblWidth > 28 ? 28 : lblWidth;
+            while (lblHeight < 15)
+            {
+                freeVertiSteps += 1;
+                lblHeight = (int)Math.Floor(ImageHeight / (Geometry.Height / (Geometry.ScalingY + freeVertiSteps * Geometry.ScalingY)));
+            }
+            lblHeight = lblHeight > 20 ? 20 : lblHeight;
+            PlotLine(new GraphCoord(Geometry.LowX, 0f), new GraphCoord(Geometry.HighX, 0f), ForegroundColor, true);
+            PlotLine(new GraphCoord(0f, Geometry.LowY), new GraphCoord(0f, Geometry.HighY), ForegroundColor, true);
+            for (float xPositive = Geometry.ScalingX; xPositive < Geometry.HighX + Geometry.ScalingX; xPositive += Geometry.ScalingX)
+            {
+                if(travelSteps==0)
+                {
+                    ImageCoord lblPos = Graph2Image(new GraphCoord(xPositive, -1.5f));
+                    LstLblMarkings.Add(new Label { Text = xPositive.ToString(), BorderStyle = lblBorder, Parent = Visualization.Container, Top = lblPos.Y, Left = lblPos.X, Width = lblWidth, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
+                }
+                travelSteps += 1;
+                if(travelSteps>freeHoriSteps)
+                {
+                    travelSteps = 0;
+                }
+                PlotMark(new GraphCoord(xPositive, 0f), ForegroundColor, true, 1f);
+                PlotMark(new GraphCoord(xPositive - Geometry.ScalingX / 2, 0f), ForegroundColor, true, 0.4f);
+            }
+            travelSteps = 0;
+            for (float xNegative = -Geometry.ScalingX; xNegative > Geometry.LowX - Geometry.ScalingX; xNegative -= Geometry.ScalingX)
+            {
+                if (travelSteps == 0)
+                {
+                    ImageCoord lblPos = Graph2Image(new GraphCoord(xNegative, -1.5f));
+                    LstLblMarkings.Add(new Label { Text = xNegative.ToString(), BorderStyle = lblBorder, Parent = Visualization.Container, Top = lblPos.Y, Left = lblPos.X, Width = lblWidth, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
+                }
+                travelSteps += 1;
+                if (travelSteps > freeHoriSteps)
+                {
+                    travelSteps = 0;
+                }
+                PlotMark(new GraphCoord(xNegative, 0f), ForegroundColor, true, 1f);
+                PlotMark(new GraphCoord(xNegative + Geometry.ScalingX / 2, 0f), ForegroundColor, true, 0.4f);
+            }
+            travelSteps = 0;
+            for (float yPositive = Geometry.ScalingY; yPositive < Geometry.HighY + Geometry.ScalingY; yPositive += Geometry.ScalingY)
+            {
+                if (travelSteps == 0)
+                {
+                    ImageCoord lblPos = Graph2Image(new GraphCoord(1.5f, yPositive));
+                    LstLblMarkings.Add(new Label { Text = yPositive.ToString(), BorderStyle = lblBorder, Parent = Visualization.Container, Top = lblPos.Y, Left = lblPos.X, Width = 30, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
+                }
+                travelSteps += 1;
+                if (travelSteps > freeVertiSteps)
+                {
+                    travelSteps = 0;
+                }
+            PlotMark(new GraphCoord(0f, yPositive), ForegroundColor, true, 1f);
+                PlotMark(new GraphCoord(0f, yPositive - Geometry.ScalingY / 2), ForegroundColor, true, 0.4f);
+            }
+            travelSteps = 0;
+            for (float yNegative = -Geometry.ScalingY; yNegative > Geometry.LowY - Geometry.ScalingY; yNegative -= Geometry.ScalingY)
+            {
+                if (travelSteps == 0)
+                {
+                    ImageCoord lblPos = Graph2Image(new GraphCoord(1.5f, yNegative));
+                    LstLblMarkings.Add(new Label { Text = yNegative.ToString(), BorderStyle = lblBorder, Parent = Visualization.Container, Top = lblPos.Y, Left = lblPos.X, Width = 30, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
+                }
+                travelSteps += 1;
+                if (travelSteps > freeVertiSteps)
+                {
+                    travelSteps = 0;
+                }
+                PlotMark(new GraphCoord(0f, yNegative), ForegroundColor, true, 1f);
+                PlotMark(new GraphCoord(0f, yNegative + Geometry.ScalingY / 2), ForegroundColor, true, 0.4f);
+            }
+        }
+        
+        /// <summary>
+        /// Zeichnet eine polynomielle Funktion zweiten Grades f(x)=ax^2+bx+c
+        /// </summary>
+        /// <param name="polynomial">Quadratisches Polynom</param>
+        /// <param name="fillColor">Füllfarbe der Linie</param>
+        /// <param name="stepAccuracy"><para>Genauigkeits-Multiplikator mit der f(x) gezeichnet wird</para><para></para><para>1.0 entspricht 1/200 Schrittweite</para></param>
+        public void PlotPolynomialFunction(QuadPolynomial polynomial, Color fillColor, float stepAccuracy=10.0f)
+        {
+            float xLeft = Geometry.LowX;
+            float xRight = Geometry.HighX;
+            GraphCoord lastPoint = new GraphCoord(-1f, -1f);
+            float stepIncrement = Geometry.Width / (200f * stepAccuracy);
+            for( float xStep = xLeft; xStep <= xRight; xStep += stepIncrement)
+            {
+                float yStep = polynomial.FunctionValue(xStep);
+                GraphCoord functionPoint = new GraphCoord(xStep, yStep);
+                if ( xStep > xLeft )
+                {
+                    PlotLine(lastPoint, functionPoint, fillColor, false);
+                }
+                lastPoint = functionPoint;
+            }
+        }
+
+        /// <summary>
+        /// Entfernt sämtliche Linien bedingungslos aus dem Gedächtnis
+        /// </summary>
+        public void ClearLineMemory()
+        {
+            LineMemory.Clear();
+        }
+        
+        /// <summary>
+        /// Erstellt eine Liste von Ankreuzfeldern für vorhandene Graph-Einstellungen
+        /// </summary>
+        /// <returns>Dynamische Liste von Ankreuzfeldern</returns>
         public List<CheckBox> GetOptionsList()
         {
             CheckBox traCheckBox = Options.TransparentLabelsCheckBox;
@@ -217,17 +360,18 @@ namespace Bitgraph
             CheckBox autoCheckBox = Options.AutoResizeCheckBox;
             autoCheckBox.Checked = AutoResize;
             autoCheckBox.CheckedChanged += (object s, EventArgs e) => { AutoResize = autoCheckBox.Checked; FitToParent(); };
-            CheckBox remCheckBox = Options.RememberDrawingCheckBox;
-            remCheckBox.Checked = RememberDrawing;
-            remCheckBox.CheckedChanged += (object s, EventArgs e) => { RememberDrawing = remCheckBox.Checked; };
-
             List<CheckBox> checkBoxList = new List<CheckBox>
             {
-                traCheckBox, autoCheckBox/*, remCheckBox*/
+                traCheckBox, autoCheckBox
             };
             return checkBoxList;
         }
 
+        /// <summary>
+        /// Erstellt eine Liste von Knöpfen für vorhandene Graph-Aktionen im Bezug auf eine gegebene Datentabelle
+        /// </summary>
+        /// <param name="actionLinkedTable"></param>
+        /// <returns>Dynamische Liste von Knöpfen</returns>
         public List<Button> GetActionsList(ValueTable actionLinkedTable)
         {
             Button drawPlotButton = new Button
@@ -237,12 +381,11 @@ namespace Bitgraph
             drawPlotButton.Click += (object s, EventArgs e) =>
             {
                 ClearLineMemory();
-                LblXAxis.Text = ValueTable.ColumnNames[0];
-                LblYAxis.Text = ValueTable.ColumnNames[1] + "\n" + ValueTable.ColumnNames[2] + "\n" + ValueTable.ColumnNames[3];
-                DrawPolynomialFunction(ValueTable.AmpereFunction, Options.PlotColors[0]);
-                DrawPolynomialFunction(ValueTable.VoltageFunction, Options.PlotColors[1]);
-                DrawPolynomialFunction(ValueTable.PowerFunction, Options.PlotColors[2]);
                 ForceResize();
+                PlotPolynomialFunction(ValueTable.AmpereFunction, Options.PlotColors[0]);
+                PlotPolynomialFunction(ValueTable.VoltageFunction, Options.PlotColors[1]);
+                PlotPolynomialFunction(ValueTable.PowerFunction, Options.PlotColors[2]);
+                ReplotGraph();
             };
             Button drawDataMarksButton = new Button
             {
@@ -259,7 +402,7 @@ namespace Bitgraph
                 {
                     for (int row = 0; row < rowCount; row += 1)
                     {
-                        DrawMark(new PointF((float)data[0, row], (float)data[column, row]), Options.PlotColors[column-1], false);
+                        PlotMark(new GraphCoord((float)data[0, row], (float)data[column, row]), Options.PlotColors[column - 1], false);
                     }
                 }
                 ForceResize();
@@ -273,8 +416,6 @@ namespace Bitgraph
                 ClearLineMemory();
                 ForceResize();
             };
-            //TODO other actions
-
             List<Button> buttonList = new List<Button>
             {
                 drawPlotButton, drawDataMarksButton, deleteButton
@@ -282,6 +423,10 @@ namespace Bitgraph
             return buttonList;
         }
 
+        /// <summary>
+        /// Erstellt eine Liste von Zahlfeldern für die Einstellung von geometrischen Limits und der Skalierung
+        /// </summary>
+        /// <returns>Dynamische List von Zahlfeldern</returns>
         public List<NumericUpDown> GetScales()
         {
             NumericUpDown Xmin = new NumericUpDown { Name = "X Minimum", Maximum = 500.0m, Minimum = -500.0m, DecimalPlaces = 1, Value = (decimal)Geometry.LowX };
@@ -305,214 +450,6 @@ namespace Bitgraph
             return numUpDownList;
         }
 
-        //public List<>
-
-        #region Drawing related methods
-
-        /// <summary>
-        /// Zeichne eine Linie in den Graphen
-        /// </summary>
-        /// <param name="graphStart">Start-Koordinate</param>
-        /// <param name="graphEnd">End-Koordinate</param>
-        /// <param name="fillColor">Füllfarbe</param>
-        /// <param name="is_redraw"><para>True: Linie wird nicht gespeichert</para><para></para><para>False: Linie wird gespeichert</para></param>
-        public void DrawLine(GraphCoord graphStart, GraphCoord graphEnd, Color fillColor, bool is_redraw = false)
-        {
-            if (!is_redraw && RememberDrawing)
-            {
-                LineMemory.Add(new SimpleLine(graphStart, graphEnd, fillColor));
-            }
-            ImageCoord start = Graph2Image(graphStart);
-            ImageCoord end = Graph2Image(graphEnd);
-            // left and right points rather than start and end
-            ImageCoord Left = start.X < end.X ? start : end;
-            ImageCoord Right = start.X >= end.X ? start : end;
-            // xdiff is always positive or zero
-            float xdiff = Right.X - Left.X;
-            if (xdiff == 0f)
-            {
-                DrawVerticalLine(Left.X, Left.Y, Right.Y, fillColor);
-            }
-            // ydiff is positive if up-slope; negative if down-slope; zero if even line
-            float ydiff = Right.Y - Left.Y;
-            if (ydiff == 0f)
-            {
-                DrawHorizontalLine(Left.Y, Left.X, Right.X, fillColor);
-            }
-            // steepness of the slope
-            float m = ydiff / xdiff;
-            m = (float)Math.Truncate(m * 10000) / 10000;
-            // buffer to even out difference of pixel coord and graph coord
-            float buffer = 0;
-            // remember y to count it up/down through x loops
-            int y = Left.Y;
-            for (int x = Left.X; x < Right.X; x += 1)
-            {
-                // remember vertical distance
-                buffer += m;
-                if (Math.Abs(buffer) > 1)
-                {
-                    // draw vertical pixels
-                    for (int yc = 1; yc < Math.Abs(buffer); yc += 1)
-                    {
-                        this.SetPixel(new ImageCoord(x, y + (yc * Math.Sign(m))), fillColor);
-                    }
-                    y += (int)Math.Truncate(buffer);
-                    buffer = (float)Math.Truncate((buffer % 1.0) * 10000) / 10000;
-                }
-                else
-                {
-                    // draw horizontal pixel
-                    this.SetPixel(new ImageCoord(x, y), fillColor);
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Zeichnet ein '+'-Kreuz in den Graphen
-        /// </summary>
-        /// <param name="coord">Koordinate des Kreuz-Zentrums</param>
-        /// <param name="fillColor">Füllfarbe</param>
-        /// <param name="is_redraw">True: Markierung brauch nicht gemerkt zu werden</param>
-        /// <param name="scale">+/- Bereich um Koordinate der Kreuz-Linien</param>
-        public void DrawMark(GraphCoord coord, Color fillColor, bool is_redraw, float scale = 0.75f)
-        {
-            float up = coord.Y + scale;
-            float down = coord.Y - scale;
-            float left = coord.X - scale;
-            float right = coord.X + scale;
-            DrawLine(new GraphCoord(left, coord.Y), new GraphCoord(right, coord.Y), fillColor, is_redraw);
-            DrawLine(new GraphCoord(coord.X, down), new GraphCoord(coord.X, up), fillColor, is_redraw);
-        }
-
-        /// <summary>
-        /// Zeichnet die Achsen des Graphen, diese werden nicht im LineMemory gespeichert
-        /// </summary>
-        public void DrawAxes()
-        {
-            foreach(Label lbl in LstLblMarkings)
-            {
-                lbl.Dispose();
-            }
-            LstLblMarkings.Clear();
-            BorderStyle lblBorder = BorderStyle.None;
-            Color lblBackground = TransparentLabels ? Color.Transparent : BackgroundColor;
-            int freeHoriSteps = 0;
-            int freeVertiSteps = 0;
-            int travelSteps = 0;
-            int lblHeight = (int)Math.Floor(ImageHeight / (Geometry.Height / (Geometry.ScalingY + freeVertiSteps * Geometry.ScalingY)));
-            int lblWidth = (int) Math.Floor(ImageWidth / (Geometry.Width / (Geometry.ScalingX + freeHoriSteps*Geometry.ScalingX)));
-            while (lblWidth < 23)
-            {
-                freeHoriSteps += 1;
-                lblWidth = (int)Math.Floor(ImageWidth / (Geometry.Width / (Geometry.ScalingX + freeHoriSteps * Geometry.ScalingX)));
-            }
-            while (lblHeight < 15)
-            {
-                freeVertiSteps += 1;
-                lblHeight = (int)Math.Floor(ImageHeight / (Geometry.Height / (Geometry.ScalingY + freeVertiSteps * Geometry.ScalingY)));
-            }
-            DrawLine(new GraphCoord(Geometry.LowX, 0f), new GraphCoord(Geometry.HighX, 0f), ForegroundColor, true);
-            DrawLine(new GraphCoord(0f, Geometry.LowY), new GraphCoord(0f, Geometry.HighY), ForegroundColor, true);
-            for (float xPositive = Geometry.ScalingX; xPositive < Geometry.HighX + Geometry.ScalingX; xPositive += Geometry.ScalingX)
-            {
-                if(travelSteps==0)
-                {
-                    ImageCoord lblPos = Graph2Image(new GraphCoord(xPositive, -1.5f));
-                    LstLblMarkings.Add(new Label { Text = xPositive.ToString(), BorderStyle = lblBorder, Parent = DrawAreaContainer, Top = lblPos.Y, Left = lblPos.X, Width = lblWidth, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
-                }
-                travelSteps += 1;
-                if(travelSteps>freeHoriSteps)
-                {
-                    travelSteps = 0;
-                }
-                DrawMark(new GraphCoord(xPositive, 0f), ForegroundColor, true, 1f);
-                DrawMark(new GraphCoord(xPositive - Geometry.ScalingX / 2, 0f), ForegroundColor, true, 0.4f);
-            }
-            for (float xNegative = -Geometry.ScalingX; xNegative > Geometry.LowX - Geometry.ScalingX; xNegative -= Geometry.ScalingX)
-            {
-                if (travelSteps == 0)
-                {
-                    ImageCoord lblPos = Graph2Image(new GraphCoord(xNegative, -1.5f));
-                    LstLblMarkings.Add(new Label { Text = xNegative.ToString(), BorderStyle = lblBorder, Parent = DrawAreaContainer, Top = lblPos.Y, Left = lblPos.X, Width = lblWidth, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
-                }
-                travelSteps += 1;
-                if (travelSteps > freeHoriSteps)
-                {
-                    travelSteps = 0;
-                }
-                DrawMark(new GraphCoord(xNegative, 0f), ForegroundColor, true, 1f);
-                DrawMark(new GraphCoord(xNegative + Geometry.ScalingX / 2, 0f), ForegroundColor, true, 0.4f);
-            }
-            for (float yPositive = Geometry.ScalingY; yPositive < Geometry.HighY + Geometry.ScalingY; yPositive += Geometry.ScalingY)
-            {
-                if (travelSteps == 0)
-                {
-                    ImageCoord lblPos = Graph2Image(new GraphCoord(1.5f, yPositive));
-                    LstLblMarkings.Add(new Label { Text = yPositive.ToString(), BorderStyle = lblBorder, Parent = DrawAreaContainer, Top = lblPos.Y, Left = lblPos.X, Width = 30, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
-                }
-                travelSteps += 1;
-                if (travelSteps > freeVertiSteps)
-                {
-                    travelSteps = 0;
-                }
-            DrawMark(new GraphCoord(0f, yPositive), ForegroundColor, true, 1f);
-                DrawMark(new GraphCoord(0f, yPositive - Geometry.ScalingY / 2), ForegroundColor, true, 0.4f);
-            }
-            for (float yNegative = -Geometry.ScalingY; yNegative > Geometry.LowY - Geometry.ScalingY; yNegative -= Geometry.ScalingY)
-            {
-                if (travelSteps == 0)
-                {
-                    ImageCoord lblPos = Graph2Image(new GraphCoord(1.5f, yNegative));
-                    LstLblMarkings.Add(new Label { Text = yNegative.ToString(), BorderStyle = lblBorder, Parent = DrawAreaContainer, Top = lblPos.Y, Left = lblPos.X, Width = 30, Height = lblHeight, Margin = new Padding(0), Padding = new Padding(0), BackColor = lblBackground });
-                }
-                travelSteps += 1;
-                if (travelSteps > freeVertiSteps)
-                {
-                    travelSteps = 0;
-                }
-                DrawMark(new GraphCoord(0f, yNegative), ForegroundColor, true, 1f);
-                DrawMark(new GraphCoord(0f, yNegative + Geometry.ScalingY / 2), ForegroundColor, true, 0.4f);
-            }
-        }
-        
-        /// <summary>
-        /// Zeichnet eine polynomielle Funktion zweiten Grades f(x)=ax^2+bx+c
-        /// </summary>
-        /// <param name="polynomial">Quadratisches Polynom</param>
-        /// <param name="fillColor">Füllfarbe der Linie</param>
-        /// <param name="stepAccuracy"><para>Genauigkeits-Multiplikator mit der f(x) gezeichnet wird</para><para></para><para>1.0 entspricht 1/200 Schrittweite</para></param>
-        public void DrawPolynomialFunction(QuadPolynomial polynomial, Color fillColor, float stepAccuracy=10.0f)
-        {
-            // draw inside x-axis bounds
-            float xLeft = Geometry.LowX;
-            float xRight = Geometry.HighX;
-            GraphCoord lastPoint = new GraphCoord(-1f, -1f);
-            float stepIncrement = Geometry.Width / (200f * stepAccuracy);
-            for( float xStep = xLeft; xStep <= xRight; xStep += stepIncrement)
-            {
-                // calculate y = f(x) = P(x) / Q(x)
-                float yStep = polynomial.FunctionValue(xStep);
-                GraphCoord functionPoint = new GraphCoord(xStep, yStep);
-                if ( xStep > xLeft )
-                {
-                    DrawLine(lastPoint, functionPoint, fillColor, false);
-                    //System.Diagnostics.Debug.Print("zeichne linie: " + lastPoint.ToString() + "; " + functionPoint.ToString());
-                }
-                lastPoint = functionPoint;
-            }
-        }
-
-        /// <summary>
-        /// Entfernt sämtliche Linien bedingungslos aus dem Gedächtnis
-        /// </summary>
-        public void ClearLineMemory()
-        {
-            LineMemory.Clear();
-        }
-
-        #endregion
-
         #endregion
 
         #region private instance methods
@@ -526,7 +463,6 @@ namespace Bitgraph
         /// <param name="_e">Nicht verarbeitete Event-Infos</param>
         private void Parent_SizeChanged(object sender, EventArgs _e)
         {
-            Control parent = (Control)sender;
             FitToParent();
         }
 
@@ -541,25 +477,19 @@ namespace Bitgraph
         private void FitToParent()
         {
             if (!AutoResize) return;
-            DrawAreaContainer.Dock = DockStyle.Fill;
-            int newWidth = DrawAreaContainer.Width;
-            int newHeight = DrawAreaContainer.Height;
-            DrawArea = new Bitmap(newWidth, newHeight);
-            DrawAreaContainer.Image = DrawArea;
+            Visualization.ResetAndResize();
 
             ImageCoord xLblPos = Graph2Image(new GraphCoord(Geometry.HighX, Geometry.ScalingY));
             ImageCoord yLblPos = Graph2Image(new GraphCoord(Geometry.ScalingX, Geometry.HighY));
-
-            LblYAxis.Parent = DrawAreaContainer;
+            
             LblYAxis.Top = yLblPos.Y;
-            LblYAxis.Left = yLblPos.X;//+LblYAxis.Width;
-
-            LblXAxis.Parent = DrawAreaContainer;
+            LblYAxis.Left = yLblPos.X;// +LblYAxis.Width;
+            
             LblXAxis.Top = xLblPos.Y;
             LblXAxis.Left = xLblPos.X-LblXAxis.Width;
 
-            DrawAxes();
-            RedrawGraph();
+            PlotAxes();
+            ReplotGraph();
         }
 
         /// <summary>
@@ -593,21 +523,6 @@ namespace Bitgraph
         }
 
         /// <summary>
-        /// Setze einen Pixel des Bitmap Objekts
-        /// </summary>
-        /// <param name="imageCoord">Bild-Koordinaten des Pixels</param>
-        /// <param name="fill">Füllfarbe</param>
-        private void SetPixel(ImageCoord imageCoord, Color fill)
-        {
-            if (imageCoord.X >= 0 && imageCoord.X < ImageWidth && imageCoord.Y >= 0 && imageCoord.Y < ImageHeight)
-            {
-                DrawArea.SetPixel(imageCoord.X, imageCoord.Y, fill);
-            }
-        }
-
-        private void SetPoint(GraphCoord gc, Color c) => SetPixel(Graph2Image(gc), c);
-
-        /// <summary>
         /// Setze die Hintergrundfarbe der Label-Objekte
         /// </summary>
         /// <param name="transparent">T: Transparent; F: BackgroundColor</param>
@@ -634,233 +549,16 @@ namespace Bitgraph
         }
 
         /// <summary>
-        /// Zeichnet eine horizontale Linie in den Graphen
-        /// </summary>
-        /// <param name="yVal">visueller Y-Wert der Linie</param>
-        /// <param name="xLeft">visuell linker X-Wert der Linie</param>
-        /// <param name="xRight">visuell rechter X-Wert der Linie</param>
-        /// <param name="fillColor">Füllfarbe</param>
-        private void DrawHorizontalLine(int yVal, int xLeft, int xRight, Color fillColor)
-        {
-            for (int xstep = xLeft; xstep < xRight; xstep += 1)
-            {
-                SetPixel(new ImageCoord(xstep, yVal), fillColor);
-            }
-        }
-
-        /// <summary>
-        /// Zeichnet eine vertikale Linie in den Graphen
-        /// </summary>
-        /// <param name="xVal">visueller X-Wert der Linie</param>
-        /// <param name="yDown">visuell niedrigerer Y-Wert der Linie</param>
-        /// <param name="yUp">visuell höherer Y-Wert der Linie</param>
-        /// <param name="fillColor">Füllfarbe</param>
-        private void DrawVerticalLine(int xVal, int yDown, int yUp, Color fillColor)
-        {
-            int stepSize = Math.Sign(yUp - yDown);
-            for (int ystep = yDown; ystep != yUp; ystep += stepSize)
-            {
-                SetPixel(new ImageCoord(xVal, ystep), fillColor);
-            }
-        }
-
-        /// <summary>
         /// Zeichnet sämtliche Linien die derzeit im Gedächtnis sind
         /// </summary>
-        private void RedrawGraph()
+        private void ReplotGraph()
         {
             foreach (SimpleLine line in LineMemory)
             {
-                DrawLine(line.Item1, line.Item2, line.Item3, true);
+                PlotLine(line.Item1, line.Item2, line.Item3, true);
             }
         }
 
         #endregion
-
-    }
-
-    /// <summary>
-    /// Container-Klasse für Optionen der Graph-Visualisierung
-    /// </summary>
-    public class GraphOptions
-    {
-        /// <summary>
-        /// Transparente Hintergründe der Graphenbeschriftungen
-        /// </summary>
-        public bool TransparentLabels { get; set; } = true;
-
-        /// <summary>
-        /// Automatisches neu-Zeichnen des Graphen bei geg. Event
-        /// </summary>
-        public bool AutoResize { get; set; } = true;
-
-        /// <summary>
-        /// Schaltet Gedächtnis für Linien an/aus
-        /// </summary>
-        public bool RememberDrawing { get; set; } = true;
-
-        public List<Color> PlotColors = new List<Color>{ Color.Red, Color.Blue, Color.Green };
-
-        public CheckBox TransparentLabelsCheckBox => new CheckBox { Checked = TransparentLabels, Text = "Transparente Beschriftung" };
-        public CheckBox AutoResizeCheckBox => new CheckBox { Checked = AutoResize, Text = "Automatische Größenanpassung" };
-        public CheckBox RememberDrawingCheckBox => new CheckBox { Checked = RememberDrawing, Text = "Merke gezeichnete Linien" };
-    }
-
-    /// <summary>
-    /// Repräsentiert die Eigenschaften eines geometrischen Koordinatensystems
-    /// </summary>
-    class GraphGeomtry
-    {
-        #region public instance fields
-        /// <summary>
-        /// Minimaler X-Wert des Definitionsbereichs
-        /// </summary>
-        public float LowX { get; set; }
-        /// <summary>
-        /// Maximaler X-Wert des Definitionsbereichs
-        /// </summary>
-        public float HighX { get; set; }
-        /// <summary>
-        /// Minimaler Y-Wert des Wertebereichs
-        /// </summary>
-        public float LowY { get; set; }
-        /// <summary>
-        /// Maximaler Y-Wert des Wertebereichs
-        /// </summary>
-        public float HighY { get; set; }
-
-        /// <summary>
-        /// Grapheinteilung X-Achse
-        /// </summary>
-        public float ScalingX { get; set; }
-        /// <summary>
-        /// Grapheinteilung Y-Achse
-        /// </summary>
-        public float ScalingY { get; set; }
-
-        /// <summary>
-        /// Größe des möglichen Definitionsbereichs
-        /// </summary>
-        public float Width => HighX - LowX;
-        /// <summary>
-        /// Größe des möglichen Wertebereichs
-        /// </summary>
-        public float Height => HighY - LowY;
-        #endregion
-
-        #region private instance fields
-        #endregion
-
-        #region constructors
-
-        /// <summary>
-        /// Erstellt eine neue Geometrie-Instanz mit '0f'-instanzierten Definitions- und Wertebereich Limits
-        /// <para></para>
-        /// <para>Es ist erforderlich die Limits nachträglich anzupassen</para>
-        /// </summary>
-        public GraphGeomtry()
-        {
-            LowX = -6.0f;
-            LowY = -6.0f;
-            HighX = 51.0f;
-            HighY = 51.0f;
-            ScalingX = 5.0f;
-            ScalingY = 5.0f;
-        }
-
-        #endregion
-
-        #region public instance methods
-
-        /// <summary>
-        /// Setzt neue Min/Max Grenzwerte des Wertebereichs
-        /// <para>Reihenfolge der Werte ist irrelevant, es wird immer der niedrigere als Min und der höhere als Max gesetzt</para>
-        /// <para>Bei Gleichheit beider Werte ist der zweite das neue Min und der erste das neue Max</para>
-        /// </summary>
-        /// <param name="limits">Grenzwert-Tupel</param>
-        public void SetLimitsY(Boundary limits)
-        {
-            if (limits.Item1 <= limits.Item2)
-            {
-                LowY = limits.Item1;
-                HighY = limits.Item2;
-            }
-            else
-            {
-                LowY = limits.Item2;
-                HighY = limits.Item1;
-            }
-        }
-
-        /// <summary>
-        /// Setzt neue Min/Max Grenzwerte des Definitionsbereichs
-        /// <para>Reihenfolge der Werte ist irrelevant, es wird immer der niedrigere als Min und der höhere als Max gesetzt</para>
-        /// <para>Bei Gleichheit beider Werte ist der zweite das neue Min und der erste das neue Max</para>
-        /// </summary>
-        /// <param name="limits">Grenzwert-Tupel</param>
-        public void SetLimitsX(Boundary limits)
-        {
-            if (limits.Item1 <= limits.Item2)
-            {
-                LowX = limits.Item1;
-                HighX = limits.Item2;
-            }
-            else
-            {
-                LowX = limits.Item2;
-                HighX = limits.Item1;
-            }
-        }
-
-        /// <summary>
-        /// Wandelt absolute Koordinate in relative um
-        /// </summary>
-        /// <param name="absoluteCoord">Absolute Koordinate</param>
-        /// <returns>Zu (MinX,MinY) Relative Koordinate mit Werten 0&lt;=(x|y)&lt;=1</returns>
-        public GraphCoord GetRelative(GraphCoord absoluteCoord)
-        {
-            // Division durch Null vermeiden
-            if (Width == 0.0f || Height == 0.0f)
-            {
-                return new GraphCoord(-1.0f, -1.0f);
-            }
-            return new GraphCoord(
-                (absoluteCoord.X - LowX) / Width,
-                (absoluteCoord.Y - LowY) / Height
-            );
-        }
-
-        #endregion
-
-        #region private instance methods
-        #endregion
-    }
-
-    /// <summary>
-    /// Repräsentiert eine polynomiale Funktion zweiten Grades der Form f(x) = ax^2 + bx + c
-    /// </summary>
-    public struct QuadPolynomial
-    {
-        /// <summary>
-        /// Faktor a von x^2
-        /// </summary>
-        public Func<float,float> two;
-        /// <summary>
-        /// Faktor b von x
-        /// </summary>
-        public Func<float,float> one;
-        /// <summary>
-        /// Summand c
-        /// </summary>
-        public Func<float,float> zero;
-        /// <summary>
-        /// Funktionswert für geg. Eingabe
-        /// </summary>
-        /// <param name="xValue">Eingabewert</param>
-        /// <returns></returns>
-        public float FunctionValue(float xValue)
-        {
-            return (float)Math.Pow(xValue, 2.0) * two(xValue) + one(xValue) * xValue + zero(xValue);
-        }
     }
 }
