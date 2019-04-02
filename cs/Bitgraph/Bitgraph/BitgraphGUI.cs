@@ -224,6 +224,7 @@ namespace Bitgraph
 
         private void BitgraphGUI_Load(object sender, EventArgs e)
         {
+            Size = new Size(960, 540);
             Maximised = WindowState == FormWindowState.Maximized;
 
             SplitVert.SplitterDistance = Convert.ToInt32(Math.Round(Width-320f, 0));

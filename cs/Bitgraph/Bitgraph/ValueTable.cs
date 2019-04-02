@@ -150,9 +150,9 @@ namespace Bitgraph
             {
                 //System.Diagnostics.Debug.Print("Change other values");
                 double ohm = (double)e.Row[ColumnNames[0]];
-                double ampere = VoltageSource / ohm;
-                double voltage = ohm * ampere;
-                double power = voltage * ampere;
+                double ampere = Math.Round(VoltageSource / ohm, 2);
+                double voltage = Math.Round(ohm * ampere, 2);
+                double power = Math.Round(voltage * ampere, 2);
                 SetReadOnly(false);
                 e.Row[ColumnNames[1]] = ampere;
                 e.Row[ColumnNames[2]] = voltage;
