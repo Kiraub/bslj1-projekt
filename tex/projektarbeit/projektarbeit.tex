@@ -40,7 +40,10 @@
 
 \subsection{SOLL-Analyse}
 
-    Als Anforderung an das Projektteam wurden Kriterien für ein Programm, sowie eine dazugehörige schriftliche Ausarbeitung gegeben. Die gewünschte Anwendung ist hierbei durch Muss-/ und Wunsch-Funktionalitäten beschrieben, konkrete Einschränkungen an die Umsetzung sind dabei aber nicht gemacht worden. Die Hauptaufgabe des Programms liegt in der Visualisierung von physikalischen Messdaten und deren Zusammenhänge in Form von dynamisch erstellten Graphen. Ausserdem muss es zu Präsentationszwecken auf den Schulrechnern lauffähig sein.
+    Als Anforderung an das Projektteam wurden Kriterien für ein Programm, sowie eine dazugehörige schriftliche Ausarbeitung gegeben.
+     Die gewünschte Anwendung ist hierbei durch Muss-/ und Wunsch-Funktionalitäten beschrieben, konkrete Einschränkungen an die Umsetzung sind dabei aber nicht gemacht worden.
+     Die Hauptaufgabe des Programms liegt in der Visualisierung von physikalischen Messdaten und deren Zusammenhänge in Form von dynamisch erstellten Graphen.
+     Ausserdem muss es zu Präsentationszwecken auf den Schulrechnern lauffähig sein.
 
 \subsection{Problemstellung}
 
@@ -137,14 +140,44 @@
 %TODO Benutzerhandbuch
     \subsubsection{Installation}
 
-    Erstellt mit .NET Framework Version 4.6.1
+    Das Programm ist eine portable Anwendung, jedoch keine alleinstehende.
+    Es wird zum Ausführen ein DotNet Runtime Environment der Version 4.0 oder höher vorausgesetzt.
+    Unterstützt wird eine 64-Bit Variante des Betriebssystems Windows ab Version \glqq Windows 7\grqq{}.
+    
+    Bei gegebenen Voraussetzungen, reicht ein kopieren der Anwendungsdatei auf einen Rechner, gefolgt von einem Ausführen der Datei.
+    
+    Es startet sich direkt, ohne weitere Installationsschritte, die Anwendungsoberfläche.
+    
+    Zum Deinstallieren der Software, kann die Anwendungsdatei einfach gelöscht und gegebenenfalls aus dem Papierkorb entfernt werden.
+    Konfigurationsdateien oder andere Programmausgaben in Form von Dateien werden nicht angelegt.
 
     \subsubsection{Nutzungshinweise}
+    
+    Zur Interaktion mit der Softwareoberfläche wird eine Maus und eine Tastatur vorausgesetzt.
+    Wir, die Entwickler, geben keine Gewähr für die Vollständigkeit oder Korrektheit der Ergebnisse.
+    Weiterhin verantworten wir keine Fehler, welche durch unangemessene Nutzung des Computers oder auch Überlastung der Hardwareressourcen hervorgerufen werden.
+    Dies beinhaltet ebenfalls die Nutzung der Software auf Computern, welche nicht die im Abschnitt Installation genannten Mindestanforderungen erfüllen.
+    Das Logo des Programms, ist das Logo der Berufsschule Technik Rostock und die Urheberrechte liegen beim Rechteinhaber.
+    Der Quellcode wurde von den Projektmitgliedern verfasst und eine Verfielfältigung ist nur für nicht-kommerzielle und gegebenenfalls pädagogische Zwecke gestattet.
+
+    \subsubsection{Umgang mit der Programmoberfläche}
+    
+    Im Startzustand finden sich im Programm auf der linken Seite ein leeren Graph und auf der rechten Seite eine leere Tabelle, sowie eine Aufreihung von Menüreitern.
+    Das anfangs geöffnete Menü bietet verschiedene Auswahlkästchen und Funktionsknöpfe.
+    
 
 \subsubsection{Entwicklerhandbuch}
 %TODO Entwicklerhandbuch
     \subsubsection{Programmstruktur}
-
+    
+    Der Programmeinstiegspunkt ist in der statischen Klasse \glqq Program\grqq{} mit der Funktion \glqq Main\grqq{}.
+    Diese instanziert ein Objekt der \glqq BitgraphGUI\grqq-Klasse, welche die eigentliche Darstellungs- und Berechungslogik, in Form von Unterobjekten, kapselt.
+    Die Struktur des Programms ist im groben geteilt in Menü, Graphen und Tabelle.
+    
+    Das Menü in Form eines \glqq TabPages\grqq-Objektes, befindet sich direkt in der BitgraphGUI-Instanz, wobei die Inhalte desselben unter anderem von Kind-Objekten generiert werden.
+    Es ist gegliedert in die Tabs %TODO gliederung des menüs einfügen!
+    
+    
     \subsubsection{Schnittstellen}
 
 \newpage
