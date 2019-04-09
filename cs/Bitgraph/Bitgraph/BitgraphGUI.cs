@@ -194,7 +194,7 @@ namespace Bitgraph
                 Dock = DockStyle.Fill,
                 BorderStyle = BorderStyle.None,
                 Image = Properties.Resources.SchemaResource,
-                SizeMode = PictureBoxSizeMode.StretchImage
+                SizeMode = PictureBoxSizeMode.Zoom
             };
 
             HelpTextBox = new RichTextBox
