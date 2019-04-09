@@ -1,0 +1,569 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Bitgraph</name>
+    </assembly>
+    <members>
+        <member name="T:Bitgraph.BitgraphGUI">
+            <summary>
+            Klasse zur Kapselung und Darstellung der Programm Komponenten
+            </summary>
+        </member>
+        <member name="M:Bitgraph.BitgraphGUI.#ctor">
+            <summary>
+            Windows-Forms Objekt, welches als Haupt-Container sämtlicher GUI Elemente dient
+            </summary>
+        </member>
+        <member name="F:Bitgraph.BitgraphGUI.components">
+            <summary>
+            Erforderliche Designervariable.
+            </summary>
+        </member>
+        <member name="M:Bitgraph.BitgraphGUI.Dispose(System.Boolean)">
+            <summary>
+            Verwendete Ressourcen bereinigen.
+            </summary>
+            <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
+        </member>
+        <member name="M:Bitgraph.BitgraphGUI.InitializeComponent">
+            <summary>
+            Erforderliche Methode für die Designerunterstützung.
+            Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphGeomtry.LowX">
+            <summary>
+            Minimaler X-Wert des Definitionsbereichs
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphGeomtry.HighX">
+            <summary>
+            Maximaler X-Wert des Definitionsbereichs
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphGeomtry.LowY">
+            <summary>
+            Minimaler Y-Wert des Wertebereichs
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphGeomtry.HighY">
+            <summary>
+            Maximaler Y-Wert des Wertebereichs
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphGeomtry.ScalingX">
+            <summary>
+            Grapheinteilung X-Achse
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphGeomtry.ScalingY">
+            <summary>
+            Grapheinteilung Y-Achse
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphGeomtry.Width">
+            <summary>
+            Größe des möglichen Definitionsbereichs
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphGeomtry.Height">
+            <summary>
+            Größe des möglichen Wertebereichs
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphGeomtry.#ctor">
+            <summary>
+            Schnittstelle für die Geometrie des Graphen
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphGeomtry.SetLimitsY(System.Tuple{System.Single,System.Single})">
+            <summary>
+            Setzt neue Min/Max Grenzwerte des Wertebereichs
+            <para>Reihenfolge der Werte ist irrelevant, es wird immer der niedrigere als Min und der höhere als Max gesetzt</para>
+            <para>Bei Gleichheit beider Werte ist der zweite das neue Min und der erste das neue Max</para>
+            </summary>
+            <param name="limits">Grenzwert-Tupel</param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphGeomtry.SetLimitsX(System.Tuple{System.Single,System.Single})">
+            <summary>
+            Setzt neue Min/Max Grenzwerte des Definitionsbereichs
+            <para>Reihenfolge der Werte ist irrelevant, es wird immer der niedrigere als Min und der höhere als Max gesetzt</para>
+            <para>Bei Gleichheit beider Werte ist der zweite das neue Min und der erste das neue Max</para>
+            </summary>
+            <param name="limits">Grenzwert-Tupel</param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphGeomtry.GetRelative(System.Drawing.PointF)">
+            <summary>
+            Wandelt absolute Koordinate in relative um
+            </summary>
+            <param name="absoluteCoord">Absolute Koordinate</param>
+            <returns>Zu (MinX,MinY) Relative Koordinate mit Werten 0&lt;=(x|y)&lt;=1</returns>
+        </member>
+        <member name="T:Bitgraph.Graph.GraphManager">
+            <summary>
+            Repräsentiert die zusammengefasste Schnittstelle um Graphen zu zeichnen
+            <para>Beinhaltet hauptsächlich visuelle Eigenschaften mit einer ausgelagerten Geometrie</para>
+            <para>Das Bildobjekt arbeitet mit Integer-Pixel Koordinaten</para>
+            <para>Die Geometrie-Berechnung arbeitet mit Float-Genauigkeit</para>
+            <para>Kantenglättung ist nicht implementiert</para>
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.TransparentLabels">
+            <summary>
+            Transparente Hintergründe der Graphenbeschriftungen
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.AutoResize">
+            <summary>
+            Automatisches neu-Zeichnen des Graphen bei geg. Event
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.RememberDrawing">
+            <summary>
+            Schaltet Gedächtnis für Linien an/aus
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.LblYAxis">
+            <summary>
+            Hauptachsenbeschriftung der Y-Achse
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.LblXAxis">
+            <summary>
+            Hauptachsenbeschriftung der X-Achse
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.LstLblMarkings">
+            <summary>
+            Liste aller Label, welche für Achsenbeschriftung o.ä. dynamisch erstellt werden
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.ForegroundColor">
+            <summary>
+            Vordergrundfarbe der visuellen Darstellungsfläche
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.BackgroundColor">
+            <summary>
+            Hintergrundfarbe der visuellen Darstellungsfläche
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.TransparentColor">
+            <summary>
+            Transparente "Farbe" der visuellen Darstellungsfläche
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.HorizontalAxis">
+            <summary>
+            Repräsentiert die geometrischen X-Achsen Limits des Geometrie-Objekts
+            <para></para>
+            <para>Löst bei setzen ein bedingtes Anpassen an das Parent aus</para>
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.VerticalAxis">
+            <summary>
+            Repräsentiert die geomtrischen Y-Achsen Limits des Geometrie-Objekts
+            <para></para>
+            <para>Löst bei setzen ein bedingtes Anpassen an das Parent aus</para>
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.ImageWidth">
+            <summary>
+            Breite der visuellen Darstellungsfläche
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.ImageHeight">
+            <summary>
+            Höhe der visuellen Darstellungsfläche
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.Options">
+            <summary>
+            Container der Einstellungen des Graphen
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.Visualization">
+            <summary>
+            Container der visuellen Schnittstelle
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.Geometry">
+            <summary>
+            Container der geomtrischen Schnittstelle
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphManager.LineMemory">
+            <summary>
+            Gedächtnis der vorhandenen Linien
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.#ctor(System.Windows.Forms.Control)">
+            <summary>
+            Erstelle einen neuen Graphen mit visuellem und geometrischem Container
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.SetParent(System.Windows.Forms.Control)">
+            <summary>
+            Hängt den Graphen an das gegebene Control-Element und fügt einen Event-Listener an dessen SizeChanged-Event
+            </summary>
+            <param name="newParent">Neues Parent Control-Element</param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.ForceResize">
+            <summary>
+            Löst ein neu berechnen/zeichnen des Graphen aus, unabhängig von derzeitigen Eigenschaften
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.ToggleLabelTransparency">
+            <summary>
+            Beschriftungshintergründe durchsichtig/undurchsichtig umschalten
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.PlotLine(System.Drawing.PointF,System.Drawing.PointF,System.Drawing.Color,System.Boolean)">
+            <summary>
+            Zeichne eine Linie in den Graphen
+            </summary>
+            <param name="graphStart">Start-Koordinate</param>
+            <param name="graphEnd">End-Koordinate</param>
+            <param name="fillColor">Füllfarbe</param>
+            <param name="is_redraw"><para>True: Linie wird nicht gespeichert</para><para></para><para>False: Linie wird gespeichert</para></param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.PlotMark(System.Drawing.PointF,System.Drawing.Color,System.Boolean,System.Single)">
+            <summary>
+            Zeichnet ein '+'-Kreuz in den Graphen
+            </summary>
+            <param name="coord">Koordinate des Kreuz-Zentrums</param>
+            <param name="fillColor">Füllfarbe</param>
+            <param name="is_redraw">True: Markierung brauch nicht gemerkt zu werden</param>
+            <param name="scale">+/- Bereich um Koordinate der Kreuz-Linien</param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.PlotAxes">
+            <summary>
+            Zeichnet die Achsen des Graphen, diese werden nicht im LineMemory gespeichert
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.PlotPolynomialFunction(Bitgraph.QuadPolynomial,System.Drawing.Color,System.Single)">
+            <summary>
+            Zeichnet eine polynomielle Funktion zweiten Grades f(x)=ax^2+bx+c
+            </summary>
+            <param name="polynomial">Quadratisches Polynom</param>
+            <param name="fillColor">Füllfarbe der Linie</param>
+            <param name="stepAccuracy"><para>Genauigkeits-Multiplikator mit der f(x) gezeichnet wird</para><para></para><para>1.0 entspricht 1/200 Schrittweite</para></param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.ClearLineMemory">
+            <summary>
+            Entfernt sämtliche Linien bedingungslos aus dem Gedächtnis
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.GetOptionsList">
+            <summary>
+            Erstellt eine Liste von Ankreuzfeldern für vorhandene Graph-Einstellungen
+            </summary>
+            <returns>Dynamische Liste von Ankreuzfeldern</returns>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.GetActionsList(Bitgraph.ValueTable)">
+            <summary>
+            Erstellt eine Liste von Knöpfen für vorhandene Graph-Aktionen im Bezug auf eine gegebene Datentabelle
+            </summary>
+            <param name="actionLinkedTable"></param>
+            <returns>Dynamische Liste von Knöpfen</returns>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.GetScales">
+            <summary>
+            Erstellt eine Liste von Zahlfeldern für die Einstellung von geometrischen Limits und der Skalierung
+            </summary>
+            <returns>Dynamische List von Zahlfeldern</returns>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.Parent_SizeChanged(System.Object,System.EventArgs)">
+            <summary>
+            Listener-Funktion auf das SizeChanged-Event des Parent Control-Elements
+            <para></para>
+            <para>Löst ein bedingtes Anpassen an das Parent aus</para>
+            </summary>
+            <param name="sender">Parent Control-Element</param>
+            <param name="_e">Nicht verarbeitete Event-Infos</param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.FitToParent">
+            <summary>
+            Bedingtes anpassen an das Parent Control-Element:
+            <para></para>
+            <para>- Setzt DockStyle, Breite und Höhe des visuellen Containers</para>
+            <para>- Generiert neue Darstellungsfläche und fügt diese in den Container ein</para>
+            <para>- Repositioniert die Graphenbeschriftung</para>
+            <para>- Zeichnet Achsen und Graphen neu</para>
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.Graph2Image(System.Drawing.PointF)">
+            <summary>
+            Konvertiert eine geometrische in eine visuelle Koordinate
+            </summary>
+            <param name="gc">geometrische Koordinate</param>
+            <returns>visuelle Koordinate</returns>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.Image2Graph(System.Drawing.Point)">
+            <summary>
+            Nicht implementierte Funktion, da visuelle zu geometrische Konvertierung noch nicht benötigt ist.
+            <para></para>
+            <para>Möglicherweise wenn Interaktion im Bild möglich werden soll wichtig</para>
+            </summary>
+            <param name="ic">visuelle Korrdinate</param>
+            <exception cref="T:System.NotImplementedException"></exception>
+            <returns>geometrische Koordinate</returns>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.SetLabelTransparency(System.Boolean)">
+            <summary>
+            Setze die Hintergrundfarbe der Label-Objekte
+            </summary>
+            <param name="transparent">T: Transparent; F: BackgroundColor</param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphManager.ReplotGraph">
+            <summary>
+            Zeichnet sämtliche Linien die derzeit im Gedächtnis sind
+            </summary>
+        </member>
+        <member name="T:Bitgraph.Graph.GraphOptions">
+            <summary>
+            Container-Klasse für Optionen des GraphMangers
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphOptions.TransparentLabels">
+            <summary>
+            Transparente Hintergründe der Graphenbeschriftungen
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphOptions.AutoResize">
+            <summary>
+            Automatisches neu-Zeichnen des Graphen bei geg. Event
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphOptions.RememberDrawing">
+            <summary>
+            Schaltet Gedächtnis für Linien an/aus
+            <para></para>
+            <para>Momentan als nicht vom Nutzer änderbar vorgesehen</para>
+            </summary>
+        </member>
+        <member name="F:Bitgraph.Graph.GraphOptions.PlotColors">
+            <summary>
+            Farben der Graph-Plots
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphOptions.TransparentLabelsCheckBox">
+            <summary>
+            Ankreuzfeld für die TransparentLabels Einstellung
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphOptions.AutoResizeCheckBox">
+            <summary>
+            Ankreuzfeld für die AutoResize Einstellung
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphOptions.RememberDrawingCheckBox">
+            <summary>
+            Ankreuzfeld für die RememberDrawing Einstellung
+            </summary>
+        </member>
+        <member name="F:Bitgraph.Graph.GraphVisualization.DEFAULT_WIDTH">
+            <summary>
+            Default-Breite der visuellen Darstellungsfläche in Pixel
+            </summary>
+        </member>
+        <member name="F:Bitgraph.Graph.GraphVisualization.DEFAULT_HEIGHT">
+            <summary>
+            Default-Höhe der visuellen Darstellungsfläche in Pixel
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphVisualization.Container">
+            <summary>
+            Stellvertreter Control-Objekt für den Container
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphVisualization.Parent">
+            <summary>
+            Stellvertreter Parent-Objekt für den Container
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphVisualization.Width">
+            <summary>
+            Breite der visuellen Darstellungsfläche
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphVisualization.Height">
+            <summary>
+            Höhe der visuellen Darstellungsfläche
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphVisualization.DrawArea">
+            <summary>
+            Repräsentiert die visuelle Darstellungsfläche
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Graph.GraphVisualization.DrawAreaContainer">
+            <summary>
+            Container der visuellen Darstellungsfläche
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphVisualization.#ctor(System.Drawing.Color)">
+            <summary>
+            Schnittstelle für die Visualisierung des Graphen
+            </summary>
+            <param name="background"></param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphVisualization.DrawLine(System.Drawing.Point,System.Drawing.Point,System.Drawing.Color)">
+            <summary>
+            Zeichne eine Linie in das Bild
+            </summary>
+            <param name="start">Start-Koordinate</param>
+            <param name="end">End-Koordinate</param>
+            <param name="fillColor">Füllfarbe</param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphVisualization.ResetAndResize">
+            <summary>
+            Passt Container und Darstellungsfläche an Parent an und setzt die Darstellungsfläche zurück
+            </summary>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphVisualization.SetPixel(System.Drawing.Point,System.Drawing.Color)">
+            <summary>
+            Setze einen Bildpunkt der Darstellungsfläche
+            </summary>
+            <param name="imageCoord">Bild-Koordinaten des Punktes</param>
+            <param name="fill">Füllfarbe</param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphVisualization.DrawHorizontalLine(System.Int32,System.Int32,System.Int32,System.Drawing.Color)">
+            <summary>
+            Zeichnet eine horizontale Linie in das Bild
+            </summary>
+            <param name="yVal">visueller Y-Wert der Linie</param>
+            <param name="xLeft">visuell linker X-Wert der Linie</param>
+            <param name="xRight">visuell rechter X-Wert der Linie</param>
+            <param name="fillColor">Füllfarbe</param>
+        </member>
+        <member name="M:Bitgraph.Graph.GraphVisualization.DrawVerticalLine(System.Int32,System.Int32,System.Int32,System.Drawing.Color)">
+            <summary>
+            Zeichnet eine vertikale Linie in das Bild
+            </summary>
+            <param name="xVal">visueller X-Wert der Linie</param>
+            <param name="yDown">visuell niedrigerer Y-Wert der Linie</param>
+            <param name="yUp">visuell höherer Y-Wert der Linie</param>
+            <param name="fillColor">Füllfarbe</param>
+        </member>
+        <member name="M:Bitgraph.Program.Main">
+            <summary>
+            Der Haupteinstiegspunkt für die Anwendung.
+            </summary>
+        </member>
+        <member name="T:Bitgraph.QuadPolynomial">
+            <summary>
+            Repräsentiert eine polynomiale Funktion zweiten Grades der Form f(x) = a*x^2 + b*x + c
+            </summary>
+        </member>
+        <member name="F:Bitgraph.QuadPolynomial.two">
+            <summary>
+            Faktor a(x) in a*x^2
+            </summary>
+        </member>
+        <member name="F:Bitgraph.QuadPolynomial.one">
+            <summary>
+            Faktor b(x) in b*x
+            </summary>
+        </member>
+        <member name="F:Bitgraph.QuadPolynomial.zero">
+            <summary>
+            Summand c(x) in c
+            </summary>
+        </member>
+        <member name="M:Bitgraph.QuadPolynomial.FunctionValue(System.Single)">
+            <summary>
+            Funktionswert für geg. Eingabe
+            </summary>
+            <param name="xValue">Eingabewert</param>
+            <returns>Funktionswert</returns>
+        </member>
+        <member name="T:Bitgraph.ValueTable">
+            <summary>
+            Container Klasse, welche eine interaktive Datentabelle und META-Informationen kapselt
+            </summary>
+        </member>
+        <member name="F:Bitgraph.ValueTable.ColumnNames">
+            <summary>
+            Namen der Tabellenspalten
+            <para>R_1 = U_0 / I_0</para>
+            <para>I_1 = U_0 / R_1</para>
+            <para>U_1 = R_1 * I_1</para>
+            <para>P_1 = U_1 * I_1 || U_1^2 / R_1 || I_1^2 * R_1</para>
+            </summary>
+        </member>
+        <member name="F:Bitgraph.ValueTable.VoltageSource">
+            <summary>
+            Spannung U_0 der Stromquelle
+            </summary>
+        </member>
+        <member name="F:Bitgraph.ValueTable.AmpereFunction">
+            <summary>
+            Funktion zur Berechnung von I_1 = U_0 / R_1
+            </summary>
+        </member>
+        <member name="F:Bitgraph.ValueTable.VoltageFunction">
+            <summary>
+            Funktion zur Berechnung von U_1 = R_1 * I_1
+            </summary>
+        </member>
+        <member name="F:Bitgraph.ValueTable.PowerFunction">
+            <summary>
+            Funktion zur Berechnung von P_1 = U_1 * I_1
+            </summary>
+        </member>
+        <member name="P:Bitgraph.ValueTable.MyDataGridView">
+            <summary>
+            Container und graphische Repräsentation der Datentabelle
+            </summary>
+        </member>
+        <member name="F:Bitgraph.ValueTable.MyDataTable">
+            <summary>
+            Datentabellen-Objekt
+            </summary>
+        </member>
+        <member name="M:Bitgraph.ValueTable.#ctor">
+            <summary>
+            Container für die Datentabelle
+            </summary>
+        </member>
+        <member name="M:Bitgraph.ValueTable.SetParent(System.Windows.Forms.Control)">
+            <summary>
+            Setzt Parent Element des Tabellen-Containers
+            </summary>
+            <param name="parent">Neues Parent Element</param>
+        </member>
+        <member name="M:Bitgraph.ValueTable.Dispose">
+            <summary>
+            Gibt für das Objekt reservierte Ressourcen wieder frei
+            </summary>
+        </member>
+        <member name="M:Bitgraph.ValueTable.GetTableContents">
+            <summary>
+            Gibt den momentanen Tabelleninhalt zurück
+            </summary>
+            <returns>Matrix mit allen Zell-Werten</returns>
+        </member>
+        <member name="T:Bitgraph.Properties.Resources">
+            <summary>
+              Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Properties.Resources.ResourceManager">
+            <summary>
+              Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Properties.Resources.Culture">
+            <summary>
+              Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+              Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
+            </summary>
+        </member>
+        <member name="P:Bitgraph.Properties.Resources.SchemaResource">
+            <summary>
+              Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+            </summary>
+        </member>
+    </members>
+</doc>
