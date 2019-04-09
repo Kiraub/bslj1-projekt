@@ -7,6 +7,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{siunitx}
+\usepackage{graphicx}
 
 \title{Projektarbeit 1. Lehrjahr}
 \author{Henning Meyer\\Erik Bauer}
@@ -28,36 +29,40 @@
 
 \subsubsection{Situation des Auftraggebers}
 
-    Der Auftraggeber für dieses Projekt ist die technische Berufsschule Rostock. Die Schule besitzt mehrere Laborräume, in denen Computer mit gängiger Peripherie wie Maus und Tastatur vorhanden sind. Diese werden in gegebenen Unterrichststunden den Schülern zum Arbeiten zur Verfügung gestellt.
-    Auf den Computern befinden sich u.a. Entwicklungsumgebungen für verschiedene Programmiersprachen, darunter die für dieses Projekt relevante Software \glqq Microsoft Visual Studio\grqq{} in verschiedenen Versionen. Die Rechner verfügen ebenfalls über einen Internetzugang für Recherchezwecke, Anbindung an das lokale Schulnetzwerk mit Speicherplatz für jeden Schüler, sowie Schutzsoftware, um die Funktionalität der lokalen PCs zu gewährleisten.
+    Der Auftraggeber für dieses Projekt ist die technische Berufsschule Rostock.
+    Die Schule besitzt mehrere Laborräume, in denen Computer mit gängiger Peripherie wie Maus und Tastatur vorhanden sind.
+    Diese werden in gegebenen Unterrichtsstunden den Schülern zum Arbeiten zur Verfügung gestellt.
+    Auf den Computern befinden sich u.a. Entwicklungsumgebungen für verschiedene Programmiersprachen, darunter die für dieses Projekt relevante Software \glqq Microsoft Visual Studio\grqq{} in verschiedenen Versionen.
+    Die Rechner verfügen ebenfalls über einen Internetzugang für Recherchezwecke, Anbindung an das lokale Schulnetzwerk mit Speicherplatz für jeden Schüler, sowie Schutzsoftware, um die Funktionalität der lokalen PCs zu gewährleisten.
 
-\subsubsection{Situation des Auftragnehmers}
+\subsubsection{Situation des Auftragsnehmers}
 
-    Der Auftragnehmer ist in Form eines Projektteams bestehend aus zwei Schülern der Klasse FIN81 gegeben. Beide absolvieren das erste Lehrjahr der Ausbildung zum Fachinformatiker für Anwendungsentwicklung. Es bestehen Vorkenntnisse in unterschiedlichen Programmiersprachen. 
-    \textbf{VORKENNTNISSE EINFÜGEN}%TODO Vorkenntnisse
+    Der Auftragsnehmer ist in Form eines Projektteams bestehend aus zwei Schülern der Klasse FIN81 gegeben.
+    Beide absolvieren das erste Lehrjahr der Ausbildung zum Fachinformatiker für Anwendungsentwicklung.
+    Es bestehen auf beiden Seiten Vorkenntnisse in der Programmierung in unterschiedlichen Programmiersprachen.
 
     Zum Arbeiten besitzen die Teammitglieder eigene Computer, es stehen ihnen aber ggf. auch Rechner in ihren Arbeitsplätzen und in der Berufsschule zur Verfügung.
 
 \subsection{SOLL-Analyse}
 
     Als Anforderung an das Projektteam wurden Kriterien für ein Programm, sowie eine dazugehörige schriftliche Ausarbeitung gegeben.
-     Die gewünschte Anwendung ist hierbei durch Muss-/ und Wunsch-Funktionalitäten beschrieben, konkrete Einschränkungen an die Umsetzung sind dabei aber nicht gemacht worden.
-     Die Hauptaufgabe des Programms liegt in der Visualisierung von physikalischen Messdaten und deren Zusammenhänge in Form von dynamisch erstellten Graphen.
-     Ausserdem muss es zu Präsentationszwecken auf den Schulrechnern lauffähig sein.
+    Die gewünschte Anwendung ist hierbei durch Muss-/ und Wunsch-Funktionalitäten beschrieben, konkrete Einschränkungen an die Umsetzung sind dabei aber nicht gemacht worden.
+    Die Hauptaufgabe des Programms liegt in der Visualisierung von physikalischen Messdaten und deren Zusammenhänge in Form von dynamisch erstellten Graphen.
+    Außerdem muss es zu Präsentationszwecken auf den Schulrechnern lauffähig sein.
 
 \subsection{Problemstellung}
 
     Es ist eine Beschreibung einer elektrotechnischen Schaltung gegeben. Die mathematischen Zusammenhänge zwischen den physikalischen Größen, sind vom Programm automatisch als Graph darzustellen. Speziell soll der Graph in einem begrenzten Maße ohne Nutzung fremden Quellcodes gezeichnet werden. Des Weiteren sind die Graphen nur als Näherungskurve darzustellen.
 
     \subsubsection{Begriffsdefinitionen}
-    %TODO Begriffsdefinitionen erweitern falls notwendig
+
     \begin{itemize}
         \item[Spannung]
         Die elektrische Spannung mit dem Formelzeichen $U$ und der Einheit Volt ($\si{\volt}$), beschreibt die Eigenschaft, Ladung zu bewegen.
         Sie ist Ursache für das Fließen eines elektrischen Stroms innerhalb eines elektrisch leitfähigen Elementes.
         \item[Stromstärke]
         Die elektrische Stromstärke besitzt das Formelzeichen $I$ und die Einheit Ampere ($\si{\ampere}$).
-        Sie bemisst den elektrischen Strom im Bezug auf eine gegebene Fläche, zum Beispiel der Querschnittsfläche eines Leiters oder Kondensators.
+        Sie bemisst den elektrischen Strom im Bezug auf eine gegebene Fläche, zum Beispiel der Querschnittfläche eines Leiters oder Kondensators.
         \item[Widerstand]
         Der elektrische Widerstand, welcher durch das Formelzeichen $R$ und die Einheit Ohm ($\si{\ohm}$) gekennzeichnet wird, gibt an, welche elektrische Spannung notwendig ist, um eine bestimmte elektrische Stromstärke durch einen elektrischen Leiter zu transportieren.
         \item[Leistung]
@@ -77,15 +82,31 @@
     \end{itemize}
 
     \subsubsection{Betrachtung mathematischer Zusammenhänge}
-    %TODO Mathematische Analyse
+
     Da die mathematischen Zusammenhänge klar definiert sind, lassen sich über die im Programm zu erwartenden Ergebnisse einige Vorüberlegungen treffen.
     Sofern zum Berechnen der Werte und zum Zeichnen des Graphen geeignete Algorithmen verwendet werden, sollten die produzierten Ausgaben den definierten Beziehungen entsprechen.
 
     Gegeben sind eine Spannungsquelle $U_0$ von $10 \si{\volt}$, sowie ein veränderlicher Lastwiderstand $R_L$ im Verbraucher $L$.
     Zu berechnen sind nun die Stromstärke $I_L$, die Stromspannung $U_L$, sowie die elektrische Leistung $P_L$ in Abhängigkeit von $R_L$.
 
-    Die zu erwartenden Veränderungen der unterschiedlichen physikalischen Größen in Abhängigkeit von $R_L$ lassen sich mit Hilfe ihrer Berechnungsformeln herleiten.
-    %TODO Formeln für die verschiedenen Berechnungen einfügen
+    Die zu erwartenden Veränderungen der unterschiedlichen physikalischen Größen in Abhängigkeit von $R_L$ lassen sich mit Hilfe ihrer Berechnungsformeln herleiten:
+
+    Berechnung von $I_L$:
+
+    \[ I_L = \frac{U_0}{R_L} \]
+    \[ I_L = \frac{10\si{\volt}}{R_L} \]
+
+    Berechnung von $U_L$:
+
+    \[ U_L = R_L \cdot I_L \]
+    \[ U_L = R_L \cdot \frac{10\si{\volt}}{R_L} \]
+    \[ U_L = 10\si{\volt} \]
+
+    Berechnung von $P_L$:
+
+    \[ P_L = U_L \cdot I_L \]
+    \[ P_L = 10\si{\volt} \cdot \frac{10\si{\volt}}{R_L} \]
+    \[ P_L = \frac{100\si{\volt}}{R_L} \]
 
     \subsubsection{Wertetabelle und grafische Darstellung im Programm}
     %TODO Erläuterung und Screenshots aus dem Programm
@@ -98,18 +119,16 @@
 
 \subsection{Betrachtung von Lösungsvarianten}
 
-    Nach Analyse der gegebenen Anforderungen entschied das Projektteam, dass eine Entwicklungsumgebung, welche das Erstellen graphischer Oberflächen unterstützt, angemessen zur Lösung ist. Außerdem sollte die verwendete Programmiersprache eine einfache Schnittstelle oder Möglichkeit bieten, vom Programmierer definierte Grafiken auf dem Bildschirm anzuzeigen. Hierbei sollten speziell einzelne Punkte oder gerade Linien darstellbar sein, damit die Zeichnung von Kurven gut implementierbar ist.
-    Als mögliche Programmiersprachen wurden \textit{\glqq Python\grqq{}}, unter Nutzung von \textit{\glqq TKinter\grqq{}}, \textit{\glqq Java\grqq{}} und \textit{\glqq C\#\grqq{}} betrachtet.
-    Zusätzlich zur Seite der Problemstellung, wurde dann die Seite der Vorkenntnisse in Betracht gezogen. Mit den gefundenen Kriterien und den Überschneidungen vorhandener Entwicklungserfahrungen, hat sich das Team letztlich für die Nutzung der Sprache \textit{\glqq C\#\grqq{}}, unterstützt durch die Entwicklungsumgebung \textit{\glqq Microsoft Visual Studio\grqq{}}, entschieden.
-
-    %FIXME Platzierung/ Umformulierung/ Formattierung
-    Nach Besprechung der engeren Auswahl zwischen Javascript und \textit{\glqq C\#\grqq{}}, dem abwägen möglicher Entwicklungsvorteile und Kompatibilitätskriterien, hat sich das Team für die Entwicklung des Programms in \textit{\glqq C\#\grqq{}} entschieden.
+    Nach Analyse der gegebenen Anforderungen entschied das Projektteam, dass eine Entwicklungsumgebung, welche das Erstellen graphischer Oberflächen unterstützt, angemessen zur Lösung ist.
+    Außerdem sollte die verwendete Programmiersprache eine einfache Schnittstelle oder Möglichkeit bieten, vom Programmierer definierte Grafiken auf dem Bildschirm anzuzeigen.
+    Hierbei sollten speziell einzelne Punkte oder gerade Linien darstellbar sein, damit die Zeichnung von Kurven gut implementierbar ist.
+    Als mögliche Programmiersprachen kamen \textit{\glqq Python\grqq{}}, unter Nutzung von \textit{\glqq TKinter\grqq{}}, \textit{\glqq Java\grqq{}} und \textit{\glqq C\#\grqq{}}, sowie \textit{\glqq Javascript\grqq{}} in Frage.
+    Zusätzlich zur Seite der Problemstellung, wurde dann die Seite der Vorkenntnisse in Betracht gezogen.
+    Mit den gefundenen Kriterien und den Überschneidungen vorhandener Entwicklungserfahrungen, sind sowohl \textit{\glqq Javascript\grqq{}} als auch \textit{\glqq C\#\grqq{}} in die engere Auswahl gekommen.
+    Nach dem abwägen möglicher Entwicklungsvorteile und Kompatibilitätskriterien, hat sich das Team letztlich für die Nutzung der Sprache \textit{\glqq C\#\grqq{}}, unterstützt durch die Entwicklungsumgebung \textit{\glqq Microsoft Visual Studio\grqq{}}, entschieden.
 
 \subsection{Umsetzung der gewählten Variante}
 
-    \textbf{PLACEHOLDER}%TODO Umsetzung
-
-    %FIXME Platzierung/ Umformulierung/ Formattierung
     Das Programm ist im Kern modular gestaltet, d.h. jeder funktional eigene Bereich ist durch eine eigene Klasse abgetrennt.
     Die Arbeitsaufteilung wurde dementsprechend auch nach Modulen aufgeteilt.
     Die Erstellung der Wertetabelle wurde von Herr Meyer umgesetzt.
@@ -117,10 +136,16 @@
 
     Die Oberfläche des Programms wurde während der funktionalen Entwicklungsphase nur sporadisch gestaltet.
     Überlegungen zum generellen Layout haben zwar schon früh stattgefunden, aber da die einzelnen Bausteine möglichst unabhängig vom Aussehen des Programms funktionieren sollten, wurde der Fokus erst später auf das Design gesetzt.
+    Nach einigen Besprechungen, wurde das fertige Layout der graphischen Oberfläche des Programms festgelegt, um eine Orientierung für die Formfaktoren der Bausteine zu bekommen.
 
-    Nach einiger Besprechung wurde das grundlegende Layout der graphischen Oberfläche des Programms festgelegt, um eine Orientierung für die Formfaktoren der Bausteine zu bekommen.
+    Um den Graphen und die Funktionskurven zu zeichnen wurden verschiedene Methoden implementiert und getestet.
+    Anfangs bestand die Idee, die Graphen als Näherungskurven mittels der gegebenen Wertetabelle zu zeichnen, jedoch stellte sich eine geeignete Annäherungsprozedur als zu komplex für die gegebene Aufgabe heraus.
+    Besonders, wenn erst wenige Werte eingetragen sind, ist eine Kurve nicht praktikabel anzunähern.
+    Daher wird in der finalen Version des Programms eine Repräsentation der mathematischen Zusammenhängen der Werte, in Form von Polynomen, codiert und dargestellt.
 
-    Um den Graphen und die Funktionskurven zu zeichnen wurden verschiedene Methoden implementiert und getestet
+    Für die Wertetabelle fanden wir eine geeignete Struktur und konfigurierten diese, bis sie unseren Vorstellungen entsprach.
+    Dem Nutzer ist es einfach möglich, neue Widerstands-Werte einzutragen bzw. vorhandene zu löschen.
+    Die Werte in Abhängigkeit vom Widerstand werden dann automatisch berechnet.
 
 \newpage
 \section{Testen der Anwendung}
@@ -141,13 +166,13 @@
     \subsubsection{Installation}
 
     Das Programm ist eine portable Anwendung, jedoch keine alleinstehende.
-    Es wird zum Ausführen ein DotNet Runtime Environment der Version 4.0 oder höher vorausgesetzt.
+    Es wird zum Ausführen ein \glqq dotNET Runtime Environment\grqq{} der Version 4.0 oder höher vorausgesetzt.
     Unterstützt wird eine 64-Bit Variante des Betriebssystems Windows ab Version \glqq Windows 7\grqq{}.
-    
-    Bei gegebenen Voraussetzungen, reicht ein kopieren der Anwendungsdatei auf einen Rechner, gefolgt von einem Ausführen der Datei.
-    
+
+    Bei gegebenen Voraussetzungen reicht ein Kopieren der Anwendungsdatei auf einen Rechner, gefolgt von einem Ausführen der Datei.
+
     Es startet sich direkt, ohne weitere Installationsschritte, die Anwendungsoberfläche.
-    
+
     Zum Deinstallieren der Software, kann die Anwendungsdatei einfach gelöscht und gegebenenfalls aus dem Papierkorb entfernt werden.
     Konfigurationsdateien oder andere Programmausgaben in Form von Dateien werden nicht angelegt.
 
@@ -158,7 +183,7 @@
     Weiterhin verantworten wir keine Fehler, welche durch unangemessene Nutzung des Computers oder auch Überlastung der Hardwareressourcen hervorgerufen werden.
     Dies beinhaltet ebenfalls die Nutzung der Software auf Computern, welche nicht die im Abschnitt Installation genannten Mindestanforderungen erfüllen.
     Das Logo des Programms, ist das Logo der Berufsschule Technik Rostock und die Urheberrechte liegen beim Rechteinhaber.
-    Der Quellcode wurde von den Projektmitgliedern verfasst und eine Verfielfältigung ist nur für nicht-kommerzielle und gegebenenfalls pädagogische Zwecke gestattet.
+    Der Quellcode wurde von den Projektmitgliedern verfasst und eine Vervielfältigung ist nur für nicht-kommerzielle und gegebenenfalls pädagogische Zwecke gestattet.
 
     \subsubsection{Umgang mit der Programmoberfläche}
     
@@ -170,20 +195,25 @@
 %TODO Entwicklerhandbuch
     \subsubsection{Programmstruktur}
     
-    Der Programmeinstiegspunkt ist in der statischen Klasse \glqq Program\grqq{} mit der Funktion \glqq Main\grqq{}.
-    Diese instanziert ein Objekt der \glqq BitgraphGUI\grqq-Klasse, welche die eigentliche Darstellungs- und Berechungslogik, in Form von Unterobjekten, kapselt.
+    Der Programmeinstiegspunkt ist in der statischen Klasse \verb|Program| mit der Funktion \verb|Main|.
+    Diese instanziiert ein Objekt der \verb|BitgraphGUI|-Klasse, welche die eigentliche Darstellungs- und Berechnungslogik, in Form von Unterobjekten, kapselt.
     Die Struktur des Programms ist im groben geteilt in Menü, Graphen und Tabelle.
-    
-    Das Menü in Form eines \glqq TabPages\grqq-Objektes, befindet sich direkt in der BitgraphGUI-Instanz, wobei die Inhalte desselben unter anderem von Kind-Objekten generiert werden.
-    Es ist gegliedert in die Tabs %TODO gliederung des menüs einfügen!
-    
-    
+
+    Das Menü in Form eines \verb|TabPages|-Objektes, befindet sich direkt in der \verb|BitgraphGUI|-Instanz, wobei die Inhalte desselben unter anderem von Kind-Objekten generiert werden.
+    Es ist gegliedert in die Tabs \glqq Optionen\grqq{}, \glqq Schaltung\grqq{}, \glqq Hilfe\grqq{} und \glqq Über\grqq{}.
+
     \subsubsection{Schnittstellen}
+
+    Das Programm bietet keine externen Entwicklungsschnittstellen.
+    Ein Erweitern des Programms ist nicht vorgesehen, die einzelnen Unterklassen sind jedoch so gestaltet, dass sie bei Bedarf leicht wiederverwendet werden können.
+    Besonders die vorhandene Trennung der Berechnungs- und Darstellungslogik des Graphen gestaltet ein Ändern der Darstellungsmethode einfach, da lediglich die aufgerufenen Funktionen in einer eigenen Art implementiert werden müssten.
+    Es wäre also als theoretische Verbesserung der Allgemeinheit des Programms, ein konzipieren von abstrakten Klassen bzw. Schnittstellen, zu den derzeit vorhandenen, denkbar.
 
 \newpage
 \section{Quellen}
 
-    %TODO Quellen
+    Die API-Dokumentation des \glqq dotNET Framework\grqq{}:\\
+    \verb|https://docs.microsoft.com/de-de/dotnet/api/|
 
 % Ende der Arbeit
 
