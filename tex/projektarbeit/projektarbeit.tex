@@ -350,6 +350,15 @@
 
     Das Menü in Form eines \verb|TabPages|-Objektes, befindet sich direkt in der \verb|BitgraphGUI|-Instanz, wobei die Inhalte desselben unter anderem von Kind-Objekten generiert werden.
     Es ist gegliedert in die Tabs \glqq Optionen\grqq{}, \glqq Schaltung\grqq{}, \glqq Hilfe\grqq{} und \glqq Über\grqq{}.
+    
+    Der Graph ist aufgeteilt in eine verwaltende Klasse \verb|GraphManager| und in drei abhängige Klassen \verb|GraphOptions|, \verb|GraphGeometry| und \verb|GraphVisualization|.
+    Die abhängigen Klassen kapseln aufgabenspezifische Methoden und Eigenschaften, etwa beinhaltet \verb|GraphOptions| die derzeitige Konfiguration, \verb|GraphGeometry| beinhaltet Funktionen zu Koordinaten-Berechnungen und \verb|GraphVisualization| kapselt die Darstellung auf des Graphen in einem geeigneten Container.
+    Die Hauptklasse \verb|GraphManager| beinhaltet Funktionen zur Umrechnung von geometrischen zu visuellen Koordinaten und bietet nach außen sichtbare Funktionen zum Zeichnen in dem Graphen.
+    
+    Die Wertetabelle ist in Form der Klasse \verb|ValueTable| implementiert und nutzt die Klassen \verb|DataGridView| und \verb|DataTable| zur Darstellung und Speicherung der Werte.
+    Es ist sowohl das Aussehen der Tabelle, sowie der Umgang mit eingegebenen Werten konfiguriert.
+    
+    
 
     \subsubsection{Schnittstellen}
 
@@ -362,13 +371,29 @@
 \section{Quellen}
 
 \begin{itemize}
-    \item
-    Die API-Dokumentation des \glqq dotNET Framework\grqq{}:\\
-    \verb|https://docs.microsoft.com/de-de/dotnet/api/|
+    \item Die Richtlinien der IHK:\\
+    \verb|https://www.rostock.ihk24.de/aus_und_weiterbildung/|\\
+    \verb|    Pruefungen/abschlusspruefung/Dokumentation_Projektarbeit/|
     
-    \item 
-    Formatierungshilfen für den Umgang mit \LaTeX:\\
-    \verb|https://en.wikibooks.org/wiki/LaTeX/|
+    \item Die API-Dokumentation des \glqq dotNET Framework\grqq{}:\\
+    \verb|https://docs.microsoft.com/de-de/dotnet/api/|\\
+    
+    \item Formatierungshilfen für den Umgang mit \LaTeX:\\
+    \verb|https://en.wikibooks.org/wiki/LaTeX/|\\
+    
+    \item Leistungsanpassung:\\
+    \verb|https://de.wikipedia.org/wiki/Leistungsanpassung|\\
+    \verb|https://www.elektronik-kompendium.de/sites/grd/0212261.htm|\\
+    \verb|http://elektronik-kurs.net/elektrotechnik/elektrische-anpassung/|\\
+    \verb|https://elektroniktutor.de/analogtechnik/anpass.html|\\
+    
+    \item Stromanpassung:\\
+    \verb|https://de.wikipedia.org/wiki/Stromanpassung|\\
+    
+    \item Spannungsanpassung:\\
+    \verb|https://de.wikipedia.org/wiki/Spannungsanpassung|\\
+    \verb|http://deacademic.com/dic.nsf/dewiki/1308354|\\
+    
 \end{itemize}
 % Ende der Arbeit
 
