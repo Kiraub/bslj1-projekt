@@ -331,17 +331,28 @@
     Wir, die Entwickler, geben keine Gewähr für die Vollständigkeit oder Korrektheit der Ergebnisse.
     Weiterhin verantworten wir keine Fehler, welche durch unangemessene Nutzung des Computers oder auch Überlastung der Hardwareressourcen hervorgerufen werden.
     Dies beinhaltet ebenfalls die Nutzung der Software auf Computern, welche nicht die im Abschnitt Installation genannten Mindestanforderungen erfüllen.
-    Das Logo des Programms, ist das Logo der Berufsschule Technik Rostock und die Urheberrechte liegen beim Rechteinhaber.
-    Der Quellcode wurde von den Projektmitgliedern verfasst und eine Vervielfältigung ist nur für nicht-kommerzielle und gegebenenfalls pädagogische Zwecke gestattet.
 
     \subsubsection{Umgang mit der Programmoberfläche}
     
     Im Startzustand finden sich im Programm auf der linken Seite ein leeren Graph und auf der rechten Seite eine leere Tabelle, sowie eine Aufreihung von Menüreitern.
     Das anfangs geöffnete Menü bietet verschiedene Auswahlkästchen und Funktionsknöpfe.
     
+    \subsubsection{Lizenz}
+    
+    Die Software darf im Rahmen der Auswertung und Benotung des Projektes genutzt werden.
+    Eine weiterführende Nutzung sowie die Verbreitung der Software nach Außen, ist nur gestattet, wenn einer der Entwickler auf Nachfrage zugestimmt hat.
+    Das Logo des Programms, ist das Logo der Berufsschule Technik Rostock und die Urheberrechte liegen beim Rechteinhaber.
+    Der Quellcode wurde von den Projektmitgliedern verfasst und eine Vervielfältigung ist nur für nicht-kommerzielle und  pädagogische Zwecke gestattet.
+    
 
 \subsection{Entwicklerhandbuch}
 %TODO Entwicklerhandbuch
+
+    \subsubsection{Programmfunktion}
+    Das Programm \glqq Bitgraph\grqq{} dient der Darstellung von Graphen, die den Verlauf der elektrischen Leistung, des Stroms und der Spannung, in Abhängigkeit vom ohmschen Widerstand, visualisieren.
+    Dies umfasst die Berechnung der benötigten Werte, welche zunächst in der Wertetabelle gespeichert werden, jedoch auch auf der Zeichenfläche visualisiert werden können.
+    Die Berechnung der Werte erfolgt nach festgelegten mathematischen Formeln, wobei die Widerstandswerte vom Benutzer eingetragen werden müssen.
+
     \subsubsection{Programmstruktur}
     
     Der Programmeinstiegspunkt ist in der statischen Klasse \verb|Program| mit der Funktion \verb|Main|.
@@ -357,8 +368,7 @@
     
     Die Wertetabelle ist in Form der Klasse \verb|ValueTable| implementiert und nutzt die Klassen \verb|DataGridView| und \verb|DataTable| zur Darstellung und Speicherung der Werte.
     Es ist sowohl das Aussehen der Tabelle, sowie der Umgang mit eingegebenen Werten konfiguriert.
-    
-    
+    Beim Export der Werte werden diese in Form von \verb|double|-Werten in einer Matrix zurückgegeben, diese nutzt der Graph, um die Datenpunkte visuell darzustellen.
 
     \subsubsection{Schnittstellen}
 
@@ -366,6 +376,13 @@
     Ein Erweitern des Programms ist nicht vorgesehen, die einzelnen Unterklassen sind jedoch so gestaltet, dass sie bei Bedarf leicht wiederverwendet werden können.
     Besonders die vorhandene Trennung der Berechnungs- und Darstellungslogik des Graphen gestaltet ein Ändern der Darstellungsmethode einfach, da lediglich die aufgerufenen Funktionen in einer eigenen Art implementiert werden müssten.
     Es wäre also als theoretische Verbesserung der Allgemeinheit des Programms, ein konzipieren von abstrakten Klassen bzw. Schnittstellen, zu den derzeit vorhandenen, denkbar.
+
+    \subsubsection{Entwicklungsrichtlinien}
+    
+    Die Software wurde nach den allgemeinen Maßstäben der objektorientierten Programmierung erstellt.
+    Weiterhin wurde auf eine übersichtliche Struktur sowie Clean Code geachtet.
+    Im Sinne der weiterführenden Bearbeitung der Software wurde ebenfalls auf eine ausführliche Kommentierung und Regionalisierung gesetzt.
+    Angesichts der Größe des Projektes wurden keine weiteren Richtlinien festgelegt.
 
 \newpage
 \section{Quellen}
