@@ -216,10 +216,96 @@
 \subsection{Betrachtete Testfälle}
 
     %TODO Testfälle
+    \begin{enumerate}
+        \item Berechnung der Werte für Ampere, Volt und Watt\\
+        \label{test:calc}
+        Wenn ein Wert für den Widerstand eingegeben wird, sollen die restlichen in Abhängigkeit vom eingegebenen Wert, Anhand ihrer mathematischen Zusammenhänge, berechnet werden.
+        
+        \item Darstellung der Datenpunkte aus der Tabelle\\
+        \label{test:point}
+        Mit eingetragenen Werten in der Tabelle, sollen nach einem Klick auf den Knopf \glqq Zeichne Datenpunkte\grqq{}, die entsprechenden Koordinaten im Graphen visuell hervorgehoben werden.
+        
+        \item Darstellung der Kurvenverläufe der mathematischen Zusammenhänge\\
+        \label{test:curve}
+        Durch einen Klick auf den Knopf \glqq Zeichne Graphen\grqq{}, sollen die Kurvenverläufe der drei Funktionen $I_L(R_L)$, $U_L(R_L)$ und $P_L(R_L)$ graphisch dargestellt werden.
+        
+        \item Löschen der gezeichneten Elemente\\
+        \label{test:delete}
+        Bei einem Klick auf den Knopf \glqq Lösche Graphen\grqq{}, sollen sämtliche Elemente des Graphen, welche nicht zu den Achsen gehören, gelöscht werden.
+        
+        %\item Verändern des sichtbaren Koordinatenbereichs\\
+        %Nach einem Ändern der Werte für die X-/ Y-Achsenbegrenzung, soll der Graph sich dem neuen Format anpassen und ggf. die gezeichneten Elemente auf die neue Größe skalieren.
+    \end{enumerate}
 
 \subsection{Testprotokolle}
 
     %TODO Testprotokolle
+    \begin{center}
+        \begin{tabular}[c]{|c|p{100pt}|p{100pt}|p{150pt}|}
+            \hline
+            Testfall & Durchführung & Erwartung & Ergebnis\\
+            \hline
+            Nr. \ref{test:calc}
+            &
+            Mit Ausgang Initial-zustand;\newline
+            eintragen von den Widerstandswerten:\newline
+            $5$, $10$, $15$, $20$, $3.3$\newline
+            in die Tabelle
+            &
+            Für $I_L(R_L)$:\newline
+            $2$, $1$, $0.\overline{3}$, $0.5$, $0.\overline{03}$\newline
+            Für $U_L(R_L)$:\newline
+            $10$, $10$, $10$, $10$, $10$\newline
+            Für $P_L(R_L)$:\newline
+            $20$, $10$, $6.\overline{6}$, $5$, $30.\overline{30}$\newline
+            &
+            Die Werte erscheinen in der Tabelle auf zwei Nachkommastellen gerundet.\newline
+            Dadurch treten bei der Spannung vereinzelt Werte auf, welche den Vorüberlegungen geringfügig abweichen.
+            \\
+            \hline
+            Nr. \ref{test:point}
+            &
+            Mit Ausgang Endzustand von Test Nr. \ref{test:calc};\newline
+            betätigen des Knopfes \glqq Zeichne Datenpunkte\grqq{}
+            &
+            An den Koordinaten mit X-Werten aus der Spalte $R_L$ und Y-Werten aus den übrigen, erscheinen in jeweiliger Farbe Markierungen
+            &
+            Die Markierungen erscheinen in Form von Kreuzen an den jeweiligen Koordinaten in:\newline
+            Rot, für $I_L(R_L)$\newline
+            Blau, für $U_L(R_L)$\newline
+            Grün, für $P_L(R_L)$\newline
+            \\
+            \hline
+        \end{tabular}
+        \begin{tabular}[c]{|c|p{100pt}|p{100pt}|p{150pt}|}
+            \hline
+            Testfall & Durchführung & Erwartung & Ergebnis\\
+            \hline
+            Nr. \ref{test:curve}
+            &
+            Mit beliebigem Ausgangszustand;
+            betätigen des Knopfes \glqq Zeichne Graphen\grqq{}
+            &
+            Es erscheinen Kurven, welche die folgenden Formeln repräsentieren:\newline
+            $I_L(R_L) = \frac{10\si{\volt}}{R_L}$\newline
+            $U_L(R_L) = I_L \cdot R_L$\newline
+            $P_L(R_L) = \frac{100\si{\volt}}{R_L}$\newline
+            &
+            Es wird eine gerade Linie in blau, sowie zwei Hyperbelfunktionen in rot und grün dargestellt.
+            \\
+            \hline
+            Nr. \ref{test:delete}
+            &
+            Mit Ausgang, dass beliebige Punkte und/oder Kurven im Graphen dargestellt sind;\newline
+            betätigen des Knopfes \glqq Lösche Graphen\grqq{}
+            &
+            Sämtliche Elemente des Graphen, welche nicht in Schwarz dargestellt sind, werden nicht mehr dargestellt
+            &
+            Die anfangs dargestellten Punkte und/oder Kurven sind nicht mehr zu sehen, nur noch die Achsen und Beschriftungen
+            \\
+            \hline
+        \end{tabular}
+    \end{center}
 
 \newpage
 \section{Dokumentation}
@@ -275,9 +361,15 @@
 \newpage
 \section{Quellen}
 
+\begin{itemize}
+    \item
     Die API-Dokumentation des \glqq dotNET Framework\grqq{}:\\
     \verb|https://docs.microsoft.com/de-de/dotnet/api/|
-
+    
+    \item 
+    Formatierungshilfen für den Umgang mit \LaTeX:\\
+    \verb|https://en.wikibooks.org/wiki/LaTeX/|
+\end{itemize}
 % Ende der Arbeit
 
 \end{document}
