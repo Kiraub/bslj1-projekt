@@ -190,7 +190,7 @@
 
 \subsection{Betrachtung von Lösungsvarianten}
 
-    Nach Analyse der gegebenen Anforderungen entschied das Projektteam, dass eine Entwicklungsumgebung, welche das Erstellen graphischer Oberflächen unterstützt, angemessen zur Lösung ist.
+    Nach Analyse der gegebenen Anforderungen entschied das Projektteam, dass eine Entwicklungsumgebung, welche das Erstellen graphischer Oberflächen unterstützt, angemessen zur Lösung sei.
     Außerdem sollte die verwendete Programmiersprache eine einfache Schnittstelle oder Möglichkeit bieten, vom Programmierer definierte Grafiken auf dem Bildschirm anzuzeigen.
     Hierbei sollten speziell einzelne Punkte oder gerade Linien darstellbar sein, damit die Zeichnung von Kurven gut implementierbar ist.
     Als mögliche Programmiersprachen kamen \textit{\glqq Python\grqq{}}, unter Nutzung von \textit{\glqq TKinter\grqq{}}, \textit{\glqq Java\grqq{}} und \textit{\glqq C\#\grqq{}}, sowie \textit{\glqq Javascript\grqq{}} in Frage.
@@ -211,7 +211,7 @@
 
     Um den Graphen und die Funktionskurven zu zeichnen wurden verschiedene Methoden implementiert und getestet.
     Anfangs bestand die Idee, die Graphen als Näherungskurven mittels der gegebenen Wertetabelle zu zeichnen, jedoch stellte sich eine geeignete Annäherungsprozedur als zu komplex für die gegebene Aufgabe heraus.
-    Besonders, wenn erst wenige Werte eingetragen sind, ist eine Kurve nicht praktikabel anzunähern.
+    Dies wird besonders deutlich, wenn erst wenige Werte eingetragen wurden, sodass die Kurve nicht praktikabel angenähert werden kann.
     Daher wird in der finalen Version des Programms eine Repräsentation der mathematischen Zusammenhängen der Werte, in Form von Polynomen, codiert und dargestellt.
 
     Für die Wertetabelle fanden wir eine geeignete Struktur und konfigurierten diese, bis sie unseren Vorstellungen entsprach.
@@ -340,7 +340,7 @@
 
     \subsubsection{Umgang mit der Programmoberfläche}
     
-    Im Startzustand finden sich im Programm auf der linken Seite ein leeren Graph und auf der rechten Seite eine leere Tabelle, sowie eine Aufreihung von Menüreitern.
+    Im Startzustand findet sich im Programm auf der linken Seite ein leerer Graph und auf der rechten Seite eine leere Tabelle, sowie eine Aufreihung von Menüreitern.
     Das anfangs geöffnete Menü bietet verschiedene Auswahlkästchen und Funktionsknöpfe.
     
     \subsubsection{Lizenz}
@@ -380,7 +380,8 @@
     Das Programm bietet keine externen Entwicklungsschnittstellen.
     Ein Erweitern des Programms ist nicht vorgesehen, die einzelnen Unterklassen sind jedoch so gestaltet, dass sie bei Bedarf leicht wiederverwendet werden können.
     Besonders die vorhandene Trennung der Berechnungs- und Darstellungslogik des Graphen gestaltet ein Ändern der Darstellungsmethode einfach, da lediglich die aufgerufenen Funktionen in einer eigenen Art implementiert werden müssten.
-    Es wäre also als theoretische Verbesserung der Allgemeinheit des Programms, ein konzipieren von abstrakten Klassen bzw. Schnittstellen, zu den derzeit vorhandenen, denkbar.
+    Es wäre also als theoretische Verbesserung der Allgemeinheit des Programms denkbar, abstrakte Klassen bzw. Schnittstellen hinzuzufügen, welche die benötigten Funktionsköpfe definieren.
+    Dann könnte eine beliebige Klasse diese Schnittstelle implementieren und dann mit dem \verb|GraphManager| genutzt werden.
 
     \subsubsection{Entwicklungsrichtlinien}
     
