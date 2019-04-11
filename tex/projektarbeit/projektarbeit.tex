@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[a4paper]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
@@ -9,19 +9,37 @@
 \usepackage{siunitx}
 \usepackage{graphicx}
 
-\title{Projektarbeit 1. Lehrjahr}
+% IHK Richtlinien
+\usepackage{timesnew}
+\usepackage[top=3.5cm, bottom=2.5cm, left=3.5cm, right=2.5cm]{geometry}
+
+
+\title{Projektarbeit 1. Lehrjahr\\Leistungs-, Spannungs- und Stromanpassung}
+
 \author{Henning Meyer\\Erik Bauer}
 
+
 \begin{document}
+\pagenumbering{gobble}
 
 %TODO Titelseite gestalten
 
 \maketitle
+\begin{center}
+    \includegraphics[width=6cm]{img/logo}
+\end{center}
 \newpage
 \tableofcontents
 \newpage
 
 % Anfang der Arbeit
+\pagenumbering{arabic}
+
+% IHK Richtlinien
+\fontencoding{T1}
+\fontfamily{times}
+\fontsize{11}{14}
+\selectfont
 
 \section{Analyse und Vorüberlegungen}
 
@@ -114,10 +132,50 @@
     \[ P_L = \frac{100\si{\volt}}{R_L} \]
 
     \subsubsection{Wertetabelle und grafische Darstellung im Programm}
-    %TODO Erläuterung und Screenshots aus dem Programm
+    
+    Die mathematischen Beziehungen, welche im vorherigen Abschnitt beschrieben wurden, sind im Programm mittels einer Wertetabelle festgehalten und anschließend in einem Graphen visualisiert.
+    \begin{figure}[!h]
+        \begin{center}
+            \includegraphics[width=6cm]{img/tabelle}
+            \caption{leere Wertetabelle}
+            \label{fig:tabelle}
+        \end{center}
+    \end{figure}
+
+    In Abbildung \ref{fig:tabelle} ist der Initial-zustand der Wertetabelle zu sehen, entsprechend in Abbildung \ref{fig:graph} der Graph in seinem Anfangszustand.
+    \begin{figure}[!h]
+        \begin{center}
+            \includegraphics[width=6cm]{img/graph}
+            \caption{leerer Graph}
+            \label{fig:graph}
+        \end{center}
+    \end{figure}
+
+    Füllt man nun in die Tabelle einige Widerstandswerte ein, so befüllen sich die abhängigen Werte für Stromstärke, Spannung und Leistung automatisch.
+    Zu sehen ist ein befülltes Beispiel in Abbildung \ref{fig:tabellebefuellt}.
+    Die Tabelle achtet hierbei darauf, dass keine leeren Felder oder doppelte Widerstandswerte auftreten.
+    Sofern keine Werte berechnet bzw. dargestellt werden können, wie zum Beispiel bei einem Widerstand von $0\,\si{\ohm}$, zeigt das Programm ein entsprechendes Symbol für etwa \glqq Unendlich\grqq{}: $\pm\infty$ oder \glqq Nicht definiert\grqq{}: $NaN$.
+    \begin{figure}[!h]
+        \begin{center}
+            \includegraphics[width=6cm]{img/tabellebefuellt}
+            \caption{befüllte Wertetabelle}
+            \label{fig:tabellebefuellt}
+        \end{center}
+    \end{figure}
+
+    Lässt man sich nun den Graphen und die entsprechenden Datenpunkte aus der Wertetabelle darstellen, erhält man ein Bild wie in Abbildung \ref{fig:graphbefuellt} zu sehen ist.
+    \begin{figure}[!h]
+        \begin{center}
+            \includegraphics[width=6cm]{img/graphbefuellt}
+            \caption{gezeichnete Datenpunkte}
+            \label{fig:graphbefuellt}
+        \end{center}
+    \end{figure}
 
     \subsubsection{Leistungsanpassung am praktischen Beispiel}
     %TODO Praktisches Beispiel Leistungsanpassung
+    
+    Leistungsanpassung wird in der Praxis unter anderem bei der Signalübertragung und auch bei der Energiegewinnung in Solarzellen verwendet.
 
 \newpage
 \section{Lösungsfindung und Umsetzung}
