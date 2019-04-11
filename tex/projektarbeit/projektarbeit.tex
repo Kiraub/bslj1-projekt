@@ -134,7 +134,7 @@
     Die mathematischen Beziehungen, welche im vorherigen Abschnitt beschrieben wurden, sind im Programm mittels einer Wertetabelle festgehalten und anschließend in einem Graphen visualisiert.
     \begin{figure}[!h]
         \begin{center}
-            \includegraphics[width=6.8cm]{img/tabelle}
+            \includegraphics[width=7cm]{img/tabelle}
             \caption{leere Wertetabelle}
             \label{fig:tabelle}
         \end{center}
@@ -143,7 +143,7 @@
     In Abbildung \ref{fig:tabelle} ist der Initial-zustand der Wertetabelle zu sehen, entsprechend in Abbildung \ref{fig:graph} der Graph in seinem Anfangszustand.
     \begin{figure}[!h]
         \begin{center}
-            \includegraphics[width=6.8cm]{img/graph}
+            \includegraphics[width=7cm]{img/graph}
             \caption{leerer Graph}
             \label{fig:graph}
         \end{center}
@@ -155,7 +155,7 @@
     Sofern keine Werte berechnet bzw. dargestellt werden können, wie zum Beispiel bei einem Widerstand von $0\,\si{\ohm}$, zeigt das Programm ein entsprechendes Symbol für etwa \glqq Unendlich\grqq{}: $\pm\infty$ oder \glqq Nicht definiert\grqq{}: $NaN$.
     \begin{figure}[!h]
         \begin{center}
-            \includegraphics[width=6.8cm]{img/tabellebefuellt}
+            \includegraphics[width=7cm]{img/tabellebefuellt}
             \caption{befüllte Wertetabelle}
             \label{fig:tabellebefuellt}
         \end{center}
@@ -164,16 +164,26 @@
     Lässt man sich nun den Graphen und die entsprechenden Datenpunkte aus der Wertetabelle darstellen, erhält man ein Bild wie in Abbildung \ref{fig:graphbefuellt} zu sehen ist.
     \begin{figure}[!h]
         \begin{center}
-            \includegraphics[width=6.8cm]{img/graphbefuellt}
+            \includegraphics[width=7cm]{img/graphbefuellt}
             \caption{gezeichnete Datenpunkte}
             \label{fig:graphbefuellt}
         \end{center}
     \end{figure}
 
     \subsubsection{Leistungsanpassung am praktischen Beispiel}
-    %TODO Praktisches Beispiel Leistungsanpassung
     
     Leistungsanpassung wird in der Praxis unter anderem bei der Signalübertragung und auch bei der Energiegewinnung in Solarzellen verwendet.
+    
+    Bei Solarzellen geht es um das praktische Problem, das der Zelle die maximal mögliche Leistung entnommen werden soll.
+    Dazu Bedarf es einem Lastwiderstand, der gleich dem Innenwiderstand der Solarzelle ist, damit es zur Leistungsanpassung kommt.
+    Dieser Zustand der maximalen Leistungsabgabe wird auch \glqq Maximum-Power-Point\grqq{} der Solarzelle genannt.
+    Da die Solarzelle Aufgrund ihrer Arbeitsweise jedoch keine lineare Spannungsquelle ist, muss dieser Zustand und der dafür benötigte Lastwiderstand, experimentell ermittelt werden.
+    Ebenfalls unterscheiden sich die Spannungswerte der Solarzelle davon, ob sie im Sonnenlicht oder im Schatten ist.
+    
+    Es werden also für sowohl den Fall der Sonneneinstrahlung, sowie für den Fall der Schattenlage, mit unterschiedlichen Lastwiderständen und dadurch resultierenden Stromstärken, die Spannungspegel der Solarzelle gemessen.
+    Die resultierende Leistung entspricht dem Produkt der Stromstärke und der Spannung und kann damit in Abhängigkeit vom Lastwiderstand mathematisch maximiert werden.
+    
+    Als Ergebnis bekommt man die Lastwiderstands-Werte für den Sonnen- als auch den Schattenbetrieb, bei denen der Solarzelle die maximale Leistung entnommen werden kann.
 
 \newpage
 \section{Lösungsfindung und Umsetzung}
@@ -399,6 +409,8 @@
     \verb|https://www.elektronik-kompendium.de/sites/grd/0212261.htm|\\
     \verb|http://elektronik-kurs.net/elektrotechnik/elektrische-anpassung/|\\
     \verb|https://elektroniktutor.de/analogtechnik/anpass.html|\\
+    \verb|https://www.eit.hs-karlsruhe.de/hertz/teil-b-gleichstromtechnik/|\\
+    \verb|    verbindung-von-zweipolen/leistungsanpassung.html|\\
     
     \item Stromanpassung:\\
     \verb|https://de.wikipedia.org/wiki/Stromanpassung|\\
